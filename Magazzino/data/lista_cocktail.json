@@ -1,0 +1,55 @@
+[
+  {
+    "nome": "Mojito",
+    "prezzo": 15
+  },
+
+  {
+    "nome": "Negroni",
+    "prezzo": 10
+  },
+
+  {
+    "nome": "Margarita",
+    "prezzo": 10
+  },
+
+  {
+    "nome": "Spritz",
+    "prezzo": 10
+  },
+
+  {
+    "nome": "Sex on the beach",
+    "prezzo": 15
+  },
+
+  {
+    "nome": "Cosmopolitan",
+    "prezzo": 10
+  },
+  {
+    "nome": "Moscow Mule",
+    "prezzo": 15
+  },
+
+  {
+    "nome": "Malibù",
+    "prezzo": 15
+  },
+
+  {
+    "nome": "Gin Lemon",
+    "prezzo": 10
+  },
+
+  {
+    "nome": "Gin Tonic",
+    "prezzo": 10
+  },
+
+  {
+    "nome": "Vodka RedBull",
+    "prezzo": 15
+  }
+]
