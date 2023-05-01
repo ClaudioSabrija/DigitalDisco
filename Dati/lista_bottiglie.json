@@ -1,0 +1,52 @@
+[
+  {
+    "nome": "Dom Perignon",
+    "prezzo": 550,
+    "disponibilità": 20,
+    "posizione":
+  }
+
+  {
+    "nome": "Moet & Chandon",
+    "prezzo": 350,
+    "disponibilità": 20,
+    "posizione":
+  }
+
+  {
+    "nome": "Vodka Belvedere",
+    "prezzo": 200,
+    "disponibilità": 30,
+    "posizione":
+  }
+
+  {
+    "nome": "Vodka Absolut",
+    "prezzo": 180,
+    "disponibilità":30,
+    "posizione":
+  }
+
+
+  {
+    "nome": "Gin Hendrick's",
+    "prezzo": 250,
+    "disponibilità":30,
+    "posizione":
+  }
+
+
+  {
+    "nome": "Jack Daniels",
+    "prezzo": 100,
+    "disponibilità":15,
+    "posizione":
+  }
+
+   {
+    "nome": "Rum Havana",
+    "prezzo": 100,
+    "disponibilità":15,
+    "posizione":
+  }
+]
