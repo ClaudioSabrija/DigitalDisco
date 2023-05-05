@@ -12,4 +12,3 @@ class Prodotto:
 
     def get_prezzo(self):
         return self.prezzo
-
