@@ -1,2 +1,0 @@
-#Gestore Magazzino
-

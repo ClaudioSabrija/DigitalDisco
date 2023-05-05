@@ -1,14 +1,26 @@
+import pickle
+import os
+
 from Magazzino.Prodotto import Prodotto
+
+
 class Bottiglia(Prodotto):
+
     def __init__(self):
         super().__init__()
         self.disponibilita = ""
-        self.posizione = Posizione
+        self.posizione = " "
+
+    def aggiungi_bottiglia(self, nome, prezzo, posizione):
+        self.nome = nome
+        self.prezzo = prezzo
+        self.posizione = posizione
+        bottiglie = {}
+        if os.path.isfile('Dati/lista_bottiglie_salvate.pickle'):
+            with open('Dati/lista_bottiglie_salvate.pickle', 'rb') as f:
+                bottiglie = pickle.load(f)
+            bottiglie[nome] = self
+            with open('Dati/lista_bottiglie_salvate.pickle', 'wb') as f:
+                pickle.dump(bottiglie, f, pickle.HIGHEST_PROTOCOL)
 
 
-
-    def is_disponible(self):
-        if (disponibilita > 0) return true
-        else return false
-
-    def get_posizione(self):
