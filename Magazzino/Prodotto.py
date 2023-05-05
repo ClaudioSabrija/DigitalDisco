@@ -7,9 +7,12 @@ class Prodotto:
         self.prezzo = ""
 
 
+
     def get_nome(self):
         return self.nome
 
     def get_prezzo(self):
         return self.prezzo
+
+
 
