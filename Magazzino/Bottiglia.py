@@ -23,4 +23,17 @@ class Bottiglia(Prodotto):
             with open('Dati/lista_bottiglie_salvate.pickle', 'wb') as f:
                 pickle.dump(bottiglie, f, pickle.HIGHEST_PROTOCOL)
 
+    def rimuovi_bottiglia(self):
+        if os.path.isfile('Dati/lista_bottiglie_salvate.pickle'):
+            with open('Dati/lista_bottiglie_salvate.pickle', 'wb+') as f:
+                bottiglie = pickle.load(f)
+                del bottiglie[self.nome]
+                pickle.dump(bottiglie, f, pickle.HIGHEST_PROTOCOL)
+
+        # Rimette i valori di Default
+        self.rimuovi_prodotto()
+        self.disponibilita = ""
+        self.posizione = ""
+        del self
+
 
