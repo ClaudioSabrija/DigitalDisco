@@ -33,7 +33,7 @@ with open("C:/Users/claud/PycharmProjects/DigitalDisco/Dati/posizioni.json", "w"
         posizione_json = {
             "corridoio": posizione.corridoio,
             "scaffale": posizione.scaffale,
-            "piano": posizione.piano
+            "piano": posizione.piano,
             "disponibile": True
         }
         posizioni_json.append(posizione_json)
