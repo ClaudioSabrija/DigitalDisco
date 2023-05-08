@@ -5,7 +5,7 @@ from Magazzino.Prodotto import Prodotto
 
 
 class Cocktail(Prodotto):
-    def __init__(self, nome, prezzo, disponibilita, posizione):
+    def __init__(self, nome, prezzo):
         super().__init__(nome, prezzo)
 
     def aggiungi_cocktail(self, nome, prezzo):

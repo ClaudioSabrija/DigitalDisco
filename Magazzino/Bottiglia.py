@@ -1,15 +1,14 @@
 import pickle
 import os
-
 from Magazzino.Prodotto import Prodotto
-
+from Magazzino.Posizione import Posizione
 
 class Bottiglia(Prodotto):
 
     def __init__(self):
         super().__init__()
         self.disponibilita = ""
-        self.posizione = " "
+        self.posizione = Posizione
 
     def aggiungi_bottiglia(self, nome, prezzo, posizione):
         self.nome = nome
@@ -22,5 +21,5 @@ class Bottiglia(Prodotto):
             bottiglie[nome] = self
             with open('Dati/lista_bottiglie_salvate.pickle', 'wb') as f:
                 pickle.dump(bottiglie, f, pickle.HIGHEST_PROTOCOL)
-
+        occupa_posizione(self.posizione)
 

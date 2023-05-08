@@ -45,16 +45,3 @@ class Magazzino:
     def get_lista_magazzino(self):
         return self.magazzino
 
-    # Funzione che aggiunge alla lista delle bottiglie una bottiglia passata come parametro.
-    def aggiungi_bottiglia(self, bottiglie):
-        self.bottiglie.append(bottiglie)
-
-    # Funzione che aggiunge alla lista dei cocktail un cocktail passato come parametro.
-    def aggiungi_cocktail(self, cocktail):
-        self.cocktail.append(cocktail)
-
-    def rimuovi_bottiglia(self, bottiglie):
-        self.bottiglie.remove(bottiglie)
-
-    def rimuovi_cocktail(self, cocktail):
-        self.cocktail.remove(cocktail)

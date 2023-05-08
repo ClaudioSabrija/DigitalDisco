@@ -7,6 +7,7 @@ class Posizione:
         self.corridoio = corridoio
         self.scaffale = scaffale
         self.piano = piano
+        self.disponibile = True
 
 # Generazione delle 100 Posizioni in una lista chiamata pisizioni che scorre le pisizioni in corridoi scaffali e piani
 # andremo poi ad associare a posizione l'oggetto posizione istanziato con i relativi valori degli attributi associati dal for
@@ -26,13 +27,14 @@ for corridoio in range(1, 3):
 # ed andiamo poi tramite il metodo dump a convertire (serializzarlo al formato json)) l'oggetto posizioni_json in formato json
 # andiamo a passare al metodo due argomenti, il primo è l'oggetto python da convertire mentre il secondo è il file su cui
 # scrivere i dati json, ovvero il file posizioni.json che abbiamo aperto come "file"
-with open("posizioni.json", "w") as file:
+with open("C:/Users/claud/PycharmProjects/DigitalDisco/Dati/posizioni.json", "w") as file:
     posizioni_json = []
     for posizione in posizioni:
         posizione_json = {
             "corridoio": posizione.corridoio,
             "scaffale": posizione.scaffale,
             "piano": posizione.piano
+            "disponibile": True
         }
         posizioni_json.append(posizione_json)
     json.dump(posizioni_json, file)
@@ -48,7 +50,14 @@ with open("posizioni.json", "w") as file:
         return self.piano
 
 
-    def is_libero(self):
-        if return true
-        else return false
+    def occupa_posizione(corridoio, scaffale, piano):
+        with open("C:/Users/claud/PycharmProjects/DigitalDisco/Dati/posizioni.json", "r") as file:
+            dati = json.load(file)
+
+        for posizione in dati['posizioni']:
+            if posizione['corridoio'] == corridoio and posizione['scaffale'] == scaffale and posizione['piano'] == piano and posizione['disponibile'] == True:
+                posizione['disponibile'] = False
+
+        with open("C:/Users/claud/PycharmProjects/DigitalDisco/Dati/posizioni.json", "w") as file:
+            json.dump(dati, file)
 
