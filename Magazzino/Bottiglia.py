@@ -36,4 +36,9 @@ class Bottiglia(Prodotto):
         self.posizione = ""
         del self
 
+    def is_disponibile(self):
+        if self.disponibilita > 0:
+            return True
+        return False
+
 

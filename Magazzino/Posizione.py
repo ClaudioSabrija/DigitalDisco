@@ -49,6 +49,6 @@ with open("posizioni.json", "w") as file:
 
 
     def is_libero(self):
-        if return true
-        else return false
+        if return True
+        else return False
 

@@ -39,3 +39,4 @@ class Prodotto:
         self.prezzo = ""
         del self
 
+
