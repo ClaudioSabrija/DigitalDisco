@@ -1,7 +1,8 @@
 import pickle
 import os
 from Magazzino.Prodotto import Prodotto
-from Magazzino.Posizione import Posizione
+from Magazzino.Posizione import Posizione, occupa_posizione
+
 
 class Bottiglia(Prodotto):
 
@@ -22,4 +23,3 @@ class Bottiglia(Prodotto):
             with open('Dati/lista_bottiglie_salvate.pickle', 'wb') as f:
                 pickle.dump(bottiglie, f, pickle.HIGHEST_PROTOCOL)
         occupa_posizione(self.posizione)
-

@@ -1,13 +1,12 @@
 import os
 import pickle
 
+from Magazzino.Prodotto import Prodotto
+
 
 class Ordine():
     def __init__(self):
-        super(Ordine, self).__init__()
-        self.prodotti = []
-        self.bottiglie = []
-        self.cocktail = []
+        self.lista_ordini = dict()
 
     def nuovo_ordine(self, prodotti, bottiglie, cocktail):
         self.prodotti = prodotti
@@ -23,10 +22,11 @@ class Ordine():
             pickle.dump(ordini, f, pickle.HIGHEST_PROTOCOL)
 
 
-
-    # Modificare perchè bisogna aggiungere il prodotto alla lista dell'ordine non alla lista dei prodotti
     def aggiungi_prodotto_ordine(self, prodotto):
-        self.prodotti.append(prodotto)
+        if(isinstance(prodotto, Prodotto)):
+            self.lista_ordini[prodotto.nome] = prodotto
+        else:
+            raise Exception("Not ProdottoOrdine")
 
     def aggiungi_bottiglia_ordine(self, bottiglia):
         self.bottiglie.append(bottiglia)
