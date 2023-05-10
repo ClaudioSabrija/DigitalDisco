@@ -5,7 +5,6 @@ import json
 from Magazzino.Bottiglia import Bottiglia
 from Magazzino.Cocktail import Cocktail
 
-
 class Magazzino:
     def __init__(self):
         super(Magazzino, self).__init__()
@@ -20,7 +19,7 @@ class Magazzino:
             with open('Dati/lista_bottiglie.json') as f:
                 bottiglie_iniziali = json.load(f)
         for bottiglie in bottiglie_iniziali:
-            self.aggiungi_bottiglia(Bottiglia(bottiglie["nome"], bottiglie["prezzo"], bottiglie["disponibilita"], bottiglie["posizione"]))
+            self.aggiungi_bottiglia(Bottiglia(bottiglie["nome"], bottiglie["prezzo"], bottiglie["posizione"]))
 
         if os.path.isfile('Dati/lista_cocktail_salvati.pickle'):
             with open('Dati/lista_cocktail_salvati.pickle', 'rb') as f:
@@ -44,4 +43,5 @@ class Magazzino:
     # Funzione che restituisce il magazzino
     def get_lista_magazzino(self):
         return self.magazzino
+
 
