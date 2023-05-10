@@ -1,7 +1,13 @@
 
 from Magazzino import Bottiglia
+from Magazzino.Magazzino import Magazzino
 
-# Funzione che aggiunge alla lista delle bottiglie una bottiglia passata come parametro.
+
+class GestoreMagazzino:
+    def __init__(self):
+        self.Magazzino = Magazzino()
+
+    # Funzione che aggiunge alla lista delle bottiglie una bottiglia passata come parametro.
     def aggiungi_bottiglia(self, bottiglia):
         self.bottiglie.append(bottiglia)
 
