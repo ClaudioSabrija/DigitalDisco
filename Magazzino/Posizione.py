@@ -9,6 +9,19 @@ class Posizione:
         self.piano = piano
         self.disponibile = True
 
+
+    def get_corridoio(self):
+        return self.corridoio
+
+    def get_scaffale(self):
+        return self.scaffale
+
+    def get_piano(self):
+        return self.piano
+
+    def get_disponibilita(self):
+        return self.disponibile
+
 # Generazione delle 100 Posizioni in una lista chiamata pisizioni che scorre le pisizioni in corridoi scaffali e piani
 # andremo poi ad associare a posizione l'oggetto posizione istanziato con i relativi valori degli attributi associati dal for
 # andiamo a controllare se la posizione non si trova già in lista e la inseriamo
@@ -41,14 +54,6 @@ with open("Dati/posizioni.json", "w") as file:
     json.dump(posizioni_json, file)
 
 
-    def get_corridoio(self):
-        return self.corridoio
-
-    def get_scaffale(self):
-        return self.scaffale
-
-    def get_piano(self):
-        return self.piano
 
 
     def occupa_posizione(corridoio, scaffale, piano):

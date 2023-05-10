@@ -6,10 +6,10 @@ from Magazzino.Posizione import Posizione, occupa_posizione
 
 class Bottiglia(Prodotto):
 
-    def __init__(self):
-        super().__init__()
-        self.disponibilita = ""
-        self.posizione = Posizione
+    def __init__(self, nome, prezzo, disponibilita, posizione):
+        super(Bottiglia, self).__init__(nome, prezzo)
+        self.disponibilita = disponibilita
+        self.posizione = posizione
 
     def aggiungi_bottiglia(self, nome, prezzo, posizione):
         self.nome = nome

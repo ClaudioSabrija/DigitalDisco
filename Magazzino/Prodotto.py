@@ -3,10 +3,9 @@ import os
 
 
 class Prodotto:
-    def __init__(self):
-        super(self, Prodotto).__init__()
-        self.nome = ""
-        self.prezzo = ""
+    def __init__(self, nome, prezzo):
+        self.nome = nome
+        self.prezzo = prezzo
 
 
     def get_nome(self):
