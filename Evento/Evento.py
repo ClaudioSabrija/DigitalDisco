@@ -12,6 +12,8 @@ class Evento:
         self.prezzo_tavolo = prezzo_tavolo
         self.prezzo_prive = prezzo_prive
 
+#inserire qualcosa per le prenotazioni per inserirle ed associarle all'evento, una lista oppure un file pickle
+
     def inserisci_evento(self, nome, tipo, data, prezzo_ingresso, prezzo_tavolo, prezzo_prive):
         self.nome = nome
         self.tipo = tipo
