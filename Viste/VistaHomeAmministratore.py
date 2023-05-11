@@ -1,6 +1,8 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont, QIcon, QPixmap
-from PyQt5.QtWidgets import QWidget,QGridLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QVBoxLayout, QSizePolicy
+from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QVBoxLayout, QSizePolicy, \
+    QHBoxLayout
+from pyqt5_plugins.examplebuttonplugin import QtGui
 
 from Viste.VistaMagazzino import VistaMagazzino
 
@@ -18,9 +20,9 @@ class VistaHomeAmministratore(QWidget):
         v_layout.addWidget(self.get_generic_button("Statistiche", "rgb(162,162,162)", self.go_statistiche))
 
         label = QLabel()
-        pixmap = QPixmap('Dati/DigitalDisco.png')
-        pixmap.size()
-        label.setPixmap(pixmap)
+        pixmap = QtGui.QPixmap("Dati/DigitalDisco.png")
+        scaled_pixmap = pixmap.scaled(800, 600)
+        label.setPixmap(scaled_pixmap)
         label.setAlignment(Qt.AlignCenter)
 
         grid_layout.addWidget(label, 0, 0)
@@ -42,7 +44,7 @@ class VistaHomeAmministratore(QWidget):
         button = QPushButton(titolo)
         button.setStyleSheet("background-color: {}".format(colore))
         button.setFont(QFont('Arial Nova Light', 18))
-        button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        #button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         button.clicked.connect(on_click)
         return button
 

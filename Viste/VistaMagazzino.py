@@ -69,7 +69,7 @@ class VistaMagazzino(QWidget):
         self.resize(600, 300)
         self.move(200, 200)
 
-# Funzione che popola le liste dei presidi presenti nel magazzino
+# Funzione che popola le liste dei prodotti presenti nel magazzino
     def update_ui(self):
         self.list_view_bottiglie_model = QStandardItemModel(self.list_view_bottiglie)
         for bottiglie in self.magazzino.get_lista_bottiglie():
