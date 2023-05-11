@@ -44,7 +44,7 @@ class VistaHomeAmministratore(QWidget):
         button = QPushButton(titolo)
         button.setStyleSheet("background-color: {}".format(colore))
         button.setFont(QFont('Arial Nova Light', 18))
-        #button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         button.clicked.connect(on_click)
         return button
 
