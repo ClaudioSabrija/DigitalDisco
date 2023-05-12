@@ -19,7 +19,7 @@ class Bottiglia(Prodotto):
         if os.path.isfile('Dati/lista_bottiglie_salvate.pickle'):
             with open('Dati/lista_bottiglie_salvate.pickle', 'rb') as f:
                 bottiglie = pickle.load(f)
-            bottiglie[nome] = self
-            with open('Dati/lista_bottiglie_salvate.pickle', 'wb') as f:
-                pickle.dump(bottiglie, f, pickle.HIGHEST_PROTOCOL)
+        bottiglie[nome] = self
+        with open('Dati/lista_bottiglie_salvate.pickle', 'wb') as f:
+            pickle.dump(bottiglie, f, pickle.HIGHEST_PROTOCOL)
         occupa_posizione(self.posizione)

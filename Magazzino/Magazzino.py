@@ -44,6 +44,11 @@ class Magazzino:
     def get_lista_magazzino(self):
         return self.magazzino
 
+    def aggiungi_bottiglia(self, bottiglia):
+        return self.bottiglie.append(bottiglia)
+
+    def aggiungi_cocktail(self, cocktail):
+        return self.bottiglie.append(cocktail)
 
 
 
