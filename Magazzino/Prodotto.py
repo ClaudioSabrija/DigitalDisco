@@ -19,7 +19,7 @@ class Prodotto:
         if os.path.isfile('Dati/lista_prodotti_salvati.pickle'):
             with open('Dati/lista_prodotti_salvati', 'rb') as f:
                 prodotti = dict(pickle.load(f))
-                for prodotti in prodotti.values(): # tutti i valori nel dict
+                for prodotti in prodotti.values():  # tutti i valori nel dict
                     if prodotti.nome == nome:
                         return prodotti
                 return None

@@ -11,7 +11,7 @@ class VistaMagazzino(QWidget):
     def __init__(self, parent = None):
         super(VistaMagazzino, self).__init__(parent)
 
-        self.magazzino = Magazzino()
+        self.controller = Magazzino()
 
         grid_layout = QGridLayout()
         v_layout_bottiglie = QVBoxLayout()
@@ -31,7 +31,6 @@ class VistaMagazzino(QWidget):
         button_ricerca = QPushButton('RICERCA')
         button_ricerca.clicked.connect(self.ricerca_prodotto)
         grid_layout.addWidget(button_ricerca, 0, 0, 0, 2, alignment=Qt.AlignBottom)
-
 
         label_bottiglie = QLabel("Lista Bottiglie:")
         font.setItalic(True)
@@ -64,7 +63,6 @@ class VistaMagazzino(QWidget):
         inserisci_prodotto1.clicked.connect(self.inserisci_cocktail)
         buttons_cocktail.addWidget(inserisci_prodotto1)
 
-
         grid_layout.addLayout(v_layout_bottiglie, 0, 0)
         grid_layout.addLayout(v_layout_cocktail, 0, 1)
         grid_layout.addLayout(buttons_bottiglie, 1, 0)
@@ -80,10 +78,10 @@ class VistaMagazzino(QWidget):
         self.resize(600, 300)
         self.move(200, 200)
 
-# Funzione che popola le liste dei prodotti presenti nel magazzino
+    # Funzione che popola le liste dei prodotti presenti nel magazzino
     def update_ui(self):
         self.list_view_bottiglie_model = QStandardItemModel(self.list_view_bottiglie)
-        for bottiglie in self.magazzino.get_lista_bottiglie():
+        for bottiglie in self.controller.get_lista_bottiglie():
             item = QStandardItem()
             item.setText(bottiglie.nome)
             item.setEditable(False)
@@ -94,7 +92,7 @@ class VistaMagazzino(QWidget):
         self.list_view_bottiglie.setModel(self.list_view_bottiglie_model)
 
         self.list_view_cocktail_model = QStandardItemModel(self.list_view_cocktail)
-        for cocktail in self.magazzino.get_lista_cocktail():
+        for cocktail in self.controller.get_lista_cocktail():
             item = QStandardItem()
             item.setText(cocktail.nome)
             item.setEditable(False)
@@ -106,7 +104,7 @@ class VistaMagazzino(QWidget):
 
     # Funzione che mostra il prodotto selezionato.
     def show_selected_bottiglia(self):
-         pass
+        pass
 
     # Funzione che preleva il prodotto selezionato.
     def preleva_selected_bottiglia(self):
@@ -114,7 +112,7 @@ class VistaMagazzino(QWidget):
 
     # Funzione che mostra la vista che permette l'inserimento di un nuovo prodotto.
     def inserisci_bottiglia(self):
-         pass
+        pass
 
     # Funzione che mostra il prodotto selezionato..
     def show_selected_cocktail(self):
@@ -122,7 +120,7 @@ class VistaMagazzino(QWidget):
 
     # Funzione che mostra la vista che permette l'inserimento di un nuovo prodotto.
     def inserisci_cocktail(self):
-         pass
+        pass
 
     def ricerca_prodotto(self):
         pass

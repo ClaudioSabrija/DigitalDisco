@@ -30,7 +30,6 @@ class Magazzino:
                 cocktail_iniziali = json.load(f)
         for cocktail in cocktail_iniziali:
             self.aggiungi_cocktail(Cocktail(cocktail["nome"], cocktail["prezzo"]))
-
         self.magazzino = self.bottiglie + self.cocktail
 
     # Funzione che restituisce la lista delle bottiglie
