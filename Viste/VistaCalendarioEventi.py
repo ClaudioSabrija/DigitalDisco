@@ -6,7 +6,7 @@ from PyQt5.QtGui import QFont, QIcon, QPixmap, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QVBoxLayout, QSizePolicy, \
     QHBoxLayout, QCalendarWidget, QListView
 
-from Evento.Evento import Evento
+from Gestione.GestoreEventi import GestoreEventi
 
 
 class VistaCalendarioEventi(QWidget):
@@ -15,7 +15,7 @@ class VistaCalendarioEventi(QWidget):
 
         font = QFont('Arial Nova Light', 15)
 
-        self.controller = Evento()
+        self.controller = GestoreEventi()
         self.calendario_eventi = self.init_calendario()
         v_layout_eventi = QVBoxLayout()
         self.list_view_eventi = QListView()
@@ -97,7 +97,7 @@ class VistaCalendarioEventi(QWidget):
 # Funzione che popola le liste dei prodotti presenti nel magazzino
     def update_ui(self):
         self.list_view_eventi_model = QStandardItemModel(self.list_view_eventi)
-        for eventi in self.controller.get_nome():
+        for eventi in self.controller.get_lista_eventi():
             item = QStandardItem()
             item.setText(eventi.nome)
             item.setEditable(False)

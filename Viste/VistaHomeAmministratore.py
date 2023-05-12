@@ -53,7 +53,6 @@ class VistaHomeAmministratore(QWidget):
         button.clicked.connect(on_click)
         return button
 
-
     def go_calendario_eventi(self):
         self.vista_calendario_eventi = VistaCalendarioEventi()
         self.vista_calendario_eventi.show()
