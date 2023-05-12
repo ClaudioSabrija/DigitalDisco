@@ -1,6 +1,6 @@
 class Servizio:
-    def __init__(self, 'Servizio', prezzo, disponibilita):
-        self.nome_servizio = 'Servizio'
+    def __init__(self, nome, prezzo, disponibilita):
+        self.nome = nome
         self.prezzo = prezzo
         self.disponibilita = disponibilita
         self.numero_prenotazioni = 0
@@ -8,17 +8,18 @@ class Servizio:
     def aumenta_prenotazioni(self):
         self.numero_prenotazioni += 1
 
-    def get__nome_servizio(self):
-        return Servizio.nome
+    def get_nome_servizio(self):
+        return self.nome
 
     def get_prezzo_servizio(self):
-        return Servizio.prezzo
+        return self.prezzo
 
     def get_disponibilita_servizio(self):
-        return Servizio.disponibilita
+        return self.disponibilita
 
     def get_numero_prenotazioni(self):
-        return Servizio.numero_prenotazioni
+        return self.numero_prenotazioni
+
 
 
 
