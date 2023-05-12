@@ -23,6 +23,16 @@ class VistaMagazzino(QWidget):
 
         font = QFont('Arial Nova Light', 18)
 
+        label_ricerca = QLabel("Nome:")
+        self.label_ricerca = QLineEdit()
+        label_ricerca.addWidget(label_ricerca, 1, 1)
+        label_ricerca.addWidget(self.label_ricerca, 2, 1)
+
+        button_ricerca = QPushButton('RICERCA')
+        button_ricerca.clicked.connect(self.ricerca_prodotto)
+        grid_layout.addWidget(button_ricerca, 0, 0, 0, 2, alignment=Qt.AlignBottom)
+
+
         label_bottiglie = QLabel("Lista Bottiglie:")
         font.setItalic(True)
         label_bottiglie.setFont(font)
@@ -64,6 +74,7 @@ class VistaMagazzino(QWidget):
         self.setFont(QFont('Arial Nova Light'))
         self.setWindowTitle("Gestione Magazzino")
         self.setWindowIcon(QIcon('Dati/DigitalDisco.png'))
+        self.setStyleSheet("background-color: #484848;")
 
         self.setMaximumSize(600, 300)
         self.resize(600, 300)
@@ -112,6 +123,9 @@ class VistaMagazzino(QWidget):
     # Funzione che mostra la vista che permette l'inserimento di un nuovo prodotto.
     def inserisci_cocktail(self):
          pass
+
+    def ricerca_prodotto(self):
+        pass
 
     # Funzione che richiama il metodo del controllore che salva i dati aggiornati.
     def closeEvent(self, event):

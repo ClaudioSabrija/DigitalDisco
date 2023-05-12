@@ -5,6 +5,9 @@ from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QLineEdit, QPushButton
 from pyqt5_plugins.examplebuttonplugin import QtGui
 
 from Viste.VistaMagazzino import VistaMagazzino
+from Viste.VistaCalendarioEventi import VistaCalendarioEventi
+from Viste.VistaOrdini import VistaOrdini
+from Viste.VistaStatistiche import VistaStatistiche
 
 
 class VistaHomeAmministratore(QWidget):
@@ -14,14 +17,14 @@ class VistaHomeAmministratore(QWidget):
         grid_layout = QGridLayout()
         v_layout = QVBoxLayout()
 
-        v_layout.addWidget(self.get_generic_button("Calendario Eventi", "rgb(192,192,192)", self.go_calendario_eventi))
-        v_layout.addWidget(self.get_generic_button("Ordini", "rgb(182,182,182)", self.go_ordini))
-        v_layout.addWidget(self.get_generic_button("Magazzino", "rgb(172,172,172)", self.go_magazzino))
-        v_layout.addWidget(self.get_generic_button("Statistiche", "rgb(162,162,162)", self.go_statistiche))
+        v_layout.addWidget(self.get_generic_button("Calendario Eventi", "rgb(254,254,254)", self.go_calendario_eventi))
+        v_layout.addWidget(self.get_generic_button("Ordini", "rgb(254,254,254)", self.go_ordini))
+        v_layout.addWidget(self.get_generic_button("Magazzino", "rgb(254,254,254)", self.go_magazzino))
+        v_layout.addWidget(self.get_generic_button("Statistiche", "rgb(254,254,254)", self.go_statistiche))
 
         label = QLabel()
         pixmap = QtGui.QPixmap("Dati/DigitalDisco.png")
-        scaled_pixmap = pixmap.scaled(800, 600)
+        scaled_pixmap = pixmap.scaled(700, 500)
         label.setPixmap(scaled_pixmap)
         label.setAlignment(Qt.AlignCenter)
 
@@ -32,6 +35,7 @@ class VistaHomeAmministratore(QWidget):
 
         self.setWindowTitle("Home:Amministratore")
         self.setWindowIcon(QIcon('Dati/DigitalDisco.png'))
+        self.setStyleSheet("background-color: #484848;")
 
         self.setLayout(grid_layout)
         self.setMaximumSize(1000, 650)
@@ -43,21 +47,20 @@ class VistaHomeAmministratore(QWidget):
     def get_generic_button(self, titolo, colore, on_click):
         button = QPushButton(titolo)
         button.setStyleSheet("background-color: {}".format(colore))
-        button.setFont(QFont('Arial Nova Light', 18))
-        button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        button.setFont(QFont('Arial Nova Light', 14))
+        button.setFixedSize(300,50)
+        #button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         button.clicked.connect(on_click)
         return button
 
-        # Funzione che mostra la vista del calendario dei vaccini.
 
     def go_calendario_eventi(self):
-        pass
-
-
-        # Funzione che mostra la vista del calendario dei tamponi.
+        self.vista_calendario_eventi = VistaCalendarioEventi()
+        self.vista_calendario_eventi.show()
 
     def go_ordini(self):
-        pass
+        self.vista_ordini= VistaOrdini()
+        self.vista_ordini.show()
 
         # Funzione che mostra la vista del magazzino.
 
@@ -68,4 +71,5 @@ class VistaHomeAmministratore(QWidget):
         # Funzione che mostra la vista delle statistiche.
 
     def go_statistiche(self):
-        pass
+        self.vista_statistiche = VistaStatistiche()
+        self.vista_statistiche.show()

@@ -3,6 +3,7 @@ from PyQt5.QtGui import QFont, QPixmap, QIcon
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy, QLabel, QVBoxLayout, QDesktopWidget, QMessageBox, QLineEdit
 
 from Viste.VistaHomeAmministratore import VistaHomeAmministratore
+from Viste.VistaHomeBarman import VistaHomeBarman
 
 
 class VistaLogin(QWidget):
@@ -37,6 +38,10 @@ class VistaLogin(QWidget):
         if self.user_name.text() == 'amministratore' and self.password.text() == 'password':
             self.vista_home = VistaHomeAmministratore()
             self.vista_home.show()
+            self.close()
+        elif self.user_name.text() == 'barman' and self.password.text() == 'password':
+            self.vista_home_barman = VistaHomeBarman()
+            self.vista_home_barman.show()
             self.close()
         else:
             QMessageBox.critical(self, 'Accesso Negato', 'Le credenziali inserite sono errate', QMessageBox.Ok, QMessageBox.Ok)
