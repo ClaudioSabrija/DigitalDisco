@@ -1,5 +1,5 @@
 from Servizio import Servizio
-
+from Evento import Evento
 
 class Prenotazione():
     def __init__(self, nome, cognome, data_di_nascita, codice_fiscale, servizio):
@@ -10,19 +10,29 @@ class Prenotazione():
         self.servizio = servizio
 
 
-    # Funzione per selezionare il servizio corrispondente
-    def seleziona_servizio(self, servizio):
-        if isinstance(servizio, Servizio):
-                return servizio
-        else raise ValueError("Tipo di servizio non disponibile.")
+
+    # Funzione per creare una prenotazione, CONTROLLA SE USARE QUESTA O QUELLA IN GESTIONE PRENOTAZIONI
+    def inserisci_prenotazione(self nome, cognome, data_di_nascita, codice_fiscale, servizio):
+
+        prenotazione = Prenotazione(nome, cognome, data_di_nascita, codice_fiscale, servizio)
+        if servizio in self.servizi:
+            self.servizi[servizio].prenota()
+            prenotazione = Prenotazione(nome, cognome, self.servizi[servizio])
+            self.prenotazioni.append(prenotazione)
 
 
 
-    # Funzione per creare una prenotazione
-    def inserisci_prenotazione(self nome, cognome, data_di_nascita, codice_fiscale,servizio):
-        servizio = seleziona_servizio(tipo_servizio)
-        prenotazione = Prenotazione(nome, cognome, servizio, prezzo)
-        return prenotazione
+#QUESTA FORSE DEVE ESSERE SPOSTATA NELLA PARTE DELLE VISTE O GESTIONE PRENOTAZIONI, RICONTROLLA SE VA BENE
+    def ricerca_prenotazione(self, nome, cognome)
+        trovato = False
+        for prenotazione in prenotazioni:
+            if prenotazione.nome == nome and prenotazione.cognome == cognome:
+                trovato = True
+                print(f"{nome} {cognome} ha prenotato il servizio {prenotazione.servizio}")
+                break
+        if not trovato:
+        print(f"{nome} {cognome} non ha prenotazioni")
+
 
     def get_nome(self):
         return self.nome

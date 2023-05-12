@@ -3,6 +3,10 @@ class Servizio:
         self.nome_servizio = 'Servizio'
         self.prezzo = prezzo
         self.disponibilita = disponibilita
+        self.numero_prenotazioni = 0
+
+    def aumenta_prenotazioni(self):
+        self.numero_prenotazioni += 1
 
     def get__nome_servizio(self):
         return Servizio.nome
@@ -13,19 +17,10 @@ class Servizio:
     def get_disponibilita_servizio(self):
         return Servizio.disponibilita
 
-class Ingresso(Servizio):
-    def __init__(self):
-        super(Ingresso, self).__init__('Ingresso', prezzo, disponibilita)
+    def get_numero_prenotazioni(self):
+        return Servizio.numero_prenotazioni
 
 
-class Tavolo(Servizio):
-    def __init__(self):
-        super(Ingresso, self).__init__('Tavolo', prezzo, disponibilita)
-
-
-class Prive(Servizio):
-    def __init__(self):
-        super(Ingresso, self).__init__('Prive', prezzo, disponibilita)
 
 
 # inserisci_prenotazione, ad ogni prenotazione bisogna aumentare una variabile della classe Evento chiamata
