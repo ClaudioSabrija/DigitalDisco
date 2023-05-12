@@ -8,7 +8,7 @@ class Cocktail(Prodotto):
     def __init__(self, nome, prezzo):
         super(Cocktail, self).__init__(nome, prezzo)
 
-    def aggiungi_cocktail(self, nome, prezzo):
+    def inserisci_cocktail(self, nome, prezzo):
         self.nome = nome
         self.prezzo = prezzo
         cocktail = {}

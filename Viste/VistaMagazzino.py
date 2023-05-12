@@ -57,12 +57,12 @@ class VistaMagazzino(QWidget):
         buttons_bottiglie.addWidget(inserisci_prodotto)
 
         buttons_cocktail = QVBoxLayout()
-        open_prodotto = QPushButton("Visualizza Prodotto")
-        open_prodotto.clicked.connect(self.show_selected_cocktail)
-        buttons_cocktail.addWidget(open_prodotto)
-        inserisci_prodotto = QPushButton("Inserisci Prodotto")
-        inserisci_prodotto.clicked.connect(self.inserisci_cocktail)
-        buttons_cocktail.addWidget(inserisci_prodotto)
+        open_prodotto1 = QPushButton("Visualizza Prodotto")
+        open_prodotto1.clicked.connect(self.show_selected_cocktail)
+        buttons_cocktail.addWidget(open_prodotto1)
+        inserisci_prodotto1 = QPushButton("Inserisci Prodotto")
+        inserisci_prodotto1.clicked.connect(self.inserisci_cocktail)
+        buttons_cocktail.addWidget(inserisci_prodotto1)
 
 
         grid_layout.addLayout(v_layout_bottiglie, 0, 0)

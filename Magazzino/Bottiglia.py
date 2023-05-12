@@ -11,7 +11,7 @@ class Bottiglia(Prodotto):
         self.disponibilita = disponibilita
         self.posizione = posizione
 
-    def aggiungi_bottiglia(self, nome, prezzo, posizione):
+    def inserisci_bottiglia(self, nome, prezzo, posizione):
         self.nome = nome
         self.prezzo = prezzo
         self.posizione = posizione

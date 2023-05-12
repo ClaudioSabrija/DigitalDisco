@@ -5,6 +5,7 @@ import json
 from Magazzino.Bottiglia import Bottiglia
 from Magazzino.Cocktail import Cocktail
 
+
 class Magazzino:
     def __init__(self):
         super(Magazzino, self).__init__()
@@ -43,5 +44,9 @@ class Magazzino:
     # Funzione che restituisce il magazzino
     def get_lista_magazzino(self):
         return self.magazzino
+
+
+
+
 
 
