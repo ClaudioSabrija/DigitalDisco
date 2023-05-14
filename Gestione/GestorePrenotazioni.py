@@ -1,8 +1,8 @@
 from Attività.Prenotazione import Prenotazione
 from Evento.Evento import Evento
 
-class GestorePrenotazioni(self):
-    def __init__(self):
+class GestorePrenotazioni():
+      def __init__(self):
         self.lista_prenotazioni = []
 
 
