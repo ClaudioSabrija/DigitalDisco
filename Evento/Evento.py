@@ -21,7 +21,9 @@ class Evento:
         }
         self.prenotazioni = []
 
-        # Metodi get degli attributi
+
+
+# Metodi get degli attributi
 
     def get_nome(self):
         return self.nome
@@ -46,3 +48,4 @@ class Evento:
 
     def get_disponibilita_prive(self):
         return self.disponibilita_prive
+

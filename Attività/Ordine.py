@@ -6,7 +6,10 @@ from Magazzino.Prodotto import Prodotto
 
 class Ordine():
     def __init__(self):
-        self.lista_ordini = dict()
+
+
+
+
 
     def aggiungi_prodotto_ordine(self, prodotto):
         if(isinstance(prodotto, Prodotto)):
