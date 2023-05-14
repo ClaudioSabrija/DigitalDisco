@@ -6,7 +6,10 @@ from Magazzino.Prodotto import Prodotto
 
 class Ordine():
     def __init__(self):
-        self.lista_ordini = dict()
+
+
+
+
 
     def nuovo_ordine(self, prodotti, bottiglie, cocktail):
         self.prodotti = prodotti

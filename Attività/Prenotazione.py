@@ -27,7 +27,3 @@ class Prenotazione():
         return self.servizio
 
 
-
-def save_data(self):
-    with open('calendariovaccini/data/elenco_appuntamenti_fissati.pickle', 'wb') as handle:
-        pickle.dump(self.elenco_appuntamenti, handle, pickle.HIGHEST_PROTOCOL)
