@@ -11,26 +11,29 @@ class VistaMagazzino(QWidget):
     def __init__(self, parent = None):
         super(VistaMagazzino, self).__init__(parent)
 
-        self.controller = Magazzino()
+        #self.controller = Magazzino()
 
         grid_layout = QGridLayout()
         v_layout_bottiglie = QVBoxLayout()
         v_layout_cocktail = QVBoxLayout()
+        v_layout_ricerca = QVBoxLayout()
 
         self.list_view_bottiglie = QListView()
         self.list_view_cocktail = QListView()
-        self.update_ui()
+        #self.update_ui()
 
         font = QFont('Arial Nova Light', 18)
 
         label_ricerca = QLabel("Nome:")
         self.label_ricerca = QLineEdit()
-        label_ricerca.addWidget(label_ricerca, 1, 1)
-        label_ricerca.addWidget(self.label_ricerca, 2, 1)
+        v_layout_ricerca.addWidget(label_ricerca)
+        label_ricerca.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        v_layout_ricerca.addWidget(self.label_ricerca)
 
         button_ricerca = QPushButton('RICERCA')
         button_ricerca.clicked.connect(self.ricerca_prodotto)
-        grid_layout.addWidget(button_ricerca, 0, 0, 0, 2, alignment=Qt.AlignBottom)
+        button_ricerca.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        grid_layout.addWidget(button_ricerca, 0, 1, 1, 1, alignment=Qt.AlignBottom)
 
         label_bottiglie = QLabel("Lista Bottiglie:")
         font.setItalic(True)
@@ -63,10 +66,11 @@ class VistaMagazzino(QWidget):
         inserisci_prodotto1.clicked.connect(self.inserisci_cocktail)
         buttons_cocktail.addWidget(inserisci_prodotto1)
 
-        grid_layout.addLayout(v_layout_bottiglie, 0, 0)
-        grid_layout.addLayout(v_layout_cocktail, 0, 1)
-        grid_layout.addLayout(buttons_bottiglie, 1, 0)
-        grid_layout.addLayout(buttons_cocktail, 1, 1)
+        grid_layout.addLayout(v_layout_ricerca, 0, 0)
+        grid_layout.addLayout(v_layout_bottiglie, 1, 0)
+        grid_layout.addLayout(v_layout_cocktail, 1, 1)
+        grid_layout.addLayout(buttons_bottiglie, 2, 0)
+        grid_layout.addLayout(buttons_cocktail, 2, 1)
 
         self.setLayout(grid_layout)
         self.setFont(QFont('Arial Nova Light'))
@@ -77,30 +81,6 @@ class VistaMagazzino(QWidget):
         self.setMaximumSize(600, 300)
         self.resize(600, 300)
         self.move(200, 200)
-
-    # Funzione che popola le liste dei prodotti presenti nel magazzino
-    def update_ui(self):
-        self.list_view_bottiglie_model = QStandardItemModel(self.list_view_bottiglie)
-        for bottiglie in self.controller.get_lista_bottiglie():
-            item = QStandardItem()
-            item.setText(bottiglie.nome)
-            item.setEditable(False)
-            font = item.font()
-            font.setPointSize(15)
-            item.setFont(font)
-            self.list_view_bottiglie_model.appendRow(item)
-        self.list_view_bottiglie.setModel(self.list_view_bottiglie_model)
-
-        self.list_view_cocktail_model = QStandardItemModel(self.list_view_cocktail)
-        for cocktail in self.controller.get_lista_cocktail():
-            item = QStandardItem()
-            item.setText(cocktail.nome)
-            item.setEditable(False)
-            font = item.font()
-            font.setPointSize(15)
-            item.setFont(font)
-            self.list_view_cocktail_model.appendRow(item)
-        self.list_view_cocktail.setModel(self.list_view_cocktail_model)
 
     # Funzione che mostra il prodotto selezionato.
     def show_selected_bottiglia(self):
@@ -128,3 +108,30 @@ class VistaMagazzino(QWidget):
     # Funzione che richiama il metodo del controllore che salva i dati aggiornati.
     def closeEvent(self, event):
         pass
+
+""" # Funzione che popola le liste dei prodotti presenti nel magazzino
+    def update_ui(self):
+        self.list_view_bottiglie_model = QStandardItemModel(self.list_view_bottiglie)
+        for bottiglie in self.controller.get_lista_bottiglie():
+            item = QStandardItem()
+            item.setText(bottiglie.nome)
+            item.setEditable(False)
+            font = item.font()
+            font.setPointSize(15)
+            item.setFont(font)
+            self.list_view_bottiglie_model.appendRow(item)
+        self.list_view_bottiglie.setModel(self.list_view_bottiglie_model)
+
+        self.list_view_cocktail_model = QStandardItemModel(self.list_view_cocktail)
+        for cocktail in self.controller.get_lista_cocktail():
+            item = QStandardItem()
+            item.setText(cocktail.nome)
+            item.setEditable(False)
+            font = item.font()
+            font.setPointSize(15)
+            item.setFont(font)
+            self.list_view_cocktail_model.appendRow(item)
+        self.list_view_cocktail.setModel(self.list_view_cocktail_model)
+        """
+
+
