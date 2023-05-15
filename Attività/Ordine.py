@@ -22,6 +22,7 @@ class Ordine():
 
 
 
-    def rimuovi_prodotto_ordine(self, nome):
-        del(self.lista_prodotti[nome])
+    def rimuovi_prodotto_ordine(self, nome_prodotto):
+        if nome_prodotto in lista_prodotti:
+            del lista_prodotti[nome_prodotto]
 
