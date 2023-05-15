@@ -15,7 +15,7 @@ class VistaCalendarioEventi(QWidget):
 
         font = QFont('Arial Nova Light', 15)
 
-        self.controller = GestoreEventi()
+       # self.controller = GestoreEventi()
         self.calendario_eventi = self.init_calendario()
         v_layout_eventi = QVBoxLayout()
         self.list_view_eventi = QListView()
@@ -39,7 +39,7 @@ class VistaCalendarioEventi(QWidget):
         buttons_layout.addWidget(self.get_generic_button("Inserisci Evento", self.show_vista_inserisci_evento))
         buttons_layout.addWidget(self.get_generic_button("Visualizza Evento", self.show_vista_visualizza_evento))
 
-        grid_layout.addLayout(v_layout_eventi, 1, 1)
+        grid_layout.addLayout(v_layout_eventi, 0, 1)
         grid_layout.addLayout(calendar_layout, 0, 0)
         grid_layout.addLayout(buttons_layout, 0, 1, alignment=Qt.AlignBottom)
 
@@ -64,7 +64,7 @@ class VistaCalendarioEventi(QWidget):
         calendario.setSelectedDate(QDate(currentYear, currentMonth, 1))
 
         calendario.setFont(QFont('Arial Nova Light', 18))
-        calendario.setStyleSheet('background-color: #871928;')
+        calendario.setStyleSheet('background-color: #4A4A4A;')
 
         calendario.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         calendario.setGeometry(200, 200, 300, 200)
@@ -96,14 +96,5 @@ class VistaCalendarioEventi(QWidget):
 
 # Funzione che popola le liste dei prodotti presenti nel magazzino
     def update_ui(self):
-        self.list_view_eventi_model = QStandardItemModel(self.list_view_eventi)
-        for eventi in self.controller.get_lista_eventi():
-            item = QStandardItem()
-            item.setText(eventi.nome)
-            item.setEditable(False)
-            font = item.font()
-            font.setPointSize(15)
-            item.setFont(font)
-            self.list_view_eventi_model.appendRow(item)
-        self.list_view_eventi.setModel(self.list_view_eventi_model)
+        pass
 
