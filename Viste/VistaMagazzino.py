@@ -1,7 +1,7 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont, QIcon, QPixmap, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QVBoxLayout, QSizePolicy, \
-    QListView
+    QListView, QHBoxLayout
 
 from Gestione.GestoreMagazzino import GestoreMagazzino
 from Magazzino.Magazzino import Magazzino
@@ -16,7 +16,7 @@ class VistaMagazzino(QWidget):
         grid_layout = QGridLayout()
         v_layout_bottiglie = QVBoxLayout()
         v_layout_cocktail = QVBoxLayout()
-        v_layout_ricerca = QVBoxLayout()
+        v_layout_ricerca = QHBoxLayout()
 
         self.list_view_bottiglie = QListView()
         self.list_view_cocktail = QListView()
@@ -24,15 +24,13 @@ class VistaMagazzino(QWidget):
 
         font = QFont('Arial Nova Light', 14)
 
-        label_ricerca = QLabel()
+        label_ricerca = QLabel("Nome:")
         self.label_ricerca = QLineEdit()
         v_layout_ricerca.addWidget(label_ricerca)
         v_layout_ricerca.addWidget(self.label_ricerca)
 
         button_ricerca = QPushButton('RICERCA')
         button_ricerca.clicked.connect(self.ricerca_prodotto)
-        button_ricerca.setSizePolicy(50, 80)
-        grid_layout.addWidget(button_ricerca, 0, 1, 1, 1, alignment=Qt.AlignRight)
 
         label_bottiglie = QLabel("Lista Bottiglie:")
         font.setItalic(True)
@@ -70,6 +68,7 @@ class VistaMagazzino(QWidget):
         grid_layout.addLayout(v_layout_cocktail, 1, 1)
         grid_layout.addLayout(buttons_bottiglie, 2, 0)
         grid_layout.addLayout(buttons_cocktail, 2, 1)
+        grid_layout.addWidget(button_ricerca, 0, 1, 1, 1, alignment=Qt.AlignBottom)
 
         self.setLayout(grid_layout)
         self.setFont(QFont('Arial Nova Light'))
@@ -108,7 +107,7 @@ class VistaMagazzino(QWidget):
     def closeEvent(self, event):
         pass
 
-""" # Funzione che popola le liste dei prodotti presenti nel magazzino
+""" Funzione che popola le liste dei prodotti presenti nel magazzino
     def update_ui(self):
         self.list_view_bottiglie_model = QStandardItemModel(self.list_view_bottiglie)
         for bottiglie in self.controller.get_lista_bottiglie():
