@@ -22,18 +22,17 @@ class VistaMagazzino(QWidget):
         self.list_view_cocktail = QListView()
         #self.update_ui()
 
-        font = QFont('Arial Nova Light', 18)
+        font = QFont('Arial Nova Light', 14)
 
-        label_ricerca = QLabel("Nome:")
+        label_ricerca = QLabel()
         self.label_ricerca = QLineEdit()
         v_layout_ricerca.addWidget(label_ricerca)
-        label_ricerca.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         v_layout_ricerca.addWidget(self.label_ricerca)
 
         button_ricerca = QPushButton('RICERCA')
         button_ricerca.clicked.connect(self.ricerca_prodotto)
-        button_ricerca.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        grid_layout.addWidget(button_ricerca, 0, 1, 1, 1, alignment=Qt.AlignBottom)
+        button_ricerca.setSizePolicy(50, 80)
+        grid_layout.addWidget(button_ricerca, 0, 1, 1, 1, alignment=Qt.AlignRight)
 
         label_bottiglie = QLabel("Lista Bottiglie:")
         font.setItalic(True)
