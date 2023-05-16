@@ -20,9 +20,7 @@ class Ordine():
                 else:
                     print('L\'oggetto con il nome "prodotto.nome" non è presente nel file pickle.')
 
-
-
     def rimuovi_prodotto_ordine(self, nome_prodotto):
-        if nome_prodotto in lista_prodotti:
-            del lista_prodotti[nome_prodotto]
+        if nome_prodotto in self.lista_prodotti:
+            del self.lista_prodotti[nome_prodotto]
 
