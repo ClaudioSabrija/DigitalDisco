@@ -1,7 +1,7 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont, QIcon, QPixmap, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QVBoxLayout, QSizePolicy, \
-    QListView, QHBoxLayout
+    QListView, QHBoxLayout, QSpacerItem
 
 from Gestione.GestoreMagazzino import GestoreMagazzino
 from Magazzino.Magazzino import Magazzino
@@ -74,10 +74,10 @@ class VistaMagazzino(QWidget):
         self.setFont(QFont('Arial Nova Light'))
         self.setWindowTitle("Gestione Magazzino")
         self.setWindowIcon(QIcon('Dati/DigitalDisco.png'))
-        self.setStyleSheet("background-color: #484848;")
+        #self.setStyleSheet("background-color: #484848;")
 
-        self.setMaximumSize(600, 300)
-        self.resize(600, 300)
+        self.setMaximumSize(900, 400)
+        self.resize(900, 500)
         self.move(200, 200)
 
     # Funzione che mostra il prodotto selezionato.

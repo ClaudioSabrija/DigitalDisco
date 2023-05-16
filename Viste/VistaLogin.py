@@ -31,7 +31,7 @@ class VistaLogin(QWidget):
 
         self.setFont(QFont('Arial Nova Light', 14))
         self.setWindowIcon(QIcon('Dati/DigitalDisco.png'))
-        self.resize(500, 170)
+        self.resize(650, 170)
         self.move(50, 100)
 
     def controllo_accesso(self):

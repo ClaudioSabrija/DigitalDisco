@@ -21,8 +21,6 @@ class Evento:
         }
         self.prenotazioni = []
 
-
-
 # Metodi get degli attributi
 
     def get_nome(self):

@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QLineEdit, QPushButton
     QHBoxLayout, QCalendarWidget, QListView
 
 from Gestione.GestoreEventi import GestoreEventi
+from Viste.VistaInserisciEvento import VistaInserisciEvento
 
 
 class VistaCalendarioEventi(QWidget):
@@ -41,7 +42,7 @@ class VistaCalendarioEventi(QWidget):
 
         grid_layout.addLayout(v_layout_eventi, 0, 1)
         grid_layout.addLayout(calendar_layout, 0, 0)
-        grid_layout.addLayout(buttons_layout, 0, 1, alignment=Qt.AlignBottom)
+        grid_layout.addLayout(buttons_layout, 1, 1, alignment=Qt.AlignBottom)
 
         self.setLayout(grid_layout)
         self.setFont(QFont('Arial Nova Light'))
@@ -80,7 +81,8 @@ class VistaCalendarioEventi(QWidget):
 
     # Funzione che mostra la vista per l'inserimento dei dati, da parte dell'utente, per creare un nuovo evento.
     def show_vista_inserisci_evento(self):
-        pass
+        self.vista_inserisci_evento = VistaInserisciEvento()
+        self.vista_inserisci_evento.show()
 
     # Funzione che mostra la vista di un evento già esistente.
     def show_vista_visualizza_evento(self):
