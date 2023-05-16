@@ -28,6 +28,11 @@ class VistaInserisciEvento(QWidget):
         button_conferma = QPushButton("Conferma", self)
         button_conferma.clicked.connect(self.add_evento)
 
+        combo_box_tipo.addItem("Musica Commerciale")
+        combo_box_tipo.addItem("Musica Latina")
+        combo_box_tipo.addItem("Musica Techno")
+        combo_box_tipo.addItem("Musica Rap")
+
         self.setWindowIcon(QIcon('Dati/DigitalDisco.png'))
         self.setWindowTitle('Inserisci Evento')
         self.setFixedSize(400, 600)  # Imposta la dimensione fissa della finestra di dialogo
@@ -56,5 +61,6 @@ class VistaInserisciEvento(QWidget):
 
     def add_evento(self):
         pass
+
 
 
