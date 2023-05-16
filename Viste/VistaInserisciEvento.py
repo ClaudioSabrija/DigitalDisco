@@ -1,7 +1,8 @@
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, \
      QComboBox, QDateTimeEdit
 
+from Viste import VistaCalendarioEventi
 
 class VistaInserisciEvento(QWidget):
     def __init__(self, parent=None):
@@ -19,7 +20,8 @@ class VistaInserisciEvento(QWidget):
 
         line_edit_nome = QLineEdit(self)
         combo_box_tipo = QComboBox(self)
-        date_edit_data = QDateTimeEdit(self)
+        date_edit_data = QLabel(self)
+        self.set_label_text(self.data_selezionata)
 
         line_edit_ingresso = QLineEdit(self)
         line_edit_tavolo = QLineEdit(self)
@@ -58,6 +60,11 @@ class VistaInserisciEvento(QWidget):
         layout.addWidget(button_conferma)
 
         self.setLayout(layout)
+
+    def set_label_text(self, data_selezionata):
+        # Richiamo della funzione e impostazione del risultato come testo della label
+        result = data_selezionata()
+        self.label.setText(result)
 
     def add_evento(self):
         pass

@@ -32,7 +32,7 @@ class VistaCalendarioEventi(QWidget):
         v_layout_eventi.addWidget(label)
         v_layout_eventi.addWidget(self.list_view_eventi)
 
-        self.calendario_eventi.selectionChanged.connect(self.calendar_date)
+        self.calendario_eventi.selectionChanged.connect(self.data_selezionata)
         self.label = QLabel('')
         calendar_layout.addWidget(self.label)
 
@@ -89,9 +89,9 @@ class VistaCalendarioEventi(QWidget):
         pass
 
     # Funzione che restituisce la data selezionata.
-    def calendar_date(self):
-        dateselected = self.calendario_eventi.selectedDate()
-        data_selezionata = str(dateselected.toPyDate())
+    def data_selezionata(self):
+        dataselezionata = self.calendario_eventi.selectedDate()
+        data_selezionata = str(dataselezionata.toPyDate())
         self.setFont(QFont('Arial Nova Light', 12))
         self.label.setText("Data selezionata : " + data_selezionata)
         return data_selezionata
