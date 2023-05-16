@@ -1,5 +1,7 @@
 from Attività.Prenotazione import Prenotazione
 from Evento.Evento import Evento
+from Servizio.Servizio import Servizio
+
 
 class GestorePrenotazioni():
     def __init__(self):
@@ -7,10 +9,10 @@ class GestorePrenotazioni():
 
     # Funzione per creare una prenotazione, CONTROLLA SE USARE QUESTA O QUELLA IN PRENOTAZIONE
     def inserisci_prenotazione(self, nome, cognome, data_di_nascita, codice_fiscale, servizio):
-        if servizio in self.servizi:  # servizi è contenuto dentro Evento
-            self.servizi[servizio].aumenta_prenotazioni()  # prenota aumenta le prenotazioni di un certo servizio dentro un evento
+        if servizio in self.model.servizi:  # servizi è contenuto dentro Evento
+            self.model.servizi[servizio].aumenta_prenotazioni()  # prenota aumenta le prenotazioni di un certo servizio dentro un evento
 
-            prenotazione = Prenotazione(nome, cognome, data_di_nascita, codice_fiscale, self.servizi[servizio])
+            prenotazione = Prenotazione(nome, cognome, data_di_nascita, codice_fiscale, self.model.servizi[servizio])
             self.lista_prenotazioni.append(prenotazione)
 
     #   QUESTA FORSE DEVE ESSERE SPOSTATA NELLA PARTE DELLE VISTE O GESTIONE PRENOTAZIONI, RICONTROLLA SE VA BENE

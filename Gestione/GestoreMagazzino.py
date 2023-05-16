@@ -1,5 +1,5 @@
 
-from Magazzino import Bottiglia
+from Magazzino.Bottiglia import Bottiglia
 from Magazzino.Magazzino import Magazzino
 
 
@@ -9,14 +9,14 @@ class GestoreMagazzino:
 
     # Funzione che aggiunge alla lista delle bottiglie una bottiglia passata come parametro.
     def aggiungi_bottiglia(self, bottiglia):
-        self.bottiglie.append(bottiglia)
+        self.Magazzino.bottiglie.append(bottiglia)
 
     # Funzione che aggiunge alla lista dei cocktail un cocktail passato come parametro.
     def aggiungi_cocktail(self, cocktail):
-        self.cocktail.append(cocktail)
+        self.Magazzino.cocktail.append(cocktail)
 
     def rimuovi_bottiglia(self, bottiglie):
-        self.bottiglie.remove(bottiglie)
+        self.Magazzino.bottiglie.remove(bottiglie)
 
     def rimuovi_cocktail(self, cocktail):
-        self.cocktail.remove(cocktail)
+        self.Magazzino.cocktail.remove(cocktail)
