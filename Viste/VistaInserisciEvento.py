@@ -59,11 +59,9 @@ class VistaInserisciEvento(QWidget):
 
         self.setLayout(layout)
 
-
-
     def add_evento(self):
-        nome = self.info["NOME"].text()
-        cognome = self.info["DATA"].text()
+        nome = self.info["Nome*"].text()
+        cognome = self.info["Cognome*"].text()
         data_nascita = self.info["Data di nascita (dd/mm/YYYY)*"].text()
         cf = self.info["Codice Fiscale*"].text()
         indirizzo = self.info["Indirizzo*"].text()
