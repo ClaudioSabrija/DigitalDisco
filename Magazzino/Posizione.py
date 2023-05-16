@@ -53,9 +53,6 @@ with open("Dati/posizioni.json", "w") as file:
         posizioni_json.append(posizione_json)
     json.dump(posizioni_json, file)
 
-
-
-
     def occupa_posizione(corridoio, scaffale, piano):
         with open("Dati/posizioni.json", "r") as file:
             dati = json.load(file)
@@ -66,4 +63,3 @@ with open("Dati/posizioni.json", "w") as file:
 
         with open("Dati/posizioni.json", "w") as file:
             json.dump(dati, file)
-
