@@ -11,7 +11,7 @@ class Ordine():
         self.importo_totale = ''
 
     def aggiungi_prodotto_ordine(self, nome_prodotto):
-        with open('Dati/lista_prodotti_salvati.pickle', 'rb') as f:
+        with open('Dati/lista_ prodotti_salvati.pickle', 'rb') as f:
             prodotti = pickle.load(f)
         # Controlla se l'oggetto desiderato è presente
             for prodotto in prodotti:
