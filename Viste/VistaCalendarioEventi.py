@@ -19,7 +19,6 @@ class VistaCalendarioEventi(QWidget):
 
         font = QFont('Arial Nova Light', 15)
 
-       # self.controller = GestoreEventi()
         self.calendario_eventi = self.init_calendario()
         v_layout_eventi = QVBoxLayout()
         self.list_view_eventi = QListView()
@@ -84,7 +83,7 @@ class VistaCalendarioEventi(QWidget):
 
     # Funzione che mostra la vista per l'inserimento dei dati, da parte dell'utente, per creare un nuovo evento.
     def show_vista_inserisci_evento(self):
-        self.vista_inserisci_evento = VistaInserisciEvento()
+        self.vista_inserisci_evento = VistaInserisciEvento(callback=self.update_ui)
         self.vista_inserisci_evento.show()
 
     # Funzione che mostra la vista di un evento già esistente.
