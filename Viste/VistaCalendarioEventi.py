@@ -1,5 +1,8 @@
 from datetime import datetime
 import calendar
+import os
+import pickle
+
 
 from PyQt5.QtCore import Qt, QDate
 from PyQt5.QtGui import QFont, QIcon, QPixmap, QStandardItemModel, QStandardItem
@@ -96,7 +99,30 @@ class VistaCalendarioEventi(QWidget):
         self.label.setText("Data selezionata : " + data_selezionata)
         return data_selezionata
 
-# Funzione che popola le liste dei prodotti presenti nel magazzino
+    def load_eventi(self):
+        if os.path.isfile('Dati/lista_eventi.pickle'):
+            with open('Dati/lista_eventi.pickle', 'rb') as f:
+                current = dict(pickle.load(f))
+                self.eventi.extend(current.values())
+
+    # Funzione che popola le liste degli eventi
     def update_ui(self):
+        self.eventi = []  # lista eventi salvati
+        self.load_eventi()
+        list_view_model = QStandardItemModel(self.list_view_eventi)
+        for eventi in self.eventi:
+            item = QStandardItem()
+            nome = f"{eventi.nome}"  # il type ci restituisce il nome della classe
+            item.setText(nome)
+            item.setEditable(False)
+            font = item.font()
+            font.setPointSize(18)
+            item.setFont(font)
+            list_view_model.appendRow(item)
+        self.list_view_eventi.setModel(list_view_model)
+
+    def show_selected_info(self):
         pass
+
+
 
