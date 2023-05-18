@@ -41,7 +41,7 @@ class VistaInserisciEvento(QWidget):
         self.setFixedSize(400, 600)  # Imposta la dimensione fissa della finestra di dialogo
         label_top.setFixedSize(300, 30)  # Imposta la dimensione fissa della label superiore
         label_prezzi.setFixedSize(300, 30)  # Imposta la dimensione fissa della label "Inserisci i prezzi dei servizi"
-        button_conferma.setFixedSize(375, 30)
+
         # Layout
         layout = QVBoxLayout(self)
         layout.addWidget(label_top)
@@ -59,13 +59,14 @@ class VistaInserisciEvento(QWidget):
         layout.addWidget(label_prive)
         layout.addWidget(self.line_edit_prive)
         layout.addWidget(button_conferma)
+
         self.setLayout(layout)
 
     def add_evento(self):
         # Ottenere i valori inseriti dall'utente
         nome = self.line_edit_nome.text().strip()
         tipo = self.combo_box_tipo.currentText()
-        data = self.date_edit_data.dateTime().toString("%d/MM/yyyy")
+        data = self.date_edit_data.dateTime().toString("yyyy-MM-dd")
         ingresso = self.line_edit_ingresso.text().strip()
         tavolo = self.line_edit_tavolo.text().strip()
         prive = self.line_edit_prive.text().strip()

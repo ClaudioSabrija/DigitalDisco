@@ -9,7 +9,6 @@ class Posizione:
         self.piano = piano
         self.disponibile = True
 
-
     def get_corridoio(self):
         return self.corridoio
 
@@ -25,6 +24,7 @@ class Posizione:
 # Generazione delle 100 Posizioni in una lista chiamata pisizioni che scorre le pisizioni in corridoi scaffali e piani
 # andremo poi ad associare a posizione l'oggetto posizione istanziato con i relativi valori degli attributi associati dal for
 # andiamo a controllare se la posizione non si trova già in lista e la inseriamo
+
 posizioni = []
 for corridoio in range(1, 3):
     for scaffale in range(1, 21):
