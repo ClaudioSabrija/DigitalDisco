@@ -5,19 +5,20 @@ from Servizio.Servizio import Servizio
 
 
 class Evento:
-    def __init__(self, nome, data, prezzo_ingresso, prezzo_tavolo, prezzo_prive, disponibilita_ingressi, disponibilita_tavoli, disponibilita_prive):
+    def __init__(self, nome, tipo, data, prezzo_ingresso, prezzo_tavolo, prezzo_prive):
         self.nome = nome
         self.data = data
+        self.tipo = tipo
         self.prezzo_ingresso = prezzo_ingresso
         self.prezzo_tavolo = prezzo_tavolo
         self.prezzo_prive = prezzo_prive
-        self.disponibilita_ingressi = disponibilita_ingressi
-        self.disponibilita_tavoli = disponibilita_tavoli
-        self.disponibilita_prive = disponibilita_prive
+        self.disponibilita_ingressi = 200
+        self.disponibilita_tavoli = 20
+        self.disponibilita_prive = 10
         self.servizi = {
-        "Ingresso": Servizio("Ingresso", prezzo_ingresso, disponibilita_ingressi),
-        "Tavolo": Servizio("Tavolo", prezzo_tavolo, disponibilita_tavoli),
-        "Prive": Servizio("Prive", prezzo_prive, disponibilita_prive)
+        "Ingresso": Servizio("Ingresso", prezzo_ingresso, self.disponibilita_ingressi),
+        "Tavolo": Servizio("Tavolo", prezzo_tavolo, self.disponibilita_tavoli),
+        "Prive": Servizio("Prive", prezzo_prive, self.disponibilita_prive)
         }
         self.prenotazioni = []
 
