@@ -19,12 +19,14 @@ class VistaLogin(QWidget):
         label2 = QLabel('Password:')
         self.password = QLineEdit()
         self.password.setEchoMode(QLineEdit.Password)
+        
         layout.addWidget(label2, 1, 0)
         layout.addWidget(self.password, 1, 1)
 
         button_login = QPushButton('Accedi')
         button_login.clicked.connect(self.controllo_accesso)
         layout.addWidget(button_login, 2, 0, 2, 2, alignment=Qt.AlignBottom)
+
 
         self.setLayout(layout)
         self.setWindowTitle('Login')
@@ -33,6 +35,8 @@ class VistaLogin(QWidget):
         self.setWindowIcon(QIcon('Dati/DigitalDisco.png'))
         self.resize(650, 170)
         self.move(50, 100)
+
+
 
     def controllo_accesso(self):
         if self.user_name.text() == 'amministratore' and self.password.text() == 'password':
