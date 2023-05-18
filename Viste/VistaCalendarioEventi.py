@@ -17,6 +17,8 @@ class VistaCalendarioEventi(QWidget):
     def __init__(self, parent = None):
         super(VistaCalendarioEventi, self).__init__(parent)
 
+        self.eventi = []  # lista eventi salvati
+
         font = QFont('Arial Nova Light', 15)
 
         self.calendario_eventi = self.init_calendario()
@@ -106,7 +108,6 @@ class VistaCalendarioEventi(QWidget):
 
     # Funzione che popola le liste degli eventi
     def update_ui(self):
-        self.eventi = []  # lista eventi salvati
         self.load_eventi()
         list_view_model = QStandardItemModel(self.list_view_eventi)
         for eventi in self.eventi:
@@ -118,6 +119,7 @@ class VistaCalendarioEventi(QWidget):
             font.setPointSize(18)
             item.setFont(font)
             list_view_model.appendRow(item)
+
         self.list_view_eventi.setModel(list_view_model)
 
     def show_selected_info(self):

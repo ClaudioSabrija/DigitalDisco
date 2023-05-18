@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout
     QComboBox, QDateTimeEdit, QMessageBox
 
 from Evento.Evento import Evento
+from Gestione.GestoreEventi import GestoreEventi
 from Viste import VistaCalendarioEventi
 
 class VistaInserisciEvento(QWidget):
@@ -83,6 +84,10 @@ class VistaInserisciEvento(QWidget):
         except ValueError:
             QMessageBox.warning(self, "Errore", "I campi di ingresso, tavolo e prive devono essere numeri interi.")
             return
+
+        evento = GestoreEventi()
+
+        evento.inserisci_evento(nome, tipo, data, ingresso, tavolo, prive)
 
         self.callback()
         self.close()
