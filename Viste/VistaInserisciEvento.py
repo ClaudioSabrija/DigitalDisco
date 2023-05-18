@@ -93,6 +93,8 @@ class VistaInserisciEvento(QWidget):
             QMessageBox.critical(self, "Errore", "Il formato della data inserita dev'essere:(dd/mm/yyyy).")
             return
 
+        # Da aggiustare perché non funziona e bisogna mettere che selezionando
+        # una data nel calendario, quella data diventa la data inserita
         data_attuale = QDate.currentDate()
         if data_inserita < data_attuale:
             QMessageBox.critical(self, "Errore", "La data inserita è già passata.")
