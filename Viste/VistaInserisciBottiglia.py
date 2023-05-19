@@ -81,8 +81,5 @@ class VistaInserisciBottiglia(QWidget):
                                                 "Piano) devono essere scritti in numero.")
             return
 
-        bottiglia = Bottiglia(nome, prezzo, disponibilita)
-        bottiglia.inserisci_bottiglia(nome, prezzo, disponibilita, corridoio, scaffale, piano)
-
         self.callback()
         self.close()
