@@ -2,6 +2,8 @@ from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, \
     QComboBox, QDateTimeEdit, QMessageBox
 
+from Magazzino.Bottiglia import Bottiglia
+
 
 class VistaInserisciBottiglia(QWidget):
     def __init__(self, callback, parent=None):
@@ -54,4 +56,33 @@ class VistaInserisciBottiglia(QWidget):
         self.setLayout(layout)
 
     def add_bottiglia(self):
-        pass
+    # Ottenere i valori inseriti dall'utente
+        nome = self.line_edit_nome.text().strip()
+        prezzo = self.line_edit_prezzo.text().strip()
+        disponibilita = self.line_edit_disponibilta.text().strip()
+        corridoio = self.line_edit_corridoio.text().strip()
+        scaffale = self.line_edit_scaffale.text().strip()
+        piano = self.line_edit_piano.text().strip()
+
+    # Controllo dei campi compilati
+        if not nome or not prezzo or not disponibilita or not corridoio or not scaffale or not piano:
+            QMessageBox.warning(self, "Errore", "Tutti i campi devono essere compilati.")
+            return
+
+        # Controllo se i campi d'ingresso, tavolo e prive sono interi
+        try:
+            prezzo = int(prezzo)
+            disponibilita = int(disponibilita)
+            corridoio = int(corridoio)
+            scaffale = int(scaffale)
+            piano = int(piano)
+        except ValueError:
+            QMessageBox.warning(self, "Errore", "I campi di ingresso: (Prezzo, Disponibilità, Corridoio, Scaffale,"
+                                                "Piano) devono essere scritti in numero.")
+            return
+
+        bottiglia = Bottiglia(nome, prezzo, disponibilita)
+        bottiglia.inserisci_bottiglia(nome, prezzo, disponibilita, corridoio, scaffale, piano)
+
+        self.callback()
+        self.close()

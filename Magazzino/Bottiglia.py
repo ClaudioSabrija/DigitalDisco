@@ -11,9 +11,10 @@ class Bottiglia(Prodotto):
         self.disponibilita = disponibilita
         self.posizione_bottiglia = ''
 
-    def inserisci_bottiglia(self, nome, prezzo, corridoio, scaffale, piano):
+    def inserisci_bottiglia(self, nome, prezzo, disponibilita, corridoio, scaffale, piano):
         self.nome = nome
         self.prezzo = prezzo
+        self.disponibilita = disponibilita
         self.posizione_bottiglia = Posizione(corridoio, scaffale, piano)
         bottiglie = {}
         if os.path.isfile('Dati/lista_bottiglie_salvate.pickle'):
