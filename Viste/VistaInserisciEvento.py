@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from PyQt5.QtCore import QDate
 from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, \
@@ -80,12 +82,14 @@ class VistaInserisciEvento(QWidget):
             QMessageBox.critical(self, "Errore", "Il formato della data inserita dev'essere:(dd/mm/yyyy).")
             return
 
-        # Da aggiustare perché non funziona e bisogna mettere che selezionando
-        # una data nel calendario, quella data diventa la data inserita
-        data_attuale = QDate.currentDate()
-        if data_inserita < data_attuale:
-            QMessageBox.critical(self, "Errore", "La data inserita è già passata.")
+        data_inserita = self.line_edit_data.text().strip()
+        # Controllo se la data è precedente alla data odierna
+        data_odierna = datetime.today().strftime("%d/%m/%Y")
+
+        if datetime.strptime(data_inserita, "%d/%m/%Y") < datetime.strptime(data_odierna, "%d/%m/%Y"):
+            QMessageBox.warning(self, "Errore", "La data inserita è precedente alla data odierna.")
             return
+
         evento = GestoreEventi()
         evento.inserisci_evento(nome, tipo, data, ingresso, tavolo, prive)
         self.callback()
