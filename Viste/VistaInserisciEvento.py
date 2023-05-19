@@ -1,4 +1,3 @@
-from PyQt5.QtCore import QDate
 from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, \
     QComboBox, QDateTimeEdit, QMessageBox
@@ -23,7 +22,7 @@ class VistaInserisciEvento(QWidget):
 
         self.line_edit_nome = QLineEdit(self)
         self.combo_box_tipo = QComboBox(self)
-        self.line_edit_data = QLineEdit(self)
+        self.date_edit_data = QDateTimeEdit(self)
 
         self.line_edit_ingresso = QLineEdit(self)
         self.line_edit_tavolo = QLineEdit(self)
@@ -51,7 +50,7 @@ class VistaInserisciEvento(QWidget):
         layout.addWidget(label_tipo)
         layout.addWidget(self.combo_box_tipo)
         layout.addWidget(label_data)
-        layout.addWidget(self.line_edit_data)
+        layout.addWidget(self.date_edit_data)
         layout.addWidget(label_prezzi)
         layout.addWidget(label_ingresso)
         layout.addWidget(self.line_edit_ingresso)
@@ -67,7 +66,7 @@ class VistaInserisciEvento(QWidget):
         # Ottenere i valori inseriti dall'utente
         nome = self.line_edit_nome.text().strip()
         tipo = self.combo_box_tipo.currentText()
-        data = self.line_edit_data.text().strip()
+        data = self.date_edit_data.dateTime().toString("yyyy-MM-dd")
         ingresso = self.line_edit_ingresso.text().strip()
         tavolo = self.line_edit_tavolo.text().strip()
         prive = self.line_edit_prive.text().strip()
@@ -86,19 +85,6 @@ class VistaInserisciEvento(QWidget):
             QMessageBox.warning(self, "Errore", "I campi di ingresso, tavolo e prive devono essere numeri interi.")
             return
 
-        try:
-            giorno, mese, anno = data.split('/')
-            data_inserita = QDate(int(giorno), int(mese), int(anno))
-        except ValueError:
-            QMessageBox.critical(self, "Errore", "Il formato della data inserita dev'essere:(dd/mm/yyyy).")
-            return
-
-        # Da aggiustare perché non funziona e bisogna mettere che selezionando
-        # una data nel calendario, quella data diventa la data inserita
-        data_attuale = QDate.currentDate()
-        if data_inserita < data_attuale:
-            QMessageBox.critical(self, "Errore", "La data inserita è già passata.")
-            return
         evento = GestoreEventi()
 
         evento.inserisci_evento(nome, tipo, data, ingresso, tavolo, prive)

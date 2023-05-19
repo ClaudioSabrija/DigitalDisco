@@ -11,6 +11,7 @@ from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QLineEdit, QPushButton
 
 from Gestione.GestoreEventi import GestoreEventi
 from Viste.VistaInserisciEvento import VistaInserisciEvento
+from Viste.VistaVisualizzaEvento import VistaVisualizzaEvento
 
 
 class VistaCalendarioEventi(QWidget):
@@ -62,6 +63,7 @@ class VistaCalendarioEventi(QWidget):
         calendario = QCalendarWidget(self)
         currentMonth = datetime.now().month
         currentYear = datetime.now().year
+       #currentDay = datetime.now().day
 
         calendario.setMinimumDate(QDate(currentYear, currentMonth, 1))
         calendario.setMaximumDate(
@@ -90,7 +92,8 @@ class VistaCalendarioEventi(QWidget):
 
     # Funzione che mostra la vista di un evento già esistente.
     def show_vista_visualizza_evento(self):
-        pass
+        self.show_vista_visualizza_evento = VistaVisualizzaEvento(elimina_callback=self.update_ui)
+        self.show_vista_visualizza_evento.show()
 
     # Funzione che restituisce la data selezionata.
     def data_selezionata(self):
