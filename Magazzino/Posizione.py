@@ -57,7 +57,7 @@ with open("Dati/posizioni.json", "w") as file:
         with open("Dati/posizioni.json", "r") as file:
             dati = json.load(file)
 
-        for posizione in dati['posizioni']:
+        for posizione in dati:
             if posizione['corridoio'] == corridoio and posizione['scaffale'] == scaffale and posizione['piano'] == piano and posizione['disponibile'] == True:
                 posizione['disponibile'] = False
 

@@ -1,16 +1,17 @@
 from datetime import datetime
-
 from PyQt5.QtCore import QDate
-from PyQt5.QtGui import QIcon, QFont
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, \
-    QComboBox, QDateTimeEdit, QMessageBox
-from Evento.Evento import Evento
+    QComboBox,  QMessageBox
+
 from Gestione.GestoreEventi import GestoreEventi
-from Viste import VistaCalendarioEventi
+
+
 class VistaInserisciEvento(QWidget):
     def __init__(self, callback, parent=None):
         super(VistaInserisciEvento, self).__init__(parent)
         self.callback = callback
+
         # Creazione dei widget
         label_top = QLabel("Inserisci i dati dell'evento:", self)
         label_nome = QLabel("NOME:", self)
@@ -37,6 +38,7 @@ class VistaInserisciEvento(QWidget):
         self.setFixedSize(400, 600)  # Imposta la dimensione fissa della finestra di dialogo
         label_top.setFixedSize(300, 30)  # Imposta la dimensione fissa della label superiore
         label_prezzi.setFixedSize(300, 30)  # Imposta la dimensione fissa della label "Inserisci i prezzi dei servizi"
+
         # Layout
         layout = QVBoxLayout(self)
         layout.addWidget(label_top)
@@ -55,6 +57,8 @@ class VistaInserisciEvento(QWidget):
         layout.addWidget(self.line_edit_prive)
         layout.addWidget(button_conferma)
         self.setLayout(layout)
+
+
     def add_evento(self):
         # Ottenere i valori inseriti dall'utente
         nome = self.line_edit_nome.text().strip()
@@ -63,10 +67,12 @@ class VistaInserisciEvento(QWidget):
         ingresso = self.line_edit_ingresso.text().strip()
         tavolo = self.line_edit_tavolo.text().strip()
         prive = self.line_edit_prive.text().strip()
+
         # Controllo dei campi compilati
         if not nome or not tipo or not data or not ingresso or not tavolo or not prive:
             QMessageBox.warning(self, "Errore", "Tutti i campi devono essere compilati.")
             return
+
         # Controllo se i campi d'ingresso, tavolo e prive sono interi
         try:
             ingresso = int(ingresso)
@@ -83,6 +89,7 @@ class VistaInserisciEvento(QWidget):
             return
 
         data_inserita = self.line_edit_data.text().strip()
+
         # Controllo se la data è precedente alla data odierna
         data_odierna = datetime.today().strftime("%d/%m/%Y")
 
@@ -92,5 +99,6 @@ class VistaInserisciEvento(QWidget):
 
         evento = GestoreEventi()
         evento.inserisci_evento(nome, tipo, data, ingresso, tavolo, prive)
+
         self.callback()
         self.close()

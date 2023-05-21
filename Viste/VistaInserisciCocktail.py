@@ -2,6 +2,8 @@ from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, \
     QComboBox, QDateTimeEdit, QMessageBox
 
+from Magazzino.Cocktail import Cocktail
+
 
 class VistaInserisciCocktail(QWidget):
     def __init__(self, callback, parent=None):
@@ -35,4 +37,22 @@ class VistaInserisciCocktail(QWidget):
         self.setLayout(layout)
 
     def add_cocktail(self):
-        pass
+        # Ottenere i valori inseriti dall'utente
+        nome = self.line_edit_nome.text().strip()
+        prezzo = self.line_edit_prezzo.text().strip()
+
+        if not nome or not prezzo:
+            QMessageBox.warning(self, "Errore", "Tutti i campi devono essere compilati.")
+            return
+
+        try:
+            prezzo = int(prezzo)
+        except ValueError:
+            QMessageBox.warning(self, "Errore", "Il prezzo dev'essere scritto in numero.")
+            return
+
+        cocktail = Cocktail(nome, prezzo)
+        cocktail.inserisci_cocktail(nome, prezzo)
+
+        self.callback()
+        self.close()

@@ -19,8 +19,8 @@ class Magazzino:
         else:
             with open('Dati/lista_bottiglie.json') as f:
                 bottiglie_iniziali = json.load(f)
-        for bottiglie in bottiglie_iniziali:
-            self.aggiungi_bottiglia(Bottiglia(bottiglie["nome"], bottiglie["prezzo"], bottiglie["posizione"]))
+            for bottiglie in bottiglie_iniziali:
+                self.aggiungi_bottiglia(Bottiglia(bottiglie["nome"], bottiglie["prezzo"], bottiglie["posizione"]))
 
         if os.path.isfile('Dati/lista_cocktail_salvati.pickle'):
             with open('Dati/lista_cocktail_salvati.pickle', 'rb') as f:
@@ -28,8 +28,8 @@ class Magazzino:
         else:
             with open('Dati/lista_cocktail.json') as f:
                 cocktail_iniziali = json.load(f)
-        for cocktail in cocktail_iniziali:
-            self.aggiungi_cocktail(Cocktail(cocktail["nome"], cocktail["prezzo"]))
+            for cocktail in cocktail_iniziali:
+                self.aggiungi_cocktail(Cocktail(cocktail["nome"], cocktail["prezzo"]))
 
         self.magazzino = self.bottiglie + self.cocktail
 
@@ -51,7 +51,13 @@ class Magazzino:
     def aggiungi_cocktail(self, cocktail):
         return self.bottiglie.append(cocktail)
 
+    # Funzione che salva i file con i dati aggiornati.
+    def save_data(self):
+        with open('Dati/lista_bottiglie_salvate.pickle', 'wb') as handle:
+            pickle.dump(self.bottiglie, handle, pickle.HIGHEST_PROTOCOL)
 
+        with open('Dati/lista_cocktail_salvati.pickle', 'wb') as handle:
+            pickle.dump(self.cocktail, handle, pickle.HIGHEST_PROTOCOL)
 
 
 

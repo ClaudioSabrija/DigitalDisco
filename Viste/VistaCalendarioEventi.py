@@ -122,11 +122,7 @@ class VistaCalendarioEventi(QWidget):
             font.setPointSize(18)
             item.setFont(font)
             list_view_model.appendRow(item)
-
         self.list_view_eventi.setModel(list_view_model)
 
     def show_selected_info(self):
         pass
-
-
-

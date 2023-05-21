@@ -11,13 +11,13 @@ class Cocktail(Prodotto):
     def inserisci_cocktail(self, nome, prezzo):
         self.nome = nome
         self.prezzo = prezzo
-        cocktail = {}
+        cocktail = []
         if os.path.isfile('Dati/lista_cocktail_salvati.pickle'):
             with open('Dati/lista_cocktail_salvati.pickle', 'rb') as f:
                 cocktail = pickle.load(f)
-            cocktail[nome] = self
-            with open('Dati/lista_cocktail_salvati.pickle', 'wb') as f:
-                pickle.dump(cocktail, f, pickle.HIGHEST_PROTOCOL)
+        cocktail.append(self)  # ho fatto una lista [] perché mi dava l'errore must be integer e allora ho messo append
+        with open('Dati/lista_cocktail_salvati.pickle', 'wb') as f:
+            pickle.dump(cocktail, f, pickle.HIGHEST_PROTOCOL)
 
     def rimuovi_cocktail(self):
         if os.path.isfile('Dati/lista_cocktail_salvati.pickle'):

@@ -9,6 +9,7 @@ class VistaInserisciBottiglia(QWidget):
     def __init__(self, callback, parent=None):
         super(VistaInserisciBottiglia, self).__init__(parent)
         self.callback = callback
+
         # Creazione dei widget
         label_top = QLabel("Inserisci i dati del prodotto:", self)
         label_nome = QLabel("NOME:", self)
@@ -80,6 +81,9 @@ class VistaInserisciBottiglia(QWidget):
             QMessageBox.warning(self, "Errore", "I campi di ingresso: (Prezzo, Disponibilità, Corridoio, Scaffale,"
                                                 "Piano) devono essere scritti in numero.")
             return
+
+        bottiglia = Bottiglia(nome, prezzo, disponibilita)
+        bottiglia.inserisci_bottiglia(nome, prezzo, disponibilita, corridoio, scaffale, piano)
 
         self.callback()
         self.close()

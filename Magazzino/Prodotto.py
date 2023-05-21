@@ -12,9 +12,7 @@ class Prodotto:
         with open('lista_bottiglie_salvate.pickle', 'rb') as f1, open('lista_cocktail_salvati.pickle', 'rb') as f2:
             data1 = pickle.load(f1)
             data2 = pickle.load(f2)
-
         merged_data = [data1, data2]
-
         with open('lista_prodotti_salvati.pickle', 'wb') as f:
             pickle.dump(merged_data, f)
 

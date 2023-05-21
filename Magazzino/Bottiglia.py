@@ -16,11 +16,11 @@ class Bottiglia(Prodotto):
         self.prezzo = prezzo
         self.disponibilita = disponibilita
         self.posizione_bottiglia = Posizione(corridoio, scaffale, piano)
-        bottiglie = {}
+        bottiglie = []
         if os.path.isfile('Dati/lista_bottiglie_salvate.pickle'):
             with open('Dati/lista_bottiglie_salvate.pickle', 'rb') as f:
                 bottiglie = pickle.load(f)
-        bottiglie[nome] = self
+        bottiglie.append(self)
         with open('Dati/lista_bottiglie_salvate.pickle', 'wb') as f:
             pickle.dump(bottiglie, f, pickle.HIGHEST_PROTOCOL)
         occupa_posizione(corridoio, scaffale, piano)
@@ -30,7 +30,3 @@ class Bottiglia(Prodotto):
             if bottiglia.nome == nome_prodotto:
                 if bottiglia.disponibilita > 0:
                     bottiglia.disponibilita -= 1
-
-
-
-
