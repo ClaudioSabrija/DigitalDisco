@@ -29,6 +29,9 @@ class Evento:
     def get_data(self):
         return self.data
 
+    def get_tipo(self):
+        return self.tipo
+
     def get_prezzo_ingresso(self):
         return self.prezzo_ingresso
 

@@ -1,57 +1,75 @@
 from PyQt5.QtGui import QIcon, QFont
-from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, \
-    QComboBox, QDateTimeEdit, QMessageBox
+from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QGridLayout, \
+    QComboBox, QDateTimeEdit, QMessageBox, QHBoxLayout
 
 from Viste import VistaInserisciEvento
 from Evento.Evento import Evento
 from Gestione.GestoreEventi import GestoreEventi
 
+
+
 class VistaVisualizzaEvento(QWidget):
-    def __init__(self, elimina_callback, parent=None):
+    def __init__(self, evento, elimina_callback, parent=None):
         super(VistaVisualizzaEvento, self).__init__(parent)
         self.elimina_callback = elimina_callback
-        self.info_evento_layout = QVBoxLayout()
-        self.dati_evento_layout = QVBoxLayout()
-        self.scelte_evento = QVBoxLayout()
+
+        #grid_layout = QGridLayout()
+
+        info_evento_layout = QHBoxLayout()
+        scelte_evento_layout = QVBoxLayout()
+        dati_evento_layout = QVBoxLayout()
+
+        #font = QFont('Arial Nova Light', 14)
+
+        if isinstance(evento, Evento):
+            nome = evento.get_nome()
+            tipo = evento.get_tipo()
+            data = evento.get_tipo()
+            prezzo_ingresso = evento.get_tipo()
+            prezzo_tavolo = evento.get_tipo()
+            prezzo_prive = evento.get_tipo()
 
         # Creazione dei widget
-        label_nome = QLabel("NOME:", self)
-        label_tipo = QLabel("TIPO:", self)
-        label_data = QLabel("DATA:", self)
-        label_ingresso = QLabel("INGRESSO:", self)
-        label_tavolo = QLabel("TAVOLO:", self)
-        label_prive = QLabel("PRIVE:", self)
+        label_nome = QLabel(f"NOME: {nome}", self)
+        label_tipo = QLabel(f"TIPO: {tipo}", self)
+        label_data = QLabel(f"DATA: {data}", self)
+        label_ingresso = QLabel(f"INGRESSO: {prezzo_ingresso}", self)
+        label_tavolo = QLabel(f"TAVOLO: {prezzo_tavolo}", self)
+        label_prive = QLabel(f"PRIVE: {prezzo_prive}", self)
 
-        #Aggiunta delle label al layout delle informazioni
+        # Aggiunta delle label al layout delle informazioni
 
         info_evento_layout.addWidget(label_nome)
         info_evento_layout.addWidget(label_tipo)
         info_evento_layout.addWidget(label_data)
 
-        #Aggiunta delle label alla griglia
-        dati_evento_layout.addWidget(label_ingresso, 0, 0)  # riga 0, colonna 0
-        dati_evento_layout.addWidget(label_tavolo, 1, 0)  # riga 1, colonna 0
-        dati_evento_layout.addWidget(label_prive, 2, 0)  # riga 2, colonna 0
-
-        dati_evento_layout.addWidget(line_edit_ingresso.text(), 0, 1)  # riga 0, colonna 1
-        dati_evento_layout.addWidget(line_edit_tavolo.text(), 1, 1)  # riga 1, colonna 1
-        dati_evento_layout.addWidget(line_edit_prive.text(), 2, 1)  # riga 2, colonna 1
-
-        dati_evento_layout.addWidget('', 0, 2)  # riga 0, colonna 2
-        dati_evento_layout.addWidget('', 1, 2)  # riga 1, colonna 2
-        dati_evento_layout.addWidget('', 2, 2)  # riga 2, colonna 2
+        dati_evento_layout.addWidget(label_ingresso)
+        dati_evento_layout.addWidget(label_tavolo)
+        dati_evento_layout.addWidget(label_prive)
 
         button_modifica_evento = QPushButton("MODIFICA EVENTO", self)
         button_modifica_evento.clicked.connect(self.go_modifica_evento)
-        v_layout.addWidget(button_modifica_evento)
+        scelte_evento_layout.addWidget(button_modifica_evento)
 
         button_elimina_evento = QPushButton('ELIMINA EVENTO')
         button_elimina_evento.clicked.connect(lambda: self.elimina_evento_click(evento))
-        v_layout.addWidget(button_elimina_evento)
+        scelte_evento_layout.addWidget(button_elimina_evento)
+
+        button_prenotazioni = QPushButton('PRENOTAZIONI')
+        button_prenotazioni.clicked.connect(self.go_prenotazioni)
+        scelte_evento_layout.addWidget(button_prenotazioni)
+
+        button_ordini = QPushButton('ORDINI')
+        button_ordini.clicked.connect(self.go_ordini)
+        scelte_evento_layout.addWidget(button_ordini)
+
+        grid_layout.addLayout(info_evento_layout)
+        grid_layout.addLayout(scelte_evento_layout)
+        grid_layout.addLayout(dati_evento_layout)
 
         self.setWindowIcon(QIcon('Dati/DigitalDisco.png'))
         self.setWindowTitle('Visualizza Evento')
-        self.setFixedSize(500, 1000)  # Imposta la dimensione fissa della finestra di dialogo
+            # self.setFixedSize(800, 300)  # Imposta la dimensione fissa della finestra di dialogo
 
 
     def elimina_evento_click(self, evento):
@@ -61,4 +79,10 @@ class VistaVisualizzaEvento(QWidget):
         self.close()
 
     def go_modifica_evento(self):
+        pass
+
+    def go_prenotazioni(self):
+        pass
+
+    def go_ordini(self):
         pass
