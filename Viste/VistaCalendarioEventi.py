@@ -91,9 +91,9 @@ class VistaCalendarioEventi(QWidget):
         self.vista_inserisci_evento.show()
 
     # Funzione che mostra la vista di un evento già esistente.
-    def show_vista_visualizza_evento(self):
-        self.show_vista_visualizza_evento = VistaVisualizzaEvento(elimina_callback=self.update_ui)
-        self.show_vista_visualizza_evento.show()
+  #  def show_vista_visualizza_evento(self):
+   #     self.show_vista_visualizza_evento = VistaVisualizzaEvento(elimina_callback=self.update_ui)
+    #    self.show_vista_visualizza_evento.show()
 
     # Funzione che restituisce la data selezionata.
     def data_selezionata(self):
@@ -125,8 +125,15 @@ class VistaCalendarioEventi(QWidget):
 
         self.list_view_eventi.setModel(list_view_model)
 
-    def show_selected_info(self):
-        pass
-
+    def show_vista_visualizza_evento(self):
+        try:
+            selected = self.list_view_eventi.selectedIndexes()[0].data()
+            nome = selected.strip().split(" ")[0]
+            evento = GestoreEventi().RicercaEventoPerNome(nome)
+            self.vista_evento = VistaVisualizzaEvento(evento, elimina_callback=self.update_ui)
+            self.vista_evento.show()
+        except IndexError:
+            print("INDEX ERROR")
+            return
 
 
