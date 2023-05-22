@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QLineEdit, QPushButton
 from Magazzino.Magazzino import Magazzino
 from Viste.VistaInserisciBottiglia import VistaInserisciBottiglia
 from Viste.VistaInserisciCocktail import VistaInserisciCocktail
+from Viste.VistaVisualizzaBottiglia import VistaVisualizzaBottiglia
 
 
 class VistaMagazzino(QWidget):
@@ -82,7 +83,11 @@ class VistaMagazzino(QWidget):
 
     # Funzione che mostra il prodotto selezionato.
     def show_selected_bottiglia(self):
-        pass
+        if self.list_view_bottiglie.selectedIndexes():
+            selected = self.list_view_bottiglie.selectedIndexes()[0].row()
+            bottiglia_selezionata = self.controller.get_presidio_by_index(selected)
+            self.vista_visualizza_bottiglia = VistaVisualizzaBottiglia(bottiglia_selezionata)
+            self.vista_visualizza_bottiglia.show()
 
     # Funzione che preleva il prodotto selezionato.
     def preleva_selected_bottiglia(self):

@@ -51,6 +51,9 @@ class Magazzino:
     def aggiungi_cocktail(self, cocktail):
         return self.bottiglie.append(cocktail)
 
+    def get_presidio_by_index(self, index):
+        return self.bottiglie[index]
+
     # Funzione che salva i file con i dati aggiornati.
     def save_data(self):
         with open('Dati/lista_bottiglie_salvate.pickle', 'wb') as handle:

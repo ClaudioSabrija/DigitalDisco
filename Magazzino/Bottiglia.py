@@ -10,6 +10,10 @@ class Bottiglia(Prodotto):
         super(Bottiglia, self).__init__(nome, prezzo)
         self.disponibilita = disponibilita
         self.posizione_bottiglia = ''
+        self.corridoio = ""
+        self.scaffale = ""
+        self.piano = ""
+
 
     def inserisci_bottiglia(self, nome, prezzo, disponibilita, corridoio, scaffale, piano):
         self.nome = nome

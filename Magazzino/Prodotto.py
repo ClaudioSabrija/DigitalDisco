@@ -3,9 +3,9 @@ import os
 
 
 class Prodotto:
-    def __init__(self):
-        self.nome = ""
-        self.prezzo = ""
+    def __init__(self, nome, prezzo):
+        self.nome = nome
+        self.prezzo = prezzo
 
     def unione_lista_prodotti(self):
 
