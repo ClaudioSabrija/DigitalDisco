@@ -9,7 +9,7 @@ from PyQt5.QtGui import QFont, QIcon, QPixmap, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QVBoxLayout, QSizePolicy, \
     QHBoxLayout, QCalendarWidget, QListView
 
-from Gestione.GestoreEventi import GestoreEventi
+from Evento.Evento import Evento
 from Viste.VistaInserisciEvento import VistaInserisciEvento
 from Viste.VistaVisualizzaEvento import VistaVisualizzaEvento
 
@@ -129,7 +129,7 @@ class VistaCalendarioEventi(QWidget):
         try:
             selected = self.list_view_eventi.selectedIndexes()[0].data()
             nome = selected.strip().split(" ")[0]
-            evento = GestoreEventi().RicercaEventoPerNome(nome)
+            evento = Evento().RicercaEventoPerNome(nome)
             self.vista_evento = VistaVisualizzaEvento(evento, elimina_callback=self.update_ui)
             self.vista_evento.show()
         except IndexError:

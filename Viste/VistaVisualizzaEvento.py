@@ -21,13 +21,13 @@ class VistaVisualizzaEvento(QWidget):
 
         #font = QFont('Arial Nova Light', 14)
 
-        if isinstance(evento, Evento):
-            nome = evento.get_nome()
-            tipo = evento.get_tipo()
-            data = evento.get_tipo()
-            prezzo_ingresso = evento.get_tipo()
-            prezzo_tavolo = evento.get_tipo()
-            prezzo_prive = evento.get_tipo()
+
+        nome = evento.get_nome()
+        tipo = evento.get_tipo()
+        data = evento.get_tipo()
+        prezzo_ingresso = evento.get_tipo()
+        prezzo_tavolo = evento.get_tipo()
+        prezzo_prive = evento.get_tipo()
 
         # Creazione dei widget
         label_nome = QLabel(f"NOME: {nome}", self)

@@ -31,7 +31,7 @@ class Magazzino:
             for cocktail in cocktail_iniziali:
                 self.aggiungi_cocktail(Cocktail(cocktail["nome"], cocktail["prezzo"]))
 
-        self.magazzino = self.bottiglie + self.cocktail
+        #self.magazzino = self.bottiglie + self.cocktail
 
     # Funzione che restituisce la lista delle bottiglie
     def get_lista_bottiglie(self):
