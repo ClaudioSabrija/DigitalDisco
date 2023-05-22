@@ -51,7 +51,7 @@ class VistaInserisciCocktail(QWidget):
             QMessageBox.warning(self, "Errore", "Il prezzo dev'essere scritto in numero.")
             return
 
-        cocktail = Cocktail()
+        cocktail = Cocktail(nome, prezzo)
         cocktail.inserisci_cocktail(nome, prezzo)
 
         self.callback()

@@ -7,6 +7,7 @@ from Magazzino.Magazzino import Magazzino
 from Viste.VistaInserisciBottiglia import VistaInserisciBottiglia
 from Viste.VistaInserisciCocktail import VistaInserisciCocktail
 from Viste.VistaVisualizzaBottiglia import VistaVisualizzaBottiglia
+from Viste.VistaVisualizzaCocktail import VistaVisualizzaCocktail
 
 
 class VistaMagazzino(QWidget):
@@ -85,7 +86,7 @@ class VistaMagazzino(QWidget):
     def show_selected_bottiglia(self):
         if self.list_view_bottiglie.selectedIndexes():
             selected = self.list_view_bottiglie.selectedIndexes()[0].row()
-            bottiglia_selezionata = self.controller.get_presidio_by_index(selected)
+            bottiglia_selezionata = self.controller.get_bottiglia_by_index_(selected)
             self.vista_visualizza_bottiglia = VistaVisualizzaBottiglia(bottiglia_selezionata)
             self.vista_visualizza_bottiglia.show()
 
@@ -100,7 +101,11 @@ class VistaMagazzino(QWidget):
 
     # Funzione che mostra il prodotto selezionato..
     def show_selected_cocktail(self):
-        pass
+        if self.list_view_cocktail.selectedIndexes():
+            selected = self.list_view_cocktail.selectedIndexes()[0].row()
+            cocktail_selezionato = self.controller.get_cocktail_by_index(selected)
+            self.vista_visualizza_cocktail = VistaVisualizzaCocktail(cocktail_selezionato)
+            self.vista_visualizza_cocktail.show()
 
     # Funzione che mostra la vista che permette l'inserimento di un nuovo prodotto.
     def inserisci_cocktail(self):

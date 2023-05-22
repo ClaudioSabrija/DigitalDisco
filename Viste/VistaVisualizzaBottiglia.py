@@ -1,15 +1,15 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap, QIcon, QFont
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QGridLayout
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QGridLayout
 
 from Gestione.GestoreBottiglie import GestoreBottiglie
 
 
 class VistaVisualizzaBottiglia(QWidget):
 
-    def __init__(self, appuntamento, parent=None):
+    def __init__(self, bottiglia, parent=None):
         super(VistaVisualizzaBottiglia, self).__init__(parent)
-        self.controller = GestoreBottiglie(appuntamento)
+        self.controller = GestoreBottiglie(bottiglia)
 
         self.grid_layout = QGridLayout()
         v_layout = QVBoxLayout()

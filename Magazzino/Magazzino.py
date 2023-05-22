@@ -51,8 +51,11 @@ class Magazzino:
     def aggiungi_cocktail(self, cocktail):
         return self.bottiglie.append(cocktail)
 
-    def get_presidio_by_index(self, index):
+    def get_bottiglia_by_index_(self, index):
         return self.bottiglie[index]
+
+    def get_cocktail_by_index(self, index):
+        return self.cocktail[index]
 
     # Funzione che salva i file con i dati aggiornati.
     def save_data(self):
