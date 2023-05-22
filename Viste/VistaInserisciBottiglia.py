@@ -1,6 +1,6 @@
-from PyQt5.QtGui import QIcon, QFont
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, \
-    QComboBox, QDateTimeEdit, QMessageBox
+     QMessageBox
 
 from Magazzino.Bottiglia import Bottiglia
 
@@ -34,7 +34,7 @@ class VistaInserisciBottiglia(QWidget):
         self.setWindowTitle('Inserisci Bottiglia')
         self.setFixedSize(400, 600)  # Imposta la dimensione fissa della finestra di dialogo
         label_top.setFixedSize(300, 30)  # Imposta la dimensione fissa della label superiore
-        label_posizione.setFixedSize(300, 30)  # Imposta la dimensione fissa della label "Inserisci i prezzi dei servizi"
+        label_posizione.setFixedSize(300, 30)  # Imposta la dimensione fissa della label: Inserisci i prezzi dei servizi
 
         # Layout
         layout = QVBoxLayout(self)
@@ -57,7 +57,7 @@ class VistaInserisciBottiglia(QWidget):
         self.setLayout(layout)
 
     def add_bottiglia(self):
-    # Ottenere i valori inseriti dall'utente
+        # Ottenere i valori inseriti dall'utente
         nome = self.line_edit_nome.text().strip()
         prezzo = self.line_edit_prezzo.text().strip()
         disponibilita = self.line_edit_disponibilta.text().strip()

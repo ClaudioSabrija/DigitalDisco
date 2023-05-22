@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFont, QIcon, QPixmap, QStandardItemModel, QStandardItem
-from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QVBoxLayout, QSizePolicy, \
+from PyQt5.QtGui import QFont, QIcon, QStandardItemModel, QStandardItem
+from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QVBoxLayout, \
     QListView, QHBoxLayout
 
 from Magazzino.Magazzino import Magazzino
@@ -9,7 +9,7 @@ from Viste.VistaInserisciCocktail import VistaInserisciCocktail
 
 
 class VistaMagazzino(QWidget):
-    def __init__(self, parent = None):
+    def __init__(self, parent=None):
         super(VistaMagazzino, self).__init__(parent)
 
         self.controller = Magazzino()
@@ -21,8 +21,7 @@ class VistaMagazzino(QWidget):
 
         self.list_view_bottiglie = QListView()
         self.list_view_cocktail = QListView()
-        self.update_ui_bottiglie()
-        self.update_ui_cocktail()
+        self.update_ui()
 
         font = QFont('Arial Nova Light', 14)
 
@@ -77,7 +76,7 @@ class VistaMagazzino(QWidget):
         self.setWindowTitle("Gestione Magazzino")
         self.setWindowIcon(QIcon('Dati/DigitalDisco.png'))
 
-        self.setMaximumSize(900, 400)
+        self.setMaximumSize(1000, 600)
         self.resize(900, 500)
         self.move(200, 200)
 
@@ -91,7 +90,7 @@ class VistaMagazzino(QWidget):
 
     # Funzione che mostra la vista che permette l'inserimento di un nuovo prodotto.
     def inserisci_bottiglia(self):
-        self.vista_inserisci_bottiglia = VistaInserisciBottiglia(callback=self.update_ui_bottiglie)
+        self.vista_inserisci_bottiglia = VistaInserisciBottiglia(callback=self.update_ui)
         self.vista_inserisci_bottiglia.show()
 
     # Funzione che mostra il prodotto selezionato..
@@ -100,14 +99,14 @@ class VistaMagazzino(QWidget):
 
     # Funzione che mostra la vista che permette l'inserimento di un nuovo prodotto.
     def inserisci_cocktail(self):
-        self.vista_inserisci_cocktail = VistaInserisciCocktail(callback=self.update_ui_cocktail)
+        self.vista_inserisci_cocktail = VistaInserisciCocktail(callback=self.update_ui)
         self.vista_inserisci_cocktail.show()
 
     def ricerca_prodotto(self):
         pass
 
-    #Funzione che popola le liste dei prodotti presenti nel magazzino
-    def update_ui_bottiglie(self):
+    # Funzione che popola le liste delle bottiglie e dei cocktail
+    def update_ui(self):
         self.list_view_bottiglie_model = QStandardItemModel(self.list_view_bottiglie)
         for bottiglie in self.controller.get_lista_bottiglie():
             item = QStandardItem()
@@ -119,7 +118,6 @@ class VistaMagazzino(QWidget):
             self.list_view_bottiglie_model.appendRow(item)
         self.list_view_bottiglie.setModel(self.list_view_bottiglie_model)
 
-    def update_ui_cocktail(self):
         self.list_view_cocktail_model = QStandardItemModel(self.list_view_cocktail)
         for cocktail in self.controller.get_lista_cocktail():
             item = QStandardItem()
