@@ -5,17 +5,17 @@ from Magazzino.Prodotto import Prodotto
 
 
 class Cocktail(Prodotto):
-    def __init__(self, nome, prezzo):
-        super(Cocktail, self).__init__(nome, prezzo)
+    def __init__(self):
+        super(Cocktail, self).__init__()
 
     def inserisci_cocktail(self, nome, prezzo):
         self.nome = nome
         self.prezzo = prezzo
-        cocktail = []
+        new_cocktail = dict()
         if os.path.isfile('Dati/lista_cocktail_salvati.pickle'):
             with open('Dati/lista_cocktail_salvati.pickle', 'rb') as f:
                 cocktail = pickle.load(f)
-        cocktail.append(self)  # ho fatto una lista [] perché mi dava l'errore must be integer e allora ho messo append
+        new_cocktail[nome] = self  # ho fatto una lista [] perché mi dava l'errore must be integer e allora ho messo append
         with open('Dati/lista_cocktail_salvati.pickle', 'wb') as f:
             pickle.dump(cocktail, f, pickle.HIGHEST_PROTOCOL)
 

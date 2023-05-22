@@ -57,13 +57,3 @@ class GestoreEventi:
         del self
 
 
-    def RicercaEventoPerNome(self, nome):
-        if os.path.isfile('Dati/lista_eventi.pickle'):
-            with open('Dati/lista_eventi.pickle', 'rb') as f:
-                eventi = dict(pickle.load(f))
-                for eventi in eventi.values():
-                    if eventi.nome == nome:
-                        return eventi
-                return None
-        else:
-            return None
