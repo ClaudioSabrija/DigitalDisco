@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPixmap, QIcon, QFont
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QGridLayout
+from PyQt5.QtGui import QIcon, QFont
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QGridLayout, QHBoxLayout, QPushButton
 
 from Gestione.GestoreBottiglie import GestoreBottiglie
 
@@ -13,6 +13,7 @@ class VistaVisualizzaBottiglia(QWidget):
 
         self.grid_layout = QGridLayout()
         v_layout = QVBoxLayout()
+        button_layout = QHBoxLayout()
 
         font = QFont('Arial Nova Light')
         font_bold = QFont()
@@ -39,8 +40,6 @@ class VistaVisualizzaBottiglia(QWidget):
         label_disponibilita.setFont(font)
         v_layout.addWidget(label_disponibilita)
 
-        #v_layout.addItem(QSpacerItem(2, 2, QSizePolicy.Minimum, QSizePolicy.Expanding))
-
         label_didascalia1 = QLabel("Posizione:")
         label_didascalia1.setFont(font)
         font_bold.setBold(True)
@@ -63,13 +62,21 @@ class VistaVisualizzaBottiglia(QWidget):
         label_piano.setFont(font)
         v_layout.addWidget(label_piano)
 
-        pixmap = QPixmap('Dati/DigitalDisco/{}.png'.format(self.controller.get_nome_bottiglia()))
-        pixmap5 = pixmap.scaled(100, 30)
-        pixmap.size()
-        label_im = QLabel()
-        label_im.setPixmap(pixmap5)
-        label_im.setAlignment(Qt.AlignCenter)
-        v_layout.addWidget(label_im)
+        button_modifica_bottiglia = QPushButton("MODIFICA")
+        button_modifica_bottiglia.setFixedSize(90, 30)
+        button_modifica_bottiglia.setFont(QFont("Arial", 10))
+        button_modifica_bottiglia.clicked.connect(self.edit_bottiglia)
+
+        button_elimina_bottiglia = QPushButton("ELIMINA")
+        button_elimina_bottiglia.setFixedSize(90, 30)
+        button_elimina_bottiglia.setFont(QFont("Arial", 10))
+        button_elimina_bottiglia.clicked.connect(self.delete_bottiglia)
+
+
+        button_layout.addWidget(button_modifica_bottiglia)
+        button_layout.addWidget(button_elimina_bottiglia)
+
+        v_layout.addLayout(button_layout)
 
         v_layout.addLayout(self.grid_layout)
         self.setLayout(v_layout)
@@ -77,6 +84,12 @@ class VistaVisualizzaBottiglia(QWidget):
         self.setWindowTitle("Bottiglia: " + self.controller.get_nome_bottiglia())
         self.setWindowIcon(QIcon('Dati/DigitalDisco.png'))
 
-        self.setMaximumSize(800, 700)
-        self.resize(500, 600)
+        self.setMaximumSize(400, 600)
+        self.resize(400, 600)
         self.move(0, 0)
+
+    def edit_bottiglia(self):
+        pass
+
+    def delete_bottiglia(self):
+        pass
