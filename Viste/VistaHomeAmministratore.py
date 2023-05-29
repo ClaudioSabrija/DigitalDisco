@@ -40,7 +40,7 @@ class VistaHomeAmministratore(QWidget):
         self.setLayout(grid_layout)
         self.setMaximumSize(1000, 650)
         self.resize(910, 650)
-        self.move(0, 0)
+        self.move(400, 150)
 
         # Funzione che viene richiamata per creare un bottone.
 

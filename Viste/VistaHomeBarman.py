@@ -29,9 +29,9 @@ class VistaHomeBarman(QWidget):
         self.setStyleSheet("background-color: #484848;")
 
         self.setLayout(grid_layout)
-        self.setMaximumSize(900, 250)
-        self.resize(910, 650)
-        self.move(0, 0)
+        self.setMaximumSize(910, 150)
+        self.resize(910, 150)
+        self.move(500, 350)
 
         # Funzione che viene richiamata per creare un bottone.
 

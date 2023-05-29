@@ -34,7 +34,7 @@ class VistaLogin(QWidget):
         self.setFont(QFont('Arial Nova Light', 14))
         self.setWindowIcon(QIcon('Dati/DigitalDisco.png'))
         self.resize(650, 170)
-        self.move(50, 100)
+        self.move(600, 350)
 
 
 
