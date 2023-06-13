@@ -4,7 +4,7 @@ import os
 import pickle
 
 
-from PyQt5.QtCore import Qt, QDate
+from PyQt5.QtCore import Qt, QDate, QStringListModel
 from PyQt5.QtGui import QFont, QIcon, QPixmap, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QVBoxLayout, QSizePolicy, \
     QHBoxLayout, QCalendarWidget, QListView
@@ -12,12 +12,12 @@ from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QLineEdit, QPushButton
 from Evento.Evento import Evento
 from Viste.VistaInserisciEvento import VistaInserisciEvento
 from Viste.VistaVisualizzaEvento import VistaVisualizzaEvento
-
+from Gestione.GestoreEventi import GestoreEventi
 
 class VistaCalendarioEventi(QWidget):
     def __init__(self, parent = None):
         super(VistaCalendarioEventi, self).__init__(parent)
-
+        self.controller = GestoreEventi()
         self.eventi = []  # lista eventi salvati
 
         font = QFont('Arial Nova Light', 15)
@@ -127,13 +127,18 @@ class VistaCalendarioEventi(QWidget):
 
     def show_vista_visualizza_evento(self):
         try:
-            selected = self.list_view_eventi.selectedIndexes()[0].data()
-            nome = selected.strip().split(" ")[0]
-            evento = Evento().RicercaEventoPerNome(nome)
+            indice_selezionato = self.list_view_eventi.currentIndex()
+            nome_oggetto_selezionato = self.list_view_eventi.data(indice_selezionato)
+            evento = GestoreEventi.RicercaEventoPerNome(nome_oggetto_selezionato)
             self.vista_evento = VistaVisualizzaEvento(evento, elimina_callback=self.update_ui)
             self.vista_evento.show()
         except IndexError:
             print("INDEX ERROR")
             return
 
+        if self.list_view_bottiglie.selectedIndexes():
+            selected = self.list_view_eventi.selectedIndexes()[0].row()
+            evento_selezionato = self.controller.get_evento_by_index(selected)
+            self.vista_visualizza_evento = VistaVisualizzaEvento(evento_selezionato)
+            self.vista_visualizza_evento.show()
 

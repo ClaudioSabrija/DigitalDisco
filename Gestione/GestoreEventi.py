@@ -5,7 +5,8 @@ from Servizio.Servizio import Servizio
 from Evento.Evento import Evento
 
 class GestoreEventi:
-    def __init__(self):
+    def __init__(self, Evento):
+        self.model = Evento()
         self.lista_eventi = []
 
         if os.path.isfile('Dati/lista_eventi.pickle'):
@@ -14,6 +15,49 @@ class GestoreEventi:
 
     def get_lista_eventi(self):
         return self.lista_eventi
+
+        # Metodi get degli attributi
+    def get_nome(self):
+        return self.model.nome
+
+    def get_data(self):
+        return self.model.data
+
+    def get_tipo(self):
+        return self.model.tipo
+
+    def get_prezzo_ingresso(self):
+        return self.model.prezzo_ingresso
+
+    def get_prezzo_tavolo(self):
+        return self.model.prezzo_tavolo
+
+    def get_prezzo_prive(self):
+        return self.model.prezzo_prive
+
+    def get_disponibilita_ingresso(self):
+        return self.model.disponibilita_ingressi
+
+    def get_disponibilita_tavolo(self):
+        return self.model.disponibilita_tavoli
+
+    def get_disponibilita_prive(self):
+        return self.model.disponibilita_prive
+
+    def get_evento_by_index_(self, index):
+        return self.lista_eventi[index]
+
+    def RicercaEventoPerNome(self, nome):
+        if os.path.isfile('Dati/lista_eventi.pickle'):
+            with open('Dati/lista_eventi.pickle', 'rb') as f:
+                eventi = dict(pickle.load(f))
+                for eventi in eventi.values():
+                    if eventi.nome == nome:
+                        return eventi
+                return None
+        else:
+            return None
+
 
     def inserisci_evento(self, nome, data, tipo, prezzo_ingresso, prezzo_tavolo, prezzo_prive):
         self.nome = nome
@@ -55,5 +99,4 @@ class GestoreEventi:
         self.disponibilita_prive = ""
         self.servizi = {}
         del self
-
 

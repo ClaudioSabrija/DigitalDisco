@@ -11,6 +11,7 @@ from Gestione.GestoreEventi import GestoreEventi
 class VistaVisualizzaEvento(QWidget):
     def __init__(self, evento, elimina_callback, parent=None):
         super(VistaVisualizzaEvento, self).__init__(parent)
+        self.controller = GestoreEventi(evento)
         self.elimina_callback = elimina_callback
 
         #grid_layout = QGridLayout()
