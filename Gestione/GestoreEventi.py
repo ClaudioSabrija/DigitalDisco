@@ -5,7 +5,7 @@ from Servizio.Servizio import Servizio
 from Evento.Evento import Evento
 
 class GestoreEventi:
-    def __init__(self, Evento):
+    def __init__(self):
         self.model = Evento()
         self.lista_eventi = []
 

@@ -18,7 +18,6 @@ class VistaCalendarioEventi(QWidget):
     def __init__(self, parent = None):
         super(VistaCalendarioEventi, self).__init__(parent)
         self.controller = GestoreEventi()
-        self.eventi = []  # lista eventi salvati
 
         font = QFont('Arial Nova Light', 15)
 
@@ -107,13 +106,13 @@ class VistaCalendarioEventi(QWidget):
         if os.path.isfile('Dati/lista_eventi.pickle'):
             with open('Dati/lista_eventi.pickle', 'rb') as f:
                 current = dict(pickle.load(f))
-                self.eventi.extend(current.values())
+                self.controller.lista_eventi.extend(current.values())
 
     # Funzione che popola le liste degli eventi
     def update_ui(self):
         self.load_eventi()
         list_view_model = QStandardItemModel(self.list_view_eventi)
-        for eventi in self.eventi:
+        for eventi in self.controller.lista_eventi:
             item = QStandardItem()
             nome = f"{eventi.nome}"  # il type ci restituisce il nome della classe
             item.setText(nome)
@@ -126,19 +125,11 @@ class VistaCalendarioEventi(QWidget):
         self.list_view_eventi.setModel(list_view_model)
 
     def show_vista_visualizza_evento(self):
-        try:
-            indice_selezionato = self.list_view_eventi.currentIndex()
-            nome_oggetto_selezionato = self.list_view_eventi.data(indice_selezionato)
+        if self.list_view_eventi.selectedIndexes():
+            indice_selezionato = self.list_view_eventi.selectedIndexes()[0].row()
+            evento_selezionato = self.controller.get_evento_by_index_(indice_selezionato)
+            nome_oggetto_selezionato = evento_selezionato.nome
             evento = GestoreEventi.RicercaEventoPerNome(nome_oggetto_selezionato)
             self.vista_evento = VistaVisualizzaEvento(evento, elimina_callback=self.update_ui)
             self.vista_evento.show()
-        except IndexError:
-            print("INDEX ERROR")
-            return
-
-        if self.list_view_bottiglie.selectedIndexes():
-            selected = self.list_view_eventi.selectedIndexes()[0].row()
-            evento_selezionato = self.controller.get_evento_by_index(selected)
-            self.vista_visualizza_evento = VistaVisualizzaEvento(evento_selezionato)
-            self.vista_visualizza_evento.show()
 
