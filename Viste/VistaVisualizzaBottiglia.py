@@ -30,7 +30,7 @@ class VistaVisualizzaBottiglia(QWidget):
         label_nome.setFont(font)
         v_layout.addWidget(label_nome)
 
-        label_prezzo = QLabel("Prezzo: {} ".format(self.controller.get_prezzo_bottiglia()))
+        label_prezzo = QLabel("Prezzo: {}€ ".format(self.controller.get_prezzo_bottiglia()))
         font.setPointSize(15)
         label_prezzo.setFont(font)
         v_layout.addWidget(label_prezzo)
