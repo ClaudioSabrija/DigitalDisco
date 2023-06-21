@@ -19,8 +19,8 @@ class Magazzino:
         else:
             with open('Dati/lista_bottiglie.json') as f:
                 bottiglie_iniziali = json.load(f)
-            for bottiglie in bottiglie_iniziali:
-                self.aggiungi_bottiglia(Bottiglia(bottiglie["nome"], bottiglie["prezzo"], bottiglie["posizione"]))
+            for bottiglia in bottiglie_iniziali:
+                self.aggiungi_bottiglia(Bottiglia(bottiglia["nome"], bottiglia["prezzo"], bottiglia["posizione"]))
 
         if os.path.isfile('Dati/lista_cocktail_salvati.pickle'):
             with open('Dati/lista_cocktail_salvati.pickle', 'rb') as f:
@@ -31,7 +31,7 @@ class Magazzino:
             for cocktail in cocktail_iniziali:
                 self.aggiungi_cocktail(Cocktail(cocktail["nome"], cocktail["prezzo"]))
 
-        #self.magazzino = self.bottiglie + self.cocktail
+        self.magazzino = self.bottiglie + self.cocktail
 
     # Funzione che restituisce la lista delle bottiglie
     def get_lista_bottiglie(self):
@@ -46,7 +46,7 @@ class Magazzino:
         return self.magazzino
 
     def aggiungi_bottiglia(self, bottiglia):
-        return self.bottiglie.append(bottiglia)
+        self.bottiglie.append(bottiglia)
 
     def aggiungi_cocktail(self, cocktail):
         return self.cocktail.append(cocktail)

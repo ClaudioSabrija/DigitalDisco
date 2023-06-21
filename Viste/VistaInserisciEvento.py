@@ -11,6 +11,7 @@ class VistaInserisciEvento(QWidget):
     def __init__(self, callback, parent=None):
         super(VistaInserisciEvento, self).__init__(parent)
         self.callback = callback
+        self.evento = GestoreEventi()
 
         # Creazione dei widget
         label_top = QLabel("Inserisci i dati dell'evento:", self)
@@ -97,8 +98,7 @@ class VistaInserisciEvento(QWidget):
             QMessageBox.warning(self, "Errore", "La data inserita è precedente alla data odierna.")
             return
 
-        evento = GestoreEventi() #da controllare se è oggetto Evento o GestoreEventi
-        evento.inserisci_evento(nome, tipo, data, ingresso, tavolo, prive)
+        self.evento.inserisci_evento(nome, tipo, data, ingresso, tavolo, prive)
 
         self.callback()
         self.close()

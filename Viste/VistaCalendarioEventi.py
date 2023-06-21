@@ -105,8 +105,7 @@ class VistaCalendarioEventi(QWidget):
     def load_eventi(self):
         if os.path.isfile('Dati/lista_eventi.pickle'):
             with open('Dati/lista_eventi.pickle', 'rb') as f:
-                current = dict(pickle.load(f))
-                self.controller.lista_eventi.extend(current.values())
+                self.controller.lista_eventi = pickle.load(f)
 
     # Funzione che popola le liste degli eventi
     def update_ui(self):
@@ -127,9 +126,8 @@ class VistaCalendarioEventi(QWidget):
     def show_vista_visualizza_evento(self):
         if self.list_view_eventi.selectedIndexes():
             indice_selezionato = self.list_view_eventi.selectedIndexes()[0].row()
-            evento_selezionato = self.controller.get_evento_by_index_(indice_selezionato)
-            nome_oggetto_selezionato = evento_selezionato.nome
-            evento = GestoreEventi.RicercaEventoPerNome(nome_oggetto_selezionato)
-            self.vista_evento = VistaVisualizzaEvento(evento, elimina_callback=self.update_ui)
+            nome_evento_selezionato = self.controller.get_evento_by_index_(indice_selezionato)
+            evento_selezionato = self.controller.RicercaEventoPerNome(nome_evento_selezionato)
+            self.vista_evento = VistaVisualizzaEvento(evento_selezionato, elimina_callback=self.update_ui)
             self.vista_evento.show()
 

@@ -45,18 +45,17 @@ class GestoreEventi:
         return self.model.disponibilita_prive
 
     def get_evento_by_index_(self, index):
-        return self.lista_eventi[index]
+        evento_nome = self.lista_eventi[index]
+        return self.RicercaEventoPerNome(evento_nome)
 
     def RicercaEventoPerNome(self, nome):
         if os.path.isfile('Dati/lista_eventi.pickle'):
             with open('Dati/lista_eventi.pickle', 'rb') as f:
-                eventi = dict(pickle.load(f))
-                for eventi in eventi.values():
-                    if eventi.nome == nome:
-                        return eventi
-                return None
-        else:
-            return None
+                eventi = pickle.load(f)
+                for evento in eventi.values():
+                    if evento.nome == nome:
+                        return evento
+        return None
 
 
     def inserisci_evento(self, nome, data, tipo, prezzo_ingresso, prezzo_tavolo, prezzo_prive):
@@ -74,13 +73,10 @@ class GestoreEventi:
             "Tavolo": Servizio("Tavolo", prezzo_tavolo, self.disponibilita_tavoli),
             "Prive": Servizio("Prive", prezzo_prive, self.disponibilita_prive)
         }
-        eventi = {}  # dizionario di eventi
-        if os.path.isfile('Dati/lista_eventi.pickle'):
-            with open('Dati/lista_eventi.pickle', 'rb') as f:
-                eventi = pickle.load(f)
-        eventi[nome] = self  # carica l'evento con quel nome nel dizionario
+        self.lista_eventi.append(self)  # Aggiungi l'evento alla lista degli eventi
+
         with open('Dati/lista_eventi.pickle', 'wb') as f:
-            pickle.dump(eventi, f, pickle.HIGHEST_PROTOCOL)
+            pickle.dump(self.lista_eventi, f, pickle.HIGHEST_PROTOCOL)
 
     def rimuovi_evento(self):
         if os.path.isfile('Dati/lista_eventi.pickle'):
