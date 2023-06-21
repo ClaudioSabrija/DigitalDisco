@@ -52,7 +52,7 @@ class GestoreEventi:
         if os.path.isfile('Dati/lista_eventi.pickle'):
             with open('Dati/lista_eventi.pickle', 'rb') as f:
                 eventi = pickle.load(f)
-                for evento in eventi.values():
+                for evento in eventi:
                     if evento.nome == nome:
                         return evento
         return None

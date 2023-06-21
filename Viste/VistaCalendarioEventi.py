@@ -89,11 +89,6 @@ class VistaCalendarioEventi(QWidget):
         self.vista_inserisci_evento = VistaInserisciEvento(callback=self.update_ui)
         self.vista_inserisci_evento.show()
 
-    # Funzione che mostra la vista di un evento già esistente.
-  #  def show_vista_visualizza_evento(self):
-   #     self.show_vista_visualizza_evento = VistaVisualizzaEvento(elimina_callback=self.update_ui)
-    #    self.show_vista_visualizza_evento.show()
-
     # Funzione che restituisce la data selezionata.
     def data_selezionata(self):
         dataselezionata = self.calendario_eventi.selectedDate()

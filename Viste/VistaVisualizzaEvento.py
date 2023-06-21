@@ -11,10 +11,9 @@ from Gestione.GestoreEventi import GestoreEventi
 class VistaVisualizzaEvento(QWidget):
     def __init__(self, evento, elimina_callback, parent=None):
         super(VistaVisualizzaEvento, self).__init__(parent)
-        self.controller = GestoreEventi(evento)
+        self.controller = GestoreEventi()
         self.elimina_callback = elimina_callback
 
-        #grid_layout = QGridLayout()
 
         info_evento_layout = QHBoxLayout()
         scelte_evento_layout = QVBoxLayout()
@@ -23,12 +22,12 @@ class VistaVisualizzaEvento(QWidget):
         #font = QFont('Arial Nova Light', 14)
 
 
-        nome = evento.get_nome()
-        tipo = evento.get_tipo()
-        data = evento.get_tipo()
-        prezzo_ingresso = evento.get_tipo()
-        prezzo_tavolo = evento.get_tipo()
-        prezzo_prive = evento.get_tipo()
+        nome = self.controller.get_nome()
+        tipo = self.controller.get_tipo()
+        data = self.controller.get_data()
+        prezzo_ingresso = self.controller.get_prezzo_ingresso()
+        prezzo_tavolo = self.controller.get_prezzo_tavolo()
+        prezzo_prive = self.controller.get_prezzo_prive()
 
         # Creazione dei widget
         label_nome = QLabel(f"NOME: {nome}", self)
@@ -48,6 +47,16 @@ class VistaVisualizzaEvento(QWidget):
         dati_evento_layout.addWidget(label_tavolo)
         dati_evento_layout.addWidget(label_prive)
 
+        # Creazione del layout principale
+        layout_principale = QHBoxLayout()
+        layout_principale.addLayout(info_evento_layout)
+        layout_principale.addLayout(dati_evento_layout)
+        layout_principale.addLayout(scelte_evento_layout)
+
+        # Impostazione del layout principale per il widget
+        self.setLayout(layout_principale)
+
+
         button_modifica_evento = QPushButton("MODIFICA EVENTO", self)
         button_modifica_evento.clicked.connect(self.go_modifica_evento)
         scelte_evento_layout.addWidget(button_modifica_evento)
@@ -64,9 +73,6 @@ class VistaVisualizzaEvento(QWidget):
         button_ordini.clicked.connect(self.go_ordini)
         scelte_evento_layout.addWidget(button_ordini)
 
-        grid_layout.addLayout(info_evento_layout)
-        grid_layout.addLayout(scelte_evento_layout)
-        grid_layout.addLayout(dati_evento_layout)
 
         self.setWindowIcon(QIcon('Dati/DigitalDisco.png'))
         self.setWindowTitle('Visualizza Evento')
