@@ -45,9 +45,9 @@ with open("Dati/posizioni.json", "w") as file:
     posizioni_json = []
     for posizione in posizioni:
         posizione_json = {
-            "corridoio": posizione.corridoio,
-            "scaffale": posizione.scaffale,
-            "piano": posizione.piano,
+            "corridoio": posizione.get_corridoio(),
+            "scaffale": posizione.get_scaffale(),
+            "piano": posizione.get_piano(),
             "disponibile": True
         }
         posizioni_json.append(posizione_json)
