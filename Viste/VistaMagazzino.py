@@ -113,7 +113,24 @@ class VistaMagazzino(QWidget):
         self.vista_inserisci_cocktail.show()
 
     def ricerca_prodotto(self):
-        pass
+        nome_prodotto = self.label_ricerca.text() # il nome viene preso da quello che scrivo nella Label
+
+        for index in range(self.list_view_bottiglie_model.rowCount()):  # scorre con l'iteratore index nella list_view delle bottiglie
+            item = self.list_view_bottiglie_model.item(index)  # viene ottenuto l'elemento corrente del modello
+            if item.text() == nome_prodotto:  # confronta l'elemento con il nome da noi cercato
+                self.list_view_bottiglie.setCurrentIndex(item.index())  # viene ottenuto l'elemento corrente del modello se si trova una corrispondenza
+                self.show_selected_bottiglia()
+                return
+
+        for index in range(self.list_view_cocktail_model.rowCount()):
+            item = self.list_view_cocktail_model.item(index)
+            if item.text() == nome_prodotto:
+                self.list_view_cocktail.setCurrentIndex(item.index())
+                self.show_selected_cocktail()
+                return
+
+        # Se il prodotto non viene trovato, mostra un messaggio di avviso
+        QMessageBox.warning(self, "Prodotto non trovato", "Il prodotto cercato non è stato trovato.")
 
     def update_ui(self):
         self.list_view_bottiglie_model = QStandardItemModel(self.list_view_bottiglie)

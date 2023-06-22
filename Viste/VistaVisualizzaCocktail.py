@@ -44,7 +44,7 @@ class VistaVisualizzaCocktail(QWidget):
         v_layout.addLayout(self.grid_layout)
         self.setLayout(v_layout)
         self.setFont(QFont('Arial Nova Light', 14))
-        self.setWindowTitle("Bottiglia: " + self.controller.get_nome_cocktail())
+        self.setWindowTitle("Cocktail: " + self.controller.get_nome_cocktail())
         self.setWindowIcon(QIcon('Dati/DigitalDisco.png'))
 
         self.setMaximumSize(300, 400)
