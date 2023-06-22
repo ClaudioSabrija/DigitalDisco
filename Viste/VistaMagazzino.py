@@ -109,7 +109,7 @@ class VistaMagazzino(QWidget):
 
     # Funzione che mostra la vista che permette l'inserimento di un nuovo prodotto.
     def inserisci_cocktail(self):
-        self.vista_inserisci_cocktail = VistaInserisciCocktail(callback=self.update_ui)
+        self.vista_inserisci_cocktail = VistaInserisciCocktail(callback=self.controller.aggiungi_cocktail)
         self.vista_inserisci_cocktail.show()
 
     def ricerca_prodotto(self):

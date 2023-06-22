@@ -3,12 +3,14 @@ from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout
      QMessageBox
 
 from Magazzino.Bottiglia import Bottiglia
+from Magazzino.Magazzino import Magazzino
 
 
 class VistaInserisciBottiglia(QWidget):
     def __init__(self, callback, parent=None):
         super(VistaInserisciBottiglia, self).__init__(parent)
         self.callback = callback
+        self.magazzino = Magazzino()
 
         # Creazione dei widget
         label_top = QLabel("Inserisci i dati del prodotto:", self)
@@ -83,7 +85,7 @@ class VistaInserisciBottiglia(QWidget):
             return
 
         bottiglia = Bottiglia(nome, prezzo, disponibilita)
-        bottiglia.inserisci_bottiglia(nome, prezzo, disponibilita, corridoio, scaffale, piano)
+        self.magazzino.aggiungi_bottiglia(bottiglia)
 
-        self.callback()
+        self.callback(bottiglia)
         self.close()

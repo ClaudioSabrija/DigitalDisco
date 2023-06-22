@@ -3,12 +3,14 @@ from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout
     QComboBox, QDateTimeEdit, QMessageBox
 
 from Magazzino.Cocktail import Cocktail
+from Magazzino.Magazzino import Magazzino
 
 
 class VistaInserisciCocktail(QWidget):
     def __init__(self, callback, parent=None):
         super(VistaInserisciCocktail, self).__init__(parent)
         self.callback = callback
+        self.magazzino = Magazzino()
         # Creazione dei widget
         label_top = QLabel("Inserisci i dati del prodotto:", self)
         label_nome = QLabel("NOME:", self)
@@ -52,7 +54,7 @@ class VistaInserisciCocktail(QWidget):
             return
 
         cocktail = Cocktail(nome, prezzo)
-        cocktail.inserisci_cocktail(nome, prezzo)
+        self.magazzino.aggiungi_cocktail(cocktail)
 
-        self.callback()
+        self.callback(cocktail)
         self.close()
