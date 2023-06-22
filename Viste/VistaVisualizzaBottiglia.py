@@ -3,6 +3,7 @@ from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QGridLayout, QHBoxLayout, QPushButton
 
 from Gestione.GestoreBottiglie import GestoreBottiglie
+from Viste.VistaModificaBottiglia import VistaModificaBottiglia
 
 
 class VistaVisualizzaBottiglia(QWidget):

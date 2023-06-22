@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap, QIcon, QFont
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QGridLayout
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QGridLayout, QPushButton, QHBoxLayout
 
 from Gestione.GestoreCocktail import GestoreCocktail
 
@@ -12,6 +12,7 @@ class VistaVisualizzaCocktail(QWidget):
 
         self.grid_layout = QGridLayout()
         v_layout = QVBoxLayout()
+        button_layout = QHBoxLayout()
 
         font = QFont('Arial Nova Light')
         font_bold = QFont()
@@ -33,6 +34,21 @@ class VistaVisualizzaCocktail(QWidget):
         label_prezzo.setFont(font)
         v_layout.addWidget(label_prezzo)
 
+        button_modifica_cocktail = QPushButton("MODIFICA")
+        button_modifica_cocktail.setFixedSize(90, 30)
+        button_modifica_cocktail.setFont(QFont("Arial", 10))
+        button_modifica_cocktail.clicked.connect(self.edit_cocktail)
+
+        button_elimina_bottiglia = QPushButton("ELIMINA")
+        button_elimina_bottiglia.setFixedSize(90, 30)
+        button_elimina_bottiglia.setFont(QFont("Arial", 10))
+        button_elimina_bottiglia.clicked.connect(self.delete_cocktail)
+
+        button_layout.addWidget(button_modifica_cocktail)
+        button_layout.addWidget(button_elimina_bottiglia)
+
+        v_layout.addLayout(button_layout)
+
         pixmap = QPixmap('Dati/DigitalDisco/{}.png'.format(self.controller.get_nome_cocktail()))
         pixmap5 = pixmap.scaled(100, 30)
         pixmap.size()
@@ -50,3 +66,10 @@ class VistaVisualizzaCocktail(QWidget):
         self.setMaximumSize(300, 400)
         self.resize(300, 400)
         self.move(0, 0)
+
+    def edit_cocktail(self):
+        pass
+
+    def delete_cocktail(self):
+        pass
+
