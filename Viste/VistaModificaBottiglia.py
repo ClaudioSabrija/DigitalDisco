@@ -89,9 +89,9 @@ class VistaModificaBottiglia(QWidget):
         self.bottiglia.nome = nome
         self.bottiglia.prezzo = prezzo
         self.bottiglia.disponibilita = disponibilita
-        self.corridoio = corridoio
-        self.scaffale = scaffale
-        self.piano = piano
+        self.bottiglia.corridoio = corridoio
+        self.bottiglia.scaffale = scaffale
+        self.bottiglia.piano = piano
 
         self.callback(self.bottiglia)
         self.close()
