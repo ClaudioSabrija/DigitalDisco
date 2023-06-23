@@ -3,6 +3,12 @@ class GestoreBottiglie():
     def __init__(self, bottiglie):
         self.model = bottiglie
 
+    def get_bottiglia(self):
+        return self.model
+
+    def set_bottiglia(self, bottiglia):
+        self.model = bottiglia
+
     def get_nome_bottiglia(self):
         return self.model.nome
 
