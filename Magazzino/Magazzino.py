@@ -57,6 +57,12 @@ class Magazzino:
     def get_cocktail_by_index(self, index):
         return self.cocktail[index]
 
+    def posizione_occupata(self, corridoio, scaffale, piano):
+        for bottiglia in self.bottiglie:
+            if bottiglia.corridoio == corridoio and bottiglia.scaffale == scaffale and bottiglia.piano == piano:
+                return True
+        return False
+
     # Funzione che salva i file con i dati aggiornati.
     def save_data(self):
         with open('Dati/lista_bottiglie_salvate.pickle', 'wb') as handle:

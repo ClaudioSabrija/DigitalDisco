@@ -85,6 +85,19 @@ class VistaModificaBottiglia(QWidget):
             QMessageBox.warning(self, "Errore", "I campi Prezzo e Disponibilità devono essere numerici.")
             return
 
+        if corridoio not in range(1, 3) or scaffale not in range(1, 21) or piano not in range(1, 6):
+            QMessageBox.critical(self, "Errore", "I valori di corridoio, scaffale e piano devono essere numeri interi "
+                                                 "compresi tra i seguenti intervalli:\n"
+                                                 "Corridoio: 1-2\n"
+                                                 "Scaffale: 1-20\n"
+                                                 "Piano: 1-5")
+            return
+
+        # Controlla la posizione se è disponibile o meno.
+        if self.magazzino.posizione_occupata(corridoio, scaffale, piano):
+            QMessageBox.warning(self, "Errore", "In questa posizione è già situata un'altra bottiglia.")
+            return
+
         # Aggiorna i valori della bottiglia
         self.bottiglia.nome = nome
         self.bottiglia.prezzo = prezzo

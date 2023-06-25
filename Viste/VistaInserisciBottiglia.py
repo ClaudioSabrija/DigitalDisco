@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout
 
 from Magazzino.Bottiglia import Bottiglia
 from Magazzino.Magazzino import Magazzino
+from Magazzino.Posizione import Posizione
 
 
 class VistaInserisciBottiglia(QWidget):
@@ -84,8 +85,23 @@ class VistaInserisciBottiglia(QWidget):
                                                 "Piano) devono essere scritti in numero.")
             return
 
-        bottiglia = Bottiglia(nome, prezzo, disponibilita)
+        if corridoio not in range(1, 3) or scaffale not in range(1, 21) or piano not in range(1, 6):
+            QMessageBox.critical(self, "Errore", "I valori di corridoio, scaffale e piano devono essere numeri interi "
+                                                 "compresi tra i seguenti intervalli:\n"
+                                                 "Corridoio: 1-2\n"
+                                                 "Scaffale: 1-20\n"
+                                                 "Piano: 1-5")
+            return
+
+        # Controlla la posizione se è disponibile o meno.
+        if self.magazzino.posizione_occupata(corridoio, scaffale, piano):
+            QMessageBox.warning(self, "Errore", "In questa posizione è già situata un'altra bottiglia.")
+            return
+
+        bottiglia = Bottiglia(nome, prezzo, disponibilita, corridoio, scaffale, piano)
         self.magazzino.aggiungi_bottiglia(bottiglia)
 
+        posizione = Posizione(corridoio, scaffale, piano)
+        posizione.occupa_posizione(corridoio, scaffale, piano)
         self.callback(bottiglia)
         self.close()

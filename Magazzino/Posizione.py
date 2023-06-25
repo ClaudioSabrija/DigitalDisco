@@ -21,6 +21,22 @@ class Posizione:
     def get_disponibilita(self):
         return self.disponibile
 
+    def occupa_posizione(self, corridoio, scaffale, piano):
+        with open("Dati/posizioni.json", "r") as file:
+            dati = json.load(file)
+
+        for posizione in dati:
+            if (
+                posizione['corridoio'] == corridoio
+                and posizione['scaffale'] == scaffale
+                and posizione['piano'] == piano
+                and posizione['disponibile'] == True
+            ):
+                posizione['disponibile'] = False
+
+        with open("Dati/posizioni.json", "w") as file:
+            json.dump(dati, file)
+
 # Generazione delle 100 Posizioni in una lista chiamata pisizioni che scorre le pisizioni in corridoi scaffali e piani
 # andremo poi ad associare a posizione l'oggetto posizione istanziato con i relativi valori degli attributi associati dal for
 # andiamo a controllare se la posizione non si trova già in lista e la inseriamo
@@ -53,13 +69,4 @@ with open("Dati/posizioni.json", "w") as file:
         posizioni_json.append(posizione_json)
     json.dump(posizioni_json, file)
 
-    def occupa_posizione(corridoio, scaffale, piano):
-        with open("Dati/posizioni.json", "r") as file:
-            dati = json.load(file)
 
-        for posizione in dati:
-            if posizione['corridoio'] == corridoio and posizione['scaffale'] == scaffale and posizione['piano'] == piano and posizione['disponibile'] == True:
-                posizione['disponibile'] = False
-
-        with open("Dati/posizioni.json", "w") as file:
-            json.dump(dati, file)

@@ -97,7 +97,9 @@ class VistaMagazzino(QWidget):
     # Funzione che mostra la vista che permette l'inserimento di un nuovo prodotto.
     def inserisci_bottiglia(self):
         self.vista_inserisci_bottiglia = VistaInserisciBottiglia(callback=self.controller.aggiungi_bottiglia)
+        self.update_ui()
         self.vista_inserisci_bottiglia.show()
+
 
     # Funzione che mostra il prodotto selezionato..
     def show_selected_cocktail(self):
@@ -113,7 +115,7 @@ class VistaMagazzino(QWidget):
         self.vista_inserisci_cocktail.show()
 
     def ricerca_prodotto(self):
-        nome_prodotto = self.label_ricerca.text() # il nome viene preso da quello che scrivo nella Label
+        nome_prodotto = self.label_ricerca.text()  # il nome viene preso da quello che scrivo nella Label
 
         for index in range(self.list_view_bottiglie_model.rowCount()):  # scorre con l'iteratore index nella list_view delle bottiglie
             item = self.list_view_bottiglie_model.item(index)  # viene ottenuto l'elemento corrente del modello

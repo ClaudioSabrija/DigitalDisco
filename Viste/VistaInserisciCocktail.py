@@ -11,6 +11,7 @@ class VistaInserisciCocktail(QWidget):
         super(VistaInserisciCocktail, self).__init__(parent)
         self.callback = callback
         self.magazzino = Magazzino()
+
         # Creazione dei widget
         label_top = QLabel("Inserisci i dati del prodotto:", self)
         label_nome = QLabel("NOME:", self)
