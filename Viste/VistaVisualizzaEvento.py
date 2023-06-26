@@ -99,10 +99,6 @@ class VistaVisualizzaEvento(QWidget):
         self.setWindowIcon(QIcon('Dati/DigitalDisco.png'))
         self.setWindowTitle('Visualizza Evento')
 
-
-    def elimina_evento_click(self, evento_da_eliminare):
-        pass
-
     def go_modifica_evento(self):
         pass
 

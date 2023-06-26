@@ -8,9 +8,10 @@ from Viste.VistaModificaBottiglia import VistaModificaBottiglia
 
 class VistaVisualizzaBottiglia(QWidget):
 
-    def __init__(self, bottiglia, parent=None):
+    def __init__(self, bottiglia, elimina_bottiglie_callback=None, parent=None):
         super(VistaVisualizzaBottiglia, self).__init__(parent)
 
+        self.elimina_bottiglie_callback = elimina_bottiglie_callback
         self.controller = GestoreBottiglie(bottiglia)
 
         self.grid_layout = QGridLayout()
@@ -72,7 +73,7 @@ class VistaVisualizzaBottiglia(QWidget):
         button_elimina_bottiglia = QPushButton("ELIMINA")
         button_elimina_bottiglia.setFixedSize(90, 30)
         button_elimina_bottiglia.setFont(QFont("Arial", 10))
-        button_elimina_bottiglia.clicked.connect(self.delete_bottiglia)
+        button_elimina_bottiglia.clicked.connect(self.elimina_bottiglie_callback)
 
         button_layout.addWidget(button_modifica_bottiglia)
         button_layout.addWidget(button_elimina_bottiglia)
@@ -102,9 +103,6 @@ class VistaVisualizzaBottiglia(QWidget):
     def edit_bottiglia(self):
         self.vista_modifica_bottiglia = VistaModificaBottiglia(self.controller.get_bottiglia(), self.update_bottiglia)
         self.vista_modifica_bottiglia.show()
-
-    def delete_bottiglia(self):
-        pass
 
     def update_bottiglia(self, bottiglia):
         self.controller.set_bottiglia(bottiglia)

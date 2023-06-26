@@ -8,8 +8,10 @@ from Viste.VistaModificaCocktail import VistaModificaCocktail
 
 class VistaVisualizzaCocktail(QWidget):
 
-    def __init__(self, cocktail, parent=None):
+    def __init__(self, cocktail, elimina_cocktail_callback = None, parent=None):
         super(VistaVisualizzaCocktail, self).__init__(parent)
+
+        self.elimina_cocktail_callback = elimina_cocktail_callback
         self.controller = GestoreCocktail(cocktail)
 
         self.grid_layout = QGridLayout()
@@ -44,7 +46,7 @@ class VistaVisualizzaCocktail(QWidget):
         button_elimina_cocktail = QPushButton("ELIMINA")
         button_elimina_cocktail.setFixedSize(90, 30)
         button_elimina_cocktail.setFont(QFont("Arial", 10))
-        button_elimina_cocktail.clicked.connect(self.delete_cocktail)
+        button_elimina_cocktail.clicked.connect(self.elimina_cocktail_callback)
 
         button_layout.addWidget(button_modifica_cocktail)
         button_layout.addWidget(button_elimina_cocktail)
@@ -77,9 +79,6 @@ class VistaVisualizzaCocktail(QWidget):
     def edit_cocktail(self):
         self.vista_modifica_cocktail = VistaModificaCocktail(self.controller.get_cocktail(), self.update_cocktail)
         self.vista_modifica_cocktail.show()
-
-    def delete_cocktail(self):
-        pass
 
     def update_cocktail(self, cocktail):
         self.controller.set_cocktail(cocktail)
