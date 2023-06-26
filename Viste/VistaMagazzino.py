@@ -1,7 +1,7 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont, QIcon, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QVBoxLayout, \
-    QListView, QHBoxLayout
+    QListView, QHBoxLayout, QInputDialog
 
 from Magazzino.Magazzino import Magazzino
 from Viste.VistaInserisciBottiglia import VistaInserisciBottiglia
@@ -15,6 +15,7 @@ class VistaMagazzino(QWidget):
         super(VistaMagazzino, self).__init__(parent)
 
         self.controller = Magazzino()
+        self.bottiglia_selezionata = None
 
         grid_layout = QGridLayout()
         v_layout_bottiglie = QVBoxLayout()
@@ -86,13 +87,34 @@ class VistaMagazzino(QWidget):
     def show_selected_bottiglia(self):
         if self.list_view_bottiglie.selectedIndexes():
             selected = self.list_view_bottiglie.selectedIndexes()[0].row()
-            bottiglia_selezionata = self.controller.get_bottiglia_by_index_(selected)
-            self.vista_visualizza_bottiglia = VistaVisualizzaBottiglia(bottiglia_selezionata)
+            self.bottiglia_selezionata = self.controller.get_bottiglia_by_index_(selected)
+            self.vista_visualizza_bottiglia = VistaVisualizzaBottiglia(self.bottiglia_selezionata)
             self.vista_visualizza_bottiglia.show()
 
     # Funzione che preleva il prodotto selezionato.
     def preleva_selected_bottiglia(self):
-        pass
+        if self.bottiglia_selezionata is None:
+            return
+
+        disponibilita = self.bottiglia_selezionata.get_disponibilta_bottiglia()
+        if disponibilita == 0:
+            QMessageBox.warning(self, "Errore", "La bottiglia selezionata non è disponibile.")
+            return
+
+        # Mostra la finestra di dialogo per chiedere la quantità di bottiglie da prelevare
+        num_bottiglie, ok = QInputDialog.getInt(self, "Preleva bottiglia", "Quantità da prelevare:", min=1,
+                                                max=disponibilita)
+        if ok:
+            if num_bottiglie > disponibilita:
+                QMessageBox.warning(self, "Errore", "La quantità inserita supera la disponibilità della bottiglia.")
+                return
+
+            # Effettua il prelievo delle bottiglie
+            self.bottiglia_selezionata.set_disponibilita_bottiglia(disponibilita - num_bottiglie)
+            QMessageBox.information(self, "Successo", "Bottiglie prelevate con successo.")
+
+            # Aggiorna l'interfaccia utente
+            self.update_ui()
 
     # Funzione che mostra la vista che permette l'inserimento di un nuovo prodotto.
     def inserisci_bottiglia(self):
