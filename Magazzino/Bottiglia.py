@@ -28,8 +28,9 @@ class Bottiglia(Prodotto):
             pickle.dump(bottiglie, f, pickle.HIGHEST_PROTOCOL)
         self.posizione.occupa_posizione(corridoio, scaffale, piano)
 
-    def preleva_bottiglia(self, lista_bottiglie_salvate, nome_prodotto):
-        for bottiglia in lista_bottiglie_salvate:
-            if bottiglia.nome == nome_prodotto:
-                if bottiglia.disponibilita > 0:
-                    bottiglia.disponibilita -= 1
+    # Metodi che servono per il prelievo delle bottiglie
+    def get_disponibilta_bottiglia(self):
+        return self.disponibilita
+
+    def set_disponibilita_bottiglia(self, nuova_disponibilita):
+        self.disponibilita = nuova_disponibilita
