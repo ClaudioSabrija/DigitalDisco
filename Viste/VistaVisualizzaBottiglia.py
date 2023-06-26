@@ -84,8 +84,8 @@ class VistaVisualizzaBottiglia(QWidget):
         self.setWindowTitle("Bottiglia: " + self.controller.get_nome_bottiglia())
         self.setWindowIcon(QIcon('Dati/DigitalDisco.png'))
 
-        self.setMaximumSize(400, 600) #Fisso la dimensione massima della finestra
-        self.resize(400, 600) #Fisso la dimensione iniziale della finestra
+        self.setMaximumSize(400, 600)
+        self.resize(400, 600)
         self.move(0, 0)
 
     def edit_bottiglia(self):
