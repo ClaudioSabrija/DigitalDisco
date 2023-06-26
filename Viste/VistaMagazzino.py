@@ -1,7 +1,7 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont, QIcon, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QVBoxLayout, \
-    QListView, QHBoxLayout
+    QListView, QHBoxLayout, QInputDialog
 
 from Magazzino.Magazzino import Magazzino
 from Viste.VistaInserisciBottiglia import VistaInserisciBottiglia
@@ -86,17 +86,44 @@ class VistaMagazzino(QWidget):
     def show_selected_bottiglia(self):
         if self.list_view_bottiglie.selectedIndexes():
             selected = self.list_view_bottiglie.selectedIndexes()[0].row()
-            bottiglia_selezionata = self.controller.get_bottiglia_by_index_(selected)
-            self.vista_visualizza_bottiglia = VistaVisualizzaBottiglia(bottiglia_selezionata)
+            self.bottiglia_selezionata = self.controller.get_bottiglia_by_index_(selected)
+            self.vista_visualizza_bottiglia = VistaVisualizzaBottiglia(self.bottiglia_selezionata)
             self.vista_visualizza_bottiglia.show()
 
     # Funzione che preleva il prodotto selezionato.
     def preleva_selected_bottiglia(self):
-        pass
+        selected_index = self.list_view_bottiglie.selectedIndexes()
+        if not selected_index:
+            return
+
+        selected_row = selected_index[0].row()
+        self.bottiglia_selezionata = self.controller.get_bottiglia_by_index_(selected_row)
+
+        if self.bottiglia_selezionata:
+            disponibilita = self.bottiglia_selezionata.get_disponibilta_bottiglia()
+            if disponibilita == 0:
+                QMessageBox.warning(self, "Errore", "La bottiglia selezionata non è disponibile.")
+                return
+
+            # Mostra la finestra di dialogo per chiedere la quantità di bottiglie da prelevare
+            num_bottiglie, ok = QInputDialog.getInt(self, "Preleva bottiglia", "Quantità da prelevare:", min=1,
+                                                    max=disponibilita)
+            if ok:
+                if num_bottiglie > disponibilita:
+                    QMessageBox.warning(self, "Errore", "La quantità inserita supera la disponibilità della bottiglia.")
+                    return
+
+                # Effettua il prelievo delle bottiglie
+                self.bottiglia_selezionata.set_disponibilita_bottiglia(disponibilita - num_bottiglie)
+                QMessageBox.information(self, "Successo", "Bottiglie prelevate con successo.")
+
+                # Aggiorna l'interfaccia utente
+                self.update_ui()
 
     # Funzione che mostra la vista che permette l'inserimento di un nuovo prodotto.
     def inserisci_bottiglia(self):
         self.vista_inserisci_bottiglia = VistaInserisciBottiglia(callback=self.controller.aggiungi_bottiglia)
+        self.update_ui()
         self.vista_inserisci_bottiglia.show()
 
     # Funzione che mostra il prodotto selezionato..
@@ -109,11 +136,28 @@ class VistaMagazzino(QWidget):
 
     # Funzione che mostra la vista che permette l'inserimento di un nuovo prodotto.
     def inserisci_cocktail(self):
-        self.vista_inserisci_cocktail = VistaInserisciCocktail(callback=self.update_ui)
+        self.vista_inserisci_cocktail = VistaInserisciCocktail(callback=self.controller.aggiungi_cocktail)
         self.vista_inserisci_cocktail.show()
 
     def ricerca_prodotto(self):
-        pass
+        nome_prodotto = self.label_ricerca.text()  # il nome viene preso da quello che scrivo nella Label
+
+        for index in range(self.list_view_bottiglie_model.rowCount()):  # scorre con l'iteratore index nella list_view delle bottiglie
+            item = self.list_view_bottiglie_model.item(index)  # viene ottenuto l'elemento corrente del modello
+            if item.text() == nome_prodotto:  # confronta l'elemento con il nome da noi cercato
+                self.list_view_bottiglie.setCurrentIndex(item.index())  # viene ottenuto l'elemento corrente del modello se si trova una corrispondenza
+                self.show_selected_bottiglia()
+                return
+
+        for index in range(self.list_view_cocktail_model.rowCount()):
+            item = self.list_view_cocktail_model.item(index)
+            if item.text() == nome_prodotto:
+                self.list_view_cocktail.setCurrentIndex(item.index())
+                self.show_selected_cocktail()
+                return
+
+        # Se il prodotto non viene trovato, mostra un messaggio di avviso
+        QMessageBox.warning(self, "Prodotto non trovato", "Il prodotto cercato non è stato trovato.")
 
     def update_ui(self):
         self.list_view_bottiglie_model = QStandardItemModel(self.list_view_bottiglie)

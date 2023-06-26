@@ -1,25 +1,24 @@
 import pickle
 import os
 from Magazzino.Prodotto import Prodotto
-from Magazzino.Posizione import Posizione, occupa_posizione
+from Magazzino.Posizione import Posizione
 
 
 class Bottiglia(Prodotto):
 
-    def __init__(self, nome, prezzo, disponibilita):
+    def __init__(self, nome, prezzo, disponibilita, corridoio, scaffale, piano):
         super(Bottiglia, self).__init__(nome, prezzo)
         self.disponibilita = disponibilita
-        self.posizione_bottiglia = ''
-        self.corridoio = ""
-        self.scaffale = ""
-        self.piano = ""
+        self.corridoio = corridoio
+        self.scaffale = scaffale
+        self.piano = piano
 
 
     def inserisci_bottiglia(self, nome, prezzo, disponibilita, corridoio, scaffale, piano):
         self.nome = nome
         self.prezzo = prezzo
         self.disponibilita = disponibilita
-        self.posizione_bottiglia = Posizione(corridoio, scaffale, piano)
+        self.posizione = Posizione(corridoio, scaffale, piano)
         bottiglie = []
         if os.path.isfile('Dati/lista_bottiglie_salvate.pickle'):
             with open('Dati/lista_bottiglie_salvate.pickle', 'rb') as f:
@@ -27,10 +26,11 @@ class Bottiglia(Prodotto):
         bottiglie.append(self)
         with open('Dati/lista_bottiglie_salvate.pickle', 'wb') as f:
             pickle.dump(bottiglie, f, pickle.HIGHEST_PROTOCOL)
-        occupa_posizione(corridoio, scaffale, piano)
+        self.posizione.occupa_posizione(corridoio, scaffale, piano)
 
-    def preleva_bottiglia(self, lista_bottiglie_salvate, nome_prodotto):
-        for bottiglia in lista_bottiglie_salvate:
-            if bottiglia.nome == nome_prodotto:
-                if bottiglia.disponibilita > 0:
-                    bottiglia.disponibilita -= 1
+    # Metodi che servono per il prelievo delle bottiglie
+    def get_disponibilta_bottiglia(self):
+        return self.disponibilita
+
+    def set_disponibilita_bottiglia(self, nuova_disponibilita):
+        self.disponibilita = nuova_disponibilita

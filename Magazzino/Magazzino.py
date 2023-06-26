@@ -20,7 +20,7 @@ class Magazzino:
             with open('Dati/lista_bottiglie.json') as f:
                 bottiglie_iniziali = json.load(f)
             for bottiglia in bottiglie_iniziali:
-                self.aggiungi_bottiglia(Bottiglia(bottiglia["nome"], bottiglia["prezzo"], bottiglia["posizione"]))
+                self.aggiungi_bottiglia(Bottiglia(bottiglia["nome"], bottiglia["prezzo"], bottiglia["disponibilita"], bottiglia["corridoio"], bottiglia["scaffale"], bottiglia["piano"]))
 
         if os.path.isfile('Dati/lista_cocktail_salvati.pickle'):
             with open('Dati/lista_cocktail_salvati.pickle', 'rb') as f:
@@ -56,6 +56,12 @@ class Magazzino:
 
     def get_cocktail_by_index(self, index):
         return self.cocktail[index]
+
+    def posizione_occupata(self, corridoio, scaffale, piano):
+        for bottiglia in self.bottiglie:
+            if bottiglia.corridoio == corridoio and bottiglia.scaffale == scaffale and bottiglia.piano == piano:
+                return True
+        return False
 
     # Funzione che salva i file con i dati aggiornati.
     def save_data(self):

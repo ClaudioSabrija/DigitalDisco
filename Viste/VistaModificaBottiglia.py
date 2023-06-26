@@ -1,23 +1,23 @@
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, \
-     QMessageBox
+    QMessageBox
 
-from Magazzino.Bottiglia import Bottiglia
 from Magazzino.Magazzino import Magazzino
-from Magazzino.Posizione import Posizione
 
 
-class VistaInserisciBottiglia(QWidget):
-    def __init__(self, callback, parent=None):
-        super(VistaInserisciBottiglia, self).__init__(parent)
+class VistaModificaBottiglia(QWidget):
+    def __init__(self, bottiglia, callback, parent=None):
+        super(VistaModificaBottiglia, self).__init__(parent)
+
+        self.bottiglia = bottiglia
         self.callback = callback
         self.magazzino = Magazzino()
 
         # Creazione dei widget
-        label_top = QLabel("Inserisci i dati del prodotto:", self)
+        label_top = QLabel("Modifica i dati del prodotto:", self)
         label_nome = QLabel("NOME:", self)
         label_prezzo = QLabel("PREZZO:", self)
-        label_disponibilta = QLabel("DISPONIBILITA':", self)
+        label_disponibilita = QLabel("DISPONIBILITA':", self)
         label_posizione = QLabel("Posizione:", self)
         label_corridio = QLabel("CORRIDOIO: (1-2)", self)
         label_scaffale = QLabel("SCAFFALE: (1-20)", self)
@@ -25,19 +25,26 @@ class VistaInserisciBottiglia(QWidget):
 
         self.line_edit_nome = QLineEdit(self)
         self.line_edit_prezzo = QLineEdit(self)
-        self.line_edit_disponibilta = QLineEdit(self)
+        self.line_edit_disponibilita = QLineEdit(self)
         self.line_edit_corridoio = QLineEdit(self)
         self.line_edit_scaffale = QLineEdit(self)
         self.line_edit_piano = QLineEdit(self)
 
         button_conferma = QPushButton("Conferma", self)
-        button_conferma.clicked.connect(self.add_bottiglia)
+        button_conferma.clicked.connect(self.modifica_bottiglia)
 
         self.setWindowIcon(QIcon('Dati/DigitalDisco.png'))
-        self.setWindowTitle('Inserisci Bottiglia')
-        self.setFixedSize(400, 600)  # Imposta la dimensione fissa della finestra di dialogo
-        label_top.setFixedSize(300, 30)  # Imposta la dimensione fissa della label superiore
-        label_posizione.setFixedSize(300, 30)  # Imposta la dimensione fissa della label: Inserisci i prezzi dei servizi
+        self.setWindowTitle('Modifica Bottiglia')
+        self.setFixedSize(400, 400)
+        label_top.setFixedSize(300, 30)
+
+        # Inizializza i campi con i valori attuali della bottiglia
+        self.line_edit_nome.setText(self.bottiglia.nome)
+        self.line_edit_prezzo.setText(str(self.bottiglia.prezzo))
+        self.line_edit_disponibilita.setText(str(self.bottiglia.disponibilita))
+        self.line_edit_corridoio.setText(str(self.bottiglia.corridoio))
+        self.line_edit_scaffale.setText(str(self.bottiglia.scaffale))
+        self.line_edit_piano.setText(str(self.bottiglia.piano))
 
         # Layout
         layout = QVBoxLayout(self)
@@ -46,8 +53,8 @@ class VistaInserisciBottiglia(QWidget):
         layout.addWidget(self.line_edit_nome)
         layout.addWidget(label_prezzo)
         layout.addWidget(self.line_edit_prezzo)
-        layout.addWidget(label_disponibilta)
-        layout.addWidget(self.line_edit_disponibilta)
+        layout.addWidget(label_disponibilita)
+        layout.addWidget(self.line_edit_disponibilita)
         layout.addWidget(label_posizione)
         layout.addWidget(label_corridio)
         layout.addWidget(self.line_edit_corridoio)
@@ -59,21 +66,18 @@ class VistaInserisciBottiglia(QWidget):
 
         self.setLayout(layout)
 
-    def add_bottiglia(self):
-        # Ottenere i valori inseriti dall'utente
+    def modifica_bottiglia(self):
         nome = self.line_edit_nome.text().strip()
         prezzo = self.line_edit_prezzo.text().strip()
-        disponibilita = self.line_edit_disponibilta.text().strip()
+        disponibilita = self.line_edit_disponibilita.text().strip()
         corridoio = self.line_edit_corridoio.text().strip()
         scaffale = self.line_edit_scaffale.text().strip()
         piano = self.line_edit_piano.text().strip()
 
-    # Controllo dei campi compilati
         if not nome or not prezzo or not disponibilita or not corridoio or not scaffale or not piano:
             QMessageBox.warning(self, "Errore", "Tutti i campi devono essere compilati.")
             return
 
-        # Controllo se i campi d'ingresso, tavolo e prive sono interi
         try:
             prezzo = int(prezzo)
             disponibilita = int(disponibilita)
@@ -81,8 +85,7 @@ class VistaInserisciBottiglia(QWidget):
             scaffale = int(scaffale)
             piano = int(piano)
         except ValueError:
-            QMessageBox.warning(self, "Errore", "I campi di ingresso: (Prezzo, Disponibilità, Corridoio, Scaffale,"
-                                                "Piano) devono essere scritti in numero.")
+            QMessageBox.warning(self, "Errore", "I campi Prezzo e Disponibilità devono essere numerici.")
             return
 
         if corridoio not in range(1, 3) or scaffale not in range(1, 21) or piano not in range(1, 6):
@@ -98,10 +101,13 @@ class VistaInserisciBottiglia(QWidget):
             QMessageBox.warning(self, "Errore", "In questa posizione è già situata un'altra bottiglia.")
             return
 
-        bottiglia = Bottiglia(nome, prezzo, disponibilita, corridoio, scaffale, piano)
-        self.magazzino.aggiungi_bottiglia(bottiglia)
+        # Aggiorna i valori della bottiglia
+        self.bottiglia.nome = nome
+        self.bottiglia.prezzo = prezzo
+        self.bottiglia.disponibilita = disponibilita
+        self.bottiglia.corridoio = corridoio
+        self.bottiglia.scaffale = scaffale
+        self.bottiglia.piano = piano
 
-        posizione = Posizione(corridoio, scaffale, piano)
-        posizione.occupa_posizione(corridoio, scaffale, piano)
-        self.callback(bottiglia)
+        self.callback(self.bottiglia)
         self.close()
