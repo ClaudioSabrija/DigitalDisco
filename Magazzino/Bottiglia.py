@@ -8,9 +8,7 @@ class Bottiglia(Prodotto):
 
     def __init__(self, nome, prezzo, disponibilita, corridoio, scaffale, piano):
         super(Bottiglia, self).__init__(nome, prezzo)
-        self.posizione = Posizione(corridoio, scaffale, piano)
         self.disponibilita = disponibilita
-        self.posizione_bottiglia = ''
         self.corridoio = corridoio
         self.scaffale = scaffale
         self.piano = piano
@@ -20,7 +18,7 @@ class Bottiglia(Prodotto):
         self.nome = nome
         self.prezzo = prezzo
         self.disponibilita = disponibilita
-        self.posizione_bottiglia = Posizione(corridoio, scaffale, piano)
+        self.posizione = Posizione(corridoio, scaffale, piano)
         bottiglie = []
         if os.path.isfile('Dati/lista_bottiglie_salvate.pickle'):
             with open('Dati/lista_bottiglie_salvate.pickle', 'rb') as f:

@@ -20,7 +20,7 @@ class Magazzino:
             with open('Dati/lista_bottiglie.json') as f:
                 bottiglie_iniziali = json.load(f)
             for bottiglia in bottiglie_iniziali:
-                self.aggiungi_bottiglia(Bottiglia(bottiglia["nome"], bottiglia["prezzo"], bottiglia["posizione"]))
+                self.aggiungi_bottiglia(Bottiglia(bottiglia["nome"], bottiglia["prezzo"], bottiglia["disponibilita"], bottiglia["corridoio"], bottiglia["scaffale"], bottiglia["piano"]))
 
         if os.path.isfile('Dati/lista_cocktail_salvati.pickle'):
             with open('Dati/lista_cocktail_salvati.pickle', 'rb') as f:
