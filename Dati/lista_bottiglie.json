@@ -3,44 +3,36 @@
     "nome": "Dom Perignon",
     "prezzo": 550,
     "disponibilita": 20,
-    "posizione": {
-      "corridoio": 1,
-      "scaffale": 1,
-      "piano": 1
-    }
+    "corridoio": 1,
+    "scaffale": 1,
+    "piano": 1
   },
 
   {
     "nome": "Moet & Chandon",
     "prezzo": 350,
     "disponibilita": 20,
-    "posizione": {
-      "corridoio": 1,
-      "scaffale": 1,
-      "piano": 2
-    }
+    "corridoio": 1,
+    "scaffale": 1,
+    "piano": 2
   },
 
   {
     "nome": "Vodka Belvedere",
     "prezzo": 200,
     "disponibilita": 30,
-    "posizione": {
-      "corridoio": 1,
-      "scaffale": 1,
-      "piano": 3
-    }
+    "corridoio": 1,
+    "scaffale": 1,
+    "piano": 3
   },
 
   {
     "nome": "Vodka Absolut",
     "prezzo": 180,
     "disponibilita":30,
-    "posizione": {
-      "corridoio": 1,
-      "scaffale": 1,
-      "piano": 4
-    }
+    "corridoio": 1,
+    "scaffale": 1,
+    "piano": 4
   },
 
 
@@ -48,11 +40,9 @@
     "nome": "Gin Hendrick's",
     "prezzo": 250,
     "disponibilita":30,
-    "posizione":  {
-      "corridoio": 1,
-      "scaffale": 1,
-      "piano": 5
-    }
+    "corridoio": 1,
+    "scaffale": 1,
+    "piano": 5
   },
 
 
@@ -60,21 +50,17 @@
     "nome": "Jack Daniels",
     "prezzo": 100,
     "disponibilita":15,
-    "posizione":  {
-      "corridoio": 1,
-      "scaffale": 2,
-      "piano": 1
-    }
+    "corridoio": 1,
+    "scaffale": 2,
+    "piano": 1
   },
 
    {
     "nome": "Rum Havana",
     "prezzo": 100,
     "disponibilita":15,
-    "posizione":  {
-      "corridoio": 1,
-      "scaffale": 2,
-      "piano": 2
-    }
+     "corridoio": 1,
+     "scaffale": 2,
+     "piano": 2
   }
 ]
