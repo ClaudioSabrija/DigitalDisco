@@ -50,7 +50,7 @@ class Evento:
     def get_disponibilita_prive(self):
         return self.disponibilita_prive
 
-    def __eq__(self, other):
+    def __eq__(self, other): #Metodo che mi potrebbe servire quando vado a confrontare gli eventi in altre parti del programma
         if isinstance(other, Evento):
             return (
                     self.nome == other.nome and

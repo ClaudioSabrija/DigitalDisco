@@ -129,9 +129,7 @@ class VistaCalendarioEventi(QWidget):
             self.vista_evento.show()
 
     def elimina_evento(self):
-        #if self.list_view_eventi.selectedIndexes():
-         #   selected = self.list_view_eventi.selectedIndexes()[0].row()
-          #  evento_selezionato = self.controller.lista_eventi[selected]
+
         if self.list_view_eventi.selectedIndexes():
             selected_index = self.list_view_eventi.selectedIndexes()[0]
             row = selected_index.row()
@@ -150,7 +148,6 @@ class VistaCalendarioEventi(QWidget):
 
             if msg.exec() == QMessageBox.Ok: #La funzione exec() blocca l'esecuzione del codice fino a quando l'utente non chiude la finestra di dialogo. Quando l'utente interagisce con la finestra di dialogo e preme un pulsante, exec() restituisce il valore corrispondente al pulsante premuto.
 
-                #self.controller.rimuovi_evento(evento_selezionato)
                 self.controller.rimuovi_evento(evento_selezionato)
                 self.update_ui()
 
