@@ -4,11 +4,12 @@ import pickle
 from Servizio.Servizio import Servizio
 from Evento.Evento import Evento
 
-class GestoreEventi:
+class GestoreEventi():
     def __init__(self):
-        self.model = Evento()
         self.lista_eventi = []
+        self.lettura_eventi()
 
+    def lettura_eventi(self):
         if os.path.isfile('Dati/lista_eventi.pickle'):
             with open('Dati/lista_eventi.pickle', 'rb') as file:
                 self.lista_eventi = pickle.load(file)
@@ -16,37 +17,11 @@ class GestoreEventi:
     def get_lista_eventi(self):
         return self.lista_eventi
 
-        # Metodi get degli attributi
-    def get_nome(self):
-        return self.model.nome
-
-    def get_data(self):
-        return self.model.data
-
-    def get_tipo(self):
-        return self.model.tipo
-
-    def get_prezzo_ingresso(self):
-        return self.model.prezzo_ingresso
-
-    def get_prezzo_tavolo(self):
-        return self.model.prezzo_tavolo
-
-    def get_prezzo_prive(self):
-        return self.model.prezzo_prive
-
-    def get_disponibilita_ingresso(self):
-        return self.model.disponibilita_ingressi
-
-    def get_disponibilita_tavolo(self):
-        return self.model.disponibilita_tavoli
-
-    def get_disponibilita_prive(self):
-        return self.model.disponibilita_prive
 
     def get_evento_by_index_(self, index):
-        evento_nome = self.lista_eventi[index]
-        return self.RicercaEventoPerNome(evento_nome)
+        evento = self.lista_eventi[index]
+        return Evento(evento.nome, evento.data, evento.tipo, evento.prezzo_ingresso, evento.prezzo_tavolo,
+                      evento.prezzo_prive)
 
     def RicercaEventoPerNome(self, nome):
         if os.path.isfile('Dati/lista_eventi.pickle'):
@@ -78,21 +53,11 @@ class GestoreEventi:
         with open('Dati/lista_eventi.pickle', 'wb') as f:
             pickle.dump(self.lista_eventi, f, pickle.HIGHEST_PROTOCOL)
 
-    def rimuovi_evento(self):
-        if os.path.isfile('Dati/lista_eventi.pickle'):
-            with open('Dati/lista_eventi.pickle', 'wb+') as f:
-                eventi = pickle.load(f)
-                del eventi[self.nome]
-                pickle.dump(eventi, f, pickle.HIGHEST_PROTOCOL)
 
-        self.nome = ""
-        self.data = ""
-        self.prezzo_ingresso = ""
-        self.prezzo_tavolo = ""
-        self.prezzo_prive = ""
-        self.disponibilita_ingressi = ""
-        self.disponibilita_tavoli = ""
-        self.disponibilita_prive = ""
-        self.servizi = {}
-        del self
-
+    def rimuovi_evento(self, evento):
+        for eventi in self.lista_eventi:
+            if eventi.nome == evento.nome and eventi.data == evento.data:
+                self.lista_eventi.remove(eventi)
+                with open('Dati/lista_eventi.pickle', 'wb') as f:
+                    pickle.dump(self.lista_eventi, f, pickle.HIGHEST_PROTOCOL)
+                return

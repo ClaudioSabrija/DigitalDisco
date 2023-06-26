@@ -8,7 +8,7 @@ from Viste.VistaMagazzino import VistaMagazzino
 from Viste.VistaCalendarioEventi import VistaCalendarioEventi
 from Viste.VistaOrdini import VistaOrdini
 from Viste.VistaStatistiche import VistaStatistiche
-
+from Gestione.GestoreEventi import GestoreEventi
 
 class VistaHomeAmministratore(QWidget):
     def __init__(self, parent = None):

@@ -121,8 +121,37 @@ class VistaCalendarioEventi(QWidget):
     def show_vista_visualizza_evento(self):
         if self.list_view_eventi.selectedIndexes():
             indice_selezionato = self.list_view_eventi.selectedIndexes()[0].row()
-            nome_evento_selezionato = self.controller.get_evento_by_index_(indice_selezionato)
-            evento_selezionato = self.controller.RicercaEventoPerNome(nome_evento_selezionato)
-            self.vista_evento = VistaVisualizzaEvento(evento_selezionato, elimina_callback=self.update_ui)
+            evento_selezionato = self.controller.get_evento_by_index_(indice_selezionato)
+
+            def elimina_evento_callback():
+                self.elimina_evento()
+            self.vista_evento = VistaVisualizzaEvento(evento_selezionato, elimina_evento_callback=elimina_evento_callback)
             self.vista_evento.show()
 
+    def elimina_evento(self):
+        #if self.list_view_eventi.selectedIndexes():
+         #   selected = self.list_view_eventi.selectedIndexes()[0].row()
+          #  evento_selezionato = self.controller.lista_eventi[selected]
+        if self.list_view_eventi.selectedIndexes():
+            selected_index = self.list_view_eventi.selectedIndexes()[0]
+            row = selected_index.row()
+            evento_selezionato = self.controller.lista_eventi[row]
+
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Information)
+            msg.setText("Sei sicuro di voler eliminare l'evento?")
+            msg.setWindowIcon(QIcon('Dati/DigitalDisco.png'))
+            msg.setInformativeText("La decisione è irreversibile!")
+            msg.setDetailedText("N.B. Verrà eliminata ogni informazione relativa all'evento.")
+            msg.setWindowTitle("Conferma eliminazione")
+            msg.setWindowIcon(QIcon('Dati/DigitalDisco.png'))
+            msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            #msg.move(100,100)
+
+            if msg.exec() == QMessageBox.Ok: #La funzione exec() blocca l'esecuzione del codice fino a quando l'utente non chiude la finestra di dialogo. Quando l'utente interagisce con la finestra di dialogo e preme un pulsante, exec() restituisce il valore corrispondente al pulsante premuto.
+
+                #self.controller.rimuovi_evento(evento_selezionato)
+                self.controller.rimuovi_evento(evento_selezionato)
+                self.update_ui()
+
+                msg.close()

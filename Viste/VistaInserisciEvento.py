@@ -98,7 +98,7 @@ class VistaInserisciEvento(QWidget):
             QMessageBox.warning(self, "Errore", "La data inserita è precedente alla data odierna.")
             return
 
-        self.evento.inserisci_evento(nome, tipo, data, ingresso, tavolo, prive)
+        self.evento.inserisci_evento(nome, data, tipo, ingresso, tavolo, prive)
 
         self.callback()
         self.close()
