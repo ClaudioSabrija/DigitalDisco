@@ -42,6 +42,9 @@ class VistaModificaBottiglia(QWidget):
         self.line_edit_nome.setText(self.bottiglia.nome)
         self.line_edit_prezzo.setText(str(self.bottiglia.prezzo))
         self.line_edit_disponibilita.setText(str(self.bottiglia.disponibilita))
+        self.line_edit_corridoio.setText(str(self.bottiglia.corridoio))
+        self.line_edit_scaffale.setText(str(self.bottiglia.scaffale))
+        self.line_edit_piano.setText(str(self.bottiglia.piano))
 
         # Layout
         layout = QVBoxLayout(self)
