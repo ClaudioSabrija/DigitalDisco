@@ -3,6 +3,7 @@ import os.path, pickle
 from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QListView, QPushButton, QInputDialog, QLabel, QLineEdit
 
+from Magazzino.Bottiglia import Bottiglia
 from Magazzino.Prodotto import Prodotto
 
 
@@ -42,7 +43,7 @@ class VistaScegliProdotto(QWidget):
         self.layout.addLayout(buttons_layout)
 
         self.setLayout(self.layout)
-        self.resize(350, 550)
+        self.resize(650, 550)
         self.setWindowTitle("Scegli Prodotti")
         self.setWindowIcon(QIcon('Dati/DigitalDisco.png'))
 
@@ -57,7 +58,10 @@ class VistaScegliProdotto(QWidget):
                 self.list_view_model = QStandardItemModel(self.list_view)
                 for prodotto in prodotti:
                     item = QStandardItem()
-                    item.setText(f"{prodotto.get_nome()} - {prodotto.get_prezzo()}\u20AC") #\u20AC è l'unicode dell'Euro
+                    if isinstance(prodotto,Bottiglia): # se è una bottiglia allora mostra la disp. perchè la bottiglia ha essa come attributo
+                        item.setText(f"{prodotto.get_nome()} - {prodotto.get_prezzo()}\u20AC "
+                                     f"- Disponibilità:{prodotto.get_disponibilta()}") #\u20AC è l'unicode dell'Euro
+                    else:   item.setText(f"{prodotto.get_nome()} - {prodotto.get_prezzo()}\u20AC")
                     item.setEditable(False)
                     font = item.font()
                     font.setPointSize(13)
