@@ -6,7 +6,7 @@ from Magazzino.Prodotto import Prodotto
 
 class Ordine():
     def __init__(self):
-        self.lista_prodotti = {}
+        self.lista_prodotti = []
         self.quantita_prodotto = ''
         self.importo_totale = ''
 
@@ -23,4 +23,6 @@ class Ordine():
     def rimuovi_prodotto_ordine(self, nome_prodotto):
         if nome_prodotto in self.lista_prodotti:
             del self.lista_prodotti[nome_prodotto]
+
+
 

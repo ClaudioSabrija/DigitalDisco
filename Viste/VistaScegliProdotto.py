@@ -108,9 +108,12 @@ class VistaScegliProdotto(QWidget):
                     break
 
             if prodotto is not None:
-                # Mostra la finestra di dialogo per l'inserimento della quantità
-                quantita, ok = QInputDialog.getInt(self, "Inserisci Quantità", "Quantità:", min=1,
-                                                   max=prodotto.get_disponibilta_bottiglia())
+                if isinstance(prodotto, Bottiglia):
+                    # Mostra la finestra di dialogo per l'inserimento della quantità
+                    quantita, ok = QInputDialog.getInt(self, "Inserisci Quantità", "Quantità:", min=1,
+                                                       max=prodotto.get_disponibilta_bottiglia())
+                else:
+                    quantita, ok = QInputDialog.getInt(self, "Inserisci Quantità", "Quantità:", min=1)
 
                 if ok and quantita:
                     if isinstance(prodotto,Bottiglia):
