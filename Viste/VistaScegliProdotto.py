@@ -9,10 +9,13 @@ from Magazzino.Prodotto import Prodotto
 
 
 class VistaScegliProdotto(QWidget):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, callback, parent=None):
+        super().__init__(parent)
 
-        self.prodotti = []
+        self.callback = callback
+        self.prodotti_selezionati = []
+
+
 
         self.layout = QVBoxLayout()
 
@@ -58,7 +61,7 @@ class VistaScegliProdotto(QWidget):
                 self.list_view_model = QStandardItemModel(self.list_view)
                 for prodotto in prodotti:
                     item = QStandardItem()
-                    if isinstance(prodotto,Bottiglia): # se è una bottiglia allora mostra la disp. perchè la bottiglia ha essa come attributo
+                    if isinstance(prodotto, Bottiglia): # se è una bottiglia allora mostra la disp. perchè la bottiglia ha essa come attributo
                         item.setText(f"{prodotto.get_nome()} - {prodotto.get_prezzo()}\u20AC "
                                      f"- Disponibilità:{prodotto.get_disponibilta()}") #\u20AC è l'unicode dell'Euro
                     else:   item.setText(f"{prodotto.get_nome()} - {prodotto.get_prezzo()}\u20AC")
@@ -68,9 +71,6 @@ class VistaScegliProdotto(QWidget):
                     item.setFont(font)
                     self.list_view_model.appendRow(item)
                 self.list_view.setModel(self.list_view_model)
-
-    def add_prodotto_in_lista(self):
-        pass
 
     def ricerca_prodotti(self):
         if os.path.isfile('Dati/lista_prodotti_salvati.pickle'):
@@ -88,3 +88,54 @@ class VistaScegliProdotto(QWidget):
                 self.list_view.setRowHidden(row, False)         # che ho digitato altrimenti mi dà la lista completa
             else:
                 self.list_view.setRowHidden(row, ricerca_text != "")
+
+    def add_prodotto_in_lista(self):
+        # Ottieni l'elemento selezionato dalla ListView
+        indexes = self.list_view.selectedIndexes()
+        if indexes:
+            selected_index = indexes[0]
+            item = self.list_view.model().itemData(selected_index)
+            prodotto_selezionato = item[0]
+
+            # Ottieni il nome del prodotto selezionato
+            nome_prodotto = prodotto_selezionato.split(' - ')[0]
+
+            # Ottieni il prodotto corrispondente dal tuo elenco di prodotti
+            prodotto = None
+            for p in self.prodotti:
+                if p.get_nome() == nome_prodotto:
+                    prodotto = p
+                    break
+
+            if prodotto is not None:
+                # Mostra la finestra di dialogo per l'inserimento della quantità
+                quantita, ok = QInputDialog.getInt(self, "Inserisci Quantità", "Quantità:", min=1,
+                                                   max=prodotto.get_disponibilta_bottiglia())
+
+                if ok and quantita:
+                    if isinstance(prodotto,Bottiglia):
+                        # Sottrai la quantità selezionata dalla disponibilità del prodotto
+                        prodotto.set_disponibilita_bottiglia(prodotto.get_disponibilta_bottiglia() - quantita)
+
+                    with open('Dati/lista_prodotti_salvati.pickle', 'wb') as f:
+                        pickle.dump(self.prodotti, f)
+
+                if quantita <= 0:
+                    return
+
+                prezzo_totale = prodotto.get_prezzo() * quantita
+
+                prodotti_selezionati = (prodotto, prezzo_totale)
+                self.prodotti_selezionati.append(prodotti_selezionati)
+
+                # Aggiungi il prodotto selezionato e confermato nella ListView della classe VistaNuovoOrdine
+                self.callback()
+                self.close()
+
+    def get_selected_products(self):
+        return self.prodotti_selezionati
+
+    def closeEvent(self, event):
+        with open('Dati/lista_prodotti_salvati.pickle', 'wb') as f:
+            pickle.dump(self.prodotti, f)
+        super().closeEvent(event)

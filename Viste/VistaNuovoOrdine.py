@@ -1,8 +1,6 @@
 from PyQt5.QtGui import QIcon, QStandardItem, QStandardItemModel
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QListView, QPushButton
-
 from Viste.VistaScegliProdotto import VistaScegliProdotto
-from Magazzino.Prodotto import Prodotto
 
 
 class VistaNuovoOrdine(QWidget):
@@ -14,6 +12,7 @@ class VistaNuovoOrdine(QWidget):
         # ListView per i prodotti selezionati
         self.list_view = QListView()
         self.layout.addWidget(self.list_view)
+        self.list_view_model = QStandardItemModel(self.list_view)
 
         # Layout per i bottoni
         buttons_layout = QHBoxLayout()
@@ -36,8 +35,23 @@ class VistaNuovoOrdine(QWidget):
         self.setWindowIcon(QIcon('Dati/DigitalDisco.png'))
 
     def scegli_prodotto(self):
-        self.vista_scegli_prdotto = VistaScegliProdotto()
-        self.vista_scegli_prdotto.show()
+        self.vista_scegli_prodotto = VistaScegliProdotto(callback=self.add_prodotto)
+        self.vista_scegli_prodotto.show()
 
     def add_prodotto(self):
-        pass
+        # Ottieni i prodotti selezionati dall'istanza di VistaScegliProdotto
+        prodotti_selezionati = self.vista_scegli_prodotto.get_selected_products()
+
+        if prodotti_selezionati:
+            for prodotto, prezzo_totale in prodotti_selezionati:
+                # Aggiungi il prodotto al list_view_model
+                item = QStandardItem()
+                item.setText(f"{prodotto.get_nome()} - Prezzo Totale: {prezzo_totale}\u20AC")
+                item.setEditable(False)
+                font = item.font()
+                font.setPointSize(13)
+                item.setFont(font)
+                self.list_view_model.appendRow(item)
+
+            # Imposta il list_view_model sulla list_view
+            self.list_view.setModel(self.list_view_model)
