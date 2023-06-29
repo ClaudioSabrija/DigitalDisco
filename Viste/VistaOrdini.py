@@ -1,9 +1,10 @@
 import pickle, os
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QApplication, QWidget, QHBoxLayout, QVBoxLayout, QLabel, QComboBox, QPushButton, \
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QComboBox, QPushButton, \
     QListWidget, QListWidgetItem
 
 from Gestione.GestoreEventi import GestoreEventi
+from Viste.VistaVisualizzaOrdine import VistaVisualizzaOrdine
 from Viste.VistaNuovoOrdine import VistaNuovoOrdine
 
 
@@ -83,7 +84,8 @@ class VistaOrdini(QWidget):
         pass
 
     def visualizza_ordine(self):
-        pass
+        self.vista_visualizza_ordine = VistaVisualizzaOrdine()
+        self.vista_visualizza_ordine.show()
 
     def aggiorna_list_view(self):
         self.list_view.clear()  # Pulisce la list_view

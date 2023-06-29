@@ -15,8 +15,6 @@ class VistaScegliProdotto(QWidget):
         self.callback = callback
         self.prodotti_selezionati = []
 
-
-
         self.layout = QVBoxLayout()
 
         # Barra di ricerca

@@ -85,7 +85,8 @@ class VistaModificaBottiglia(QWidget):
             scaffale = int(scaffale)
             piano = int(piano)
         except ValueError:
-            QMessageBox.warning(self, "Errore", "I campi Prezzo e Disponibilità devono essere numerici.")
+            QMessageBox.warning(self, "Errore", "I campi di ingresso: (Prezzo, Disponibilità, Corridoio, Scaffale,"
+                                                "Piano) devono essere scritti in numero.")
             return
 
         if corridoio not in range(1, 3) or scaffale not in range(1, 21) or piano not in range(1, 6):
