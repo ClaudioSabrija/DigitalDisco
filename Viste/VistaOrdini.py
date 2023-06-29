@@ -1,10 +1,9 @@
 import pickle, os
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QComboBox, QPushButton, \
-    QListWidget, QListWidgetItem
+    QListWidget, QListWidgetItem, QMessageBox
 
 from Gestione.GestoreEventi import GestoreEventi
-from Viste.VistaVisualizzaOrdine import VistaVisualizzaOrdine
 from Viste.VistaNuovoOrdine import VistaNuovoOrdine
 
 
@@ -43,9 +42,9 @@ class VistaOrdini(QWidget):
         bottoni_layout.addWidget(self.btn_elimina_ordine)
         self.btn_elimina_ordine.clicked.connect(self.elimina_ordine)
 
-        self.btn_visualizza_ordine = QPushButton("VISUALIZZA ORDINE")
-        bottoni_layout.addWidget(self.btn_visualizza_ordine)
-        self.btn_visualizza_ordine.clicked.connect(self.visualizza_ordine)
+        self.btn_stampa_ordine = QPushButton("STAMPA ORDINE")
+        bottoni_layout.addWidget(self.btn_stampa_ordine)
+        self.btn_stampa_ordine.clicked.connect(self.stampa_ordine)
 
         bottoni_layout.setSpacing(0)
 
@@ -83,9 +82,17 @@ class VistaOrdini(QWidget):
     def elimina_ordine(self):
         pass
 
-    def visualizza_ordine(self):
-        self.vista_visualizza_ordine = VistaVisualizzaOrdine()
-        self.vista_visualizza_ordine.show()
+    def stampa_ordine(self):
+        if self.list_view.currentItem() is not None:
+            ordine_selezionato = self.list_view.currentItem().text()
+            nome_finestra = f"{ordine_selezionato}"
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle(nome_finestra)
+            msg_box.setWindowIcon(QIcon('Dati/DigitalDisco.png'))  # Impostazione dell'icona della finestra
+            msg_box.setText(f"L'{ordine_selezionato} è stato stampato correttamente!")
+            msg_box.setIcon(QMessageBox.Information)
+            msg_box.exec_()
+
 
     def aggiorna_list_view(self):
         self.list_view.clear()  # Pulisce la list_view
