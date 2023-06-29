@@ -98,7 +98,8 @@ class VistaModificaBottiglia(QWidget):
             return
 
         # Controlla la posizione se è disponibile o meno.
-        if self.magazzino.posizione_occupata(corridoio, scaffale, piano):
+        if (corridoio != self.bottiglia.corridoio or scaffale != self.bottiglia.scaffale or piano != self.bottiglia.piano) and \
+                self.magazzino.posizione_occupata(corridoio, scaffale, piano):
             QMessageBox.warning(self, "Errore", "In questa posizione è già situata un'altra bottiglia.")
             return
 
