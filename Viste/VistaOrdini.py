@@ -80,7 +80,32 @@ class VistaOrdini(QWidget):
         self.vista_nuovo_ordine.show()
 
     def elimina_ordine(self):
-        pass
+        # Carica il file pickle corrispondente all'evento selezionato.
+        if self.list_view.currentItem() is not None:
+            ordine_selezionato = self.list_view.currentItem().text()
+            self.list_view.takeItem(self.list_view.currentRow())  # Rimuovi l'ordine dalla list_view
+
+        # Leggi gli ordini uno per uno e aggiungili a una nuova lista chiamata "ordini",escludendo l'ordine selezionato.
+            evento_selezionato = self.combo_eventi.currentText()
+            file_pickle = f'Dati/Ordini/ordini_{evento_selezionato}.pickle'
+            if os.path.isfile(file_pickle):
+                with open(file_pickle, 'rb') as file:
+                    ordini = []
+                    while True:
+                        try:
+                            ordine = pickle.load(file)
+                            if isinstance(ordine, str) and ordine != ordine_selezionato:
+                                ordini.append(ordine)
+                            elif isinstance(ordine, QListWidgetItem) and ordine.text() != ordine_selezionato:
+                                ordini.append(ordine.text())
+                        except EOFError:
+                            break
+
+        # Sovrascrivi il file pickle corrispondente con la lista "ordini" aggiornata.
+                with open(file_pickle, 'wb') as file:
+                    for ordine in ordini:
+                        pickle.dump(ordine, file)
+
 
     def stampa_ordine(self):
         if self.list_view.currentItem() is not None:

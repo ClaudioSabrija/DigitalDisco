@@ -114,12 +114,17 @@ class VistaScegliProdotto(QWidget):
                     quantita, ok = QInputDialog.getInt(self, "Inserisci Quantità", "Quantità:", min=1)
 
                 if ok and quantita:
-                    if isinstance(prodotto,Bottiglia):
-                        # Sottrai la quantità selezionata dalla disponibilità del prodotto
-                        prodotto.set_disponibilita_bottiglia(prodotto.get_disponibilta_bottiglia() - quantita)
+                        if isinstance(prodotto,Bottiglia):
+                            # Sottrai la quantità selezionata dalla disponibilità del prodotto
+                            disponibilita_bottiglia = prodotto.get_disponibilta_bottiglia()
+                            if quantita <= disponibilita_bottiglia:
+                                prodotto.set_disponibilita_bottiglia(disponibilita_bottiglia - quantita)
 
-                    with open('Dati/lista_prodotti_salvati.pickle', 'wb') as f:
-                        pickle.dump(self.prodotti, f)
+                        with open('Dati/lista_prodotti_salvati.pickle', 'wb') as f:
+                            pickle.dump(self.prodotti, f)
+
+                        with open('Dati/lista_bottiglie_salvate.pickle', 'wb') as f:
+                            pickle.dump(self.prodotti, f)
 
                 if quantita <= 0:
                     return
@@ -137,6 +142,11 @@ class VistaScegliProdotto(QWidget):
         return self.prodotti_selezionati
 
     def closeEvent(self, event):
+
+        for prodotto, quantita in self.prodotti_selezionati:
+            if isinstance(prodotto, Bottiglia):
+                prodotto.set_disponibilita_bottiglia(prodotto.get_disponibilta_bottiglia() + quantita)
+
         with open('Dati/lista_prodotti_salvati.pickle', 'wb') as f:
             pickle.dump(self.prodotti, f)
         super().closeEvent(event)
