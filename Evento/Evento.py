@@ -58,18 +58,3 @@ class Evento:
     def get_lista_prenotazioni(self):
         return self.lista_prenotazioni
 
-    def __eq__(self, other): #Metodo che mi potrebbe servire quando vado a confrontare gli eventi in altre parti del programma
-        if isinstance(other, Evento):
-            return (
-                    self.nome == other.nome and
-                    self.data == other.data and
-                    self.tipo == other.tipo  and
-                    self.prezzo_ingresso == other.tipo.prezzo_ingresso and
-                    self.prezzo_tavolo == other.prezzo_tavolo and
-                    self.prezzo_prive == other.prezzo_prive and
-                    self.disponibilita_ingressi == other.disponibilita_ingressi and
-                    self.disponibilita_tavoli == other.disponibilita_tavoli and
-                    self.disponibilita_prive == other.disponibilita_prive and
-                    self.servizi == other.servizi
-            )
-        return False
