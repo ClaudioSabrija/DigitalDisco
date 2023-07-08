@@ -1,3 +1,4 @@
+
 class Servizio:
     def __init__(self, nome, prezzo, disponibilita):
         self.nome = nome

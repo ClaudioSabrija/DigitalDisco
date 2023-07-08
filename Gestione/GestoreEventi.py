@@ -8,7 +8,6 @@ class GestoreEventi():
     def __init__(self):
         self.lista_eventi = []
         self.lettura_eventi()
-        self.model = Evento
 
     def lettura_eventi(self):
         if os.path.isfile('Dati/lista_eventi.pickle'):
@@ -18,28 +17,23 @@ class GestoreEventi():
     def get_lista_eventi(self):
         return self.lista_eventi
 
+
     def get_evento_by_index_(self, index):
         evento = self.lista_eventi[index]
         return Evento(evento.nome, evento.data, evento.tipo, evento.prezzo_ingresso, evento.prezzo_tavolo,
                       evento.prezzo_prive)
 
-    def inserisci_evento(self, nome, data, tipo, prezzo_ingresso, prezzo_tavolo, prezzo_prive):
-        self.nome = nome
-        self.data = data
-        self.tipo = tipo
-        self.prezzo_ingresso = prezzo_ingresso
-        self.prezzo_tavolo = prezzo_tavolo
-        self.prezzo_prive = prezzo_prive
-        self.disponibilita_ingressi = 200
-        self.disponibilita_tavoli = 20
-        self.disponibilita_prive = 10
-        self.servizi = {
-            "Ingresso": Servizio("Ingresso", prezzo_ingresso, self.disponibilita_ingressi),
-            "Tavolo": Servizio("Tavolo", prezzo_tavolo, self.disponibilita_tavoli),
-            "Prive": Servizio("Prive", prezzo_prive, self.disponibilita_prive)
-        }
-        self.lista_eventi.append(self)  # Aggiungi l'evento alla lista degli eventi
+    def RicercaEventoPerNome(self, nome):
+        if os.path.isfile('Dati/lista_eventi.pickle'):
+            with open('Dati/lista_eventi.pickle', 'rb') as f:
+                eventi = pickle.load(f)
+                for evento in eventi:
+                    if evento.nome == nome:
+                        return evento
+        return None
 
+    def inserisci_evento(self, evento):
+        self.lista_eventi.append(evento)  # Aggiunge l'evento alla lista degli eventi
         with open('Dati/lista_eventi.pickle', 'wb') as f:
             pickle.dump(self.lista_eventi, f, pickle.HIGHEST_PROTOCOL)
 
@@ -52,5 +46,9 @@ class GestoreEventi():
                     pickle.dump(self.lista_eventi, f, pickle.HIGHEST_PROTOCOL)
                 return
 
-    def set_evento(self, evento):
-        self.model = evento
+    def aggiorna_evento(self, evento, evento_modificato):
+        for i in range(len(self.lista_eventi)):
+            if self.lista_eventi[i].nome == evento.nome and self.lista_eventi[i].data == evento.data:
+                self.lista_eventi[i] = evento_modificato
+                with open('Dati/lista_eventi.pickle', 'wb') as f:
+                    pickle.dump(self.lista_eventi, f, pickle.HIGHEST_PROTOCOL)

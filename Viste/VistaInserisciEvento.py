@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout
     QComboBox,  QMessageBox
 
 from Gestione.GestoreEventi import GestoreEventi
-
+from Evento.Evento import Evento
 
 class VistaInserisciEvento(QWidget):
     def __init__(self, selected_date, callback, parent=None):
@@ -101,7 +101,8 @@ class VistaInserisciEvento(QWidget):
             QMessageBox.warning(self, "Errore", "La data inserita è precedente alla data odierna.")
             return
 
-        self.evento.inserisci_evento(nome, data, tipo, ingresso, tavolo, prive)
+        nuovo_evento = Evento(nome, data, tipo, ingresso, tavolo, prive)
+        self.evento.inserisci_evento(nuovo_evento)
 
         self.callback()
         self.close()

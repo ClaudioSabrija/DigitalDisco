@@ -18,7 +18,15 @@ class Evento:
         "Tavolo": Servizio("Tavolo", self.prezzo_tavolo, self.disponibilita_tavoli),
         "Prive": Servizio("Prive", self.prezzo_prive, self.disponibilita_prive)
         }
-        self.prenotazioni = []
+        self.lista_prenotazioni = []
+
+    def set_evento(self, nuovo_evento):
+        self.nome = nuovo_evento.nome
+        self.data = nuovo_evento.data
+        self.tipo = nuovo_evento.tipo
+        self.prezzo_ingresso = nuovo_evento.prezzo_ingresso
+        self.prezzo_tavolo = nuovo_evento.prezzo_tavolo
+        self.prezzo_prive = nuovo_evento.prezzo_prive
 
     def get_nome(self):
         return self.nome
@@ -46,6 +54,9 @@ class Evento:
 
     def get_disponibilita_prive(self):
         return self.disponibilita_prive
+
+    def get_lista_prenotazioni(self):
+        return self.lista_prenotazioni
 
     def __eq__(self, other): #Metodo che mi potrebbe servire quando vado a confrontare gli eventi in altre parti del programma
         if isinstance(other, Evento):

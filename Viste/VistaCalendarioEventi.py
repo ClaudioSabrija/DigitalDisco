@@ -12,12 +12,15 @@ from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QLineEdit, QPushButton
 from Evento.Evento import Evento
 from Viste.VistaInserisciEvento import VistaInserisciEvento
 from Viste.VistaVisualizzaEvento import VistaVisualizzaEvento
+from Viste.VistaModificaEvento import VistaModificaEvento
+from Viste.VistaPrenotazioniEvento import VistaPrenotazioniEvento
 from Gestione.GestoreEventi import GestoreEventi
 
 class VistaCalendarioEventi(QWidget):
     def __init__(self, parent = None):
         super(VistaCalendarioEventi, self).__init__(parent)
         self.controller = GestoreEventi()
+        self.evento_modificato = None
 
         font = QFont('Arial Nova Light', 15)
 
@@ -122,10 +125,26 @@ class VistaCalendarioEventi(QWidget):
             indice_selezionato = self.list_view_eventi.selectedIndexes()[0].row()
             evento_selezionato = self.controller.get_evento_by_index_(indice_selezionato)
 
-            def elimina_evento_callback():
-                self.elimina_evento()
-            self.vista_evento = VistaVisualizzaEvento(evento_selezionato, elimina_evento_callback=elimina_evento_callback)
+            self.vista_evento = VistaVisualizzaEvento(evento_selezionato, self.update_ui, self.elimina_evento, self.show_vista_modifica_evento, self.show_vista_prenotazioni_evento)
             self.vista_evento.show()
+
+    def show_vista_modifica_evento(self):
+        if self.list_view_eventi.selectedIndexes():
+            indice_selezionato = self.list_view_eventi.selectedIndexes()[0].row()
+            evento_selezionato = self.controller.get_evento_by_index_(indice_selezionato)
+
+            self.vista_modifica_evento = VistaModificaEvento(evento_selezionato, self.controller.aggiorna_evento, self.vista_evento.update_ui_evento)
+            self.vista_modifica_evento.show()
+            self.vista_evento.close()
+
+    def show_vista_prenotazioni_evento(self):
+        if self.list_view_eventi.selectedIndexes():
+            indice_selezionato = self.list_view_eventi.selectedIndexes()[0].row()
+            evento_selezionato = self.controller.get_evento_by_index_(indice_selezionato)
+
+            self.vista_prenotazioni = VistaPrenotazioniEvento(evento_selezionato)
+            self.vista_prenotazioni.show()
+
 
     def elimina_evento(self):
 
@@ -143,7 +162,7 @@ class VistaCalendarioEventi(QWidget):
             msg.setWindowTitle("Conferma eliminazione")
             msg.setWindowIcon(QIcon('Dati/DigitalDisco.png'))
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-            #msg.move(100,100)
+
 
             if msg.exec() == QMessageBox.Ok:  # La funzione exec() blocca l'esecuzione del codice fino a quando l'utente
                                             # Non chiude la finestra di dialogo. Quando l'utente interagisce con la
