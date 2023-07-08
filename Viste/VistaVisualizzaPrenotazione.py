@@ -32,6 +32,7 @@ class VistaVisualizzaPrenotazione(QWidget):
         self.label_cognome = QLabel(f"Cognome: {self.prenotazione.cognome}", self)
         self.label_data_di_nascita = QLabel(f"Data di nascita: {self.prenotazione.data_di_nascita}", self)
         self.label_codice_fiscale = QLabel(f"Codice Fiscale: {self.prenotazione.codice_fiscale}", self)
+        self.label_email = QLabel(f"E-mail: {self.prenotazione.email}", self)
         self.label_servizio = QLabel(f"Servizio: {self.prenotazione.servizio}", self)
         self.label_note = QLabel(f"Partecipanti: {self.prenotazione.note}", self)
 
@@ -39,7 +40,7 @@ class VistaVisualizzaPrenotazione(QWidget):
         font = QFont('Arial Nova Light')
         font.setPointSize(15)
 
-        self.labels = [self.label_nome, self.label_cognome, self.label_data_di_nascita, self.label_codice_fiscale, self.label_servizio, self.label_note]  # Aggiungo tutte le tue label a questa lista
+        self.labels = [self.label_nome, self.label_cognome, self.label_data_di_nascita, self.label_codice_fiscale, self.label_email, self.label_servizio, self.label_note]  # Aggiungo tutte le tue label a questa lista
 
         for label in self.labels:
             label.setFont(font)
@@ -59,6 +60,7 @@ class VistaVisualizzaPrenotazione(QWidget):
         dati_prenotazione_layout.addWidget(self.label_cognome)
         dati_prenotazione_layout.addWidget(self.label_data_di_nascita)
         dati_prenotazione_layout.addWidget(self.label_codice_fiscale)
+        dati_prenotazione_layout.addWidget(self.label_email)
         dati_prenotazione_layout.addWidget(self.label_servizio)
         dati_prenotazione_layout.addWidget(self.label_note)
 
@@ -97,6 +99,7 @@ class VistaVisualizzaPrenotazione(QWidget):
         self.label_cognome.setText(f"COGNOME: {prenotazione.cognome}")
         self.label_data_di_nascita.setText(f"DATA DI NASCITA: {prenotazione.data_di_nascita}")
         self.label_codice_fiscale.setText(f"CODICE FISCALE: {prenotazione.codice_fiscale}")
+        self.label_email.setText(f"EMAIL: {prenotazione.email}")
         self.label_servizio.setText(f"SERVIZIO: {prenotazione.servizio}")
         self.label_note.setText(f"PARTECIPANTI: {prenotazione.note}")
         self.callback_aggioramento(self.evento)
