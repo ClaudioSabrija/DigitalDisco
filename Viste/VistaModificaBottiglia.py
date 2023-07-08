@@ -85,7 +85,8 @@ class VistaModificaBottiglia(QWidget):
             scaffale = int(scaffale)
             piano = int(piano)
         except ValueError:
-            QMessageBox.warning(self, "Errore", "I campi Prezzo e Disponibilità devono essere numerici.")
+            QMessageBox.warning(self, "Errore", "I campi di ingresso: (Prezzo, Disponibilità, Corridoio, Scaffale,"
+                                                "Piano) devono essere scritti in numero.")
             return
 
         if corridoio not in range(1, 3) or scaffale not in range(1, 21) or piano not in range(1, 6):
@@ -96,8 +97,9 @@ class VistaModificaBottiglia(QWidget):
                                                  "Piano: 1-5")
             return
 
-        # Controlla la posizione se è disponibile o meno.
-        if self.magazzino.posizione_occupata(corridoio, scaffale, piano):
+        # Controlla la posizione se è disponibile,se inserisco le stesse posizioni di quelle già presenti non da errore
+        if (corridoio != self.bottiglia.corridoio or scaffale != self.bottiglia.scaffale or piano != self.bottiglia.piano) and \
+                self.magazzino.posizione_occupata(corridoio, scaffale, piano):
             QMessageBox.warning(self, "Errore", "In questa posizione è già situata un'altra bottiglia.")
             return
 

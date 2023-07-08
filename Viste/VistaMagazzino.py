@@ -87,7 +87,10 @@ class VistaMagazzino(QWidget):
         if self.list_view_bottiglie.selectedIndexes():
             selected = self.list_view_bottiglie.selectedIndexes()[0].row()
             self.bottiglia_selezionata = self.controller.get_bottiglia_by_index_(selected)
-            self.vista_visualizza_bottiglia = VistaVisualizzaBottiglia(self.bottiglia_selezionata)
+
+            def elimina_bottiglie_callback():
+                self.elimina_bottiglia()
+            self.vista_visualizza_bottiglia = VistaVisualizzaBottiglia(self.bottiglia_selezionata, elimina_bottiglie_callback=elimina_bottiglie_callback)
             self.vista_visualizza_bottiglia.show()
 
     # Funzione che preleva il prodotto selezionato.
@@ -130,8 +133,11 @@ class VistaMagazzino(QWidget):
     def show_selected_cocktail(self):
         if self.list_view_cocktail.selectedIndexes():
             selected = self.list_view_cocktail.selectedIndexes()[0].row()
-            cocktail_selezionato = self.controller.get_cocktail_by_index(selected)
-            self.vista_visualizza_cocktail = VistaVisualizzaCocktail(cocktail_selezionato)
+            self.cocktail_selezionato = self.controller.get_cocktail_by_index(selected)
+
+            def elimina_cocktail_callback():
+                self.elimina_cocktail()
+            self.vista_visualizza_cocktail = VistaVisualizzaCocktail(self.cocktail_selezionato, elimina_cocktail_callback=elimina_cocktail_callback)
             self.vista_visualizza_cocktail.show()
 
     # Funzione che mostra la vista che permette l'inserimento di un nuovo prodotto.
@@ -181,6 +187,54 @@ class VistaMagazzino(QWidget):
             item.setFont(font)
             self.list_view_cocktail_model.appendRow(item)
         self.list_view_cocktail.setModel(self.list_view_cocktail_model)
+
+    def elimina_bottiglia(self):
+
+        if self.list_view_bottiglie.selectedIndexes():
+            selected_index = self.list_view_bottiglie.selectedIndexes()[0]
+            row = selected_index.row()
+            bottiglia_selezionata = self.controller.bottiglie[row]
+
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Information)
+            msg.setText("Sei sicuro di voler eliminare la bottiglia selezionata?")
+            msg.setWindowIcon(QIcon('Dati/DigitalDisco.png'))
+            msg.setInformativeText("La decisione è irreversibile!")
+            msg.setDetailedText("N.B. Verrà eliminata ogni informazione relativa a questa bottiglia.")
+            msg.setWindowTitle("Conferma eliminazione")
+            msg.setWindowIcon(QIcon('Dati/DigitalDisco.png'))
+            msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+
+            if msg.exec() == QMessageBox.Ok: #La funzione exec() blocca l'esecuzione del codice fino a quando l'utente non chiude la finestra di dialogo. Quando l'utente interagisce con la finestra di dialogo e preme un pulsante, exec() restituisce il valore corrispondente al pulsante premuto.
+
+                self.controller.rimuovi_bottiglia(bottiglia_selezionata)
+                self.update_ui()
+
+                msg.close()
+
+    def elimina_cocktail(self):
+
+        if self.list_view_cocktail.selectedIndexes():
+            selected_index = self.list_view_cocktail.selectedIndexes()[0]
+            row = selected_index.row()
+            cocktail_selezionato = self.controller.cocktail[row]
+
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Information)
+            msg.setText("Sei sicuro di voler eliminare il cocktail selezionato?")
+            msg.setWindowIcon(QIcon('Dati/DigitalDisco.png'))
+            msg.setInformativeText("La decisione è irreversibile!")
+            msg.setDetailedText("N.B. Verrà eliminata ogni informazione relativa a questo cocktail.")
+            msg.setWindowTitle("Conferma eliminazione")
+            msg.setWindowIcon(QIcon('Dati/DigitalDisco.png'))
+            msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+
+            if msg.exec() == QMessageBox.Ok: #La funzione exec() blocca l'esecuzione del codice fino a quando l'utente non chiude la finestra di dialogo. Quando l'utente interagisce con la finestra di dialogo e preme un pulsante, exec() restituisce il valore corrispondente al pulsante premuto.
+
+                self.controller.rimuovi_cocktail(cocktail_selezionato)
+                self.update_ui()
+
+                msg.close()
 
     # Funzione che richiama il metodo del controllore che salva i dati aggiornati.
     def closeEvent(self, event):
