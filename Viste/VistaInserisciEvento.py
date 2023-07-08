@@ -19,7 +19,7 @@ class VistaInserisciEvento(QWidget):
         label_top = QLabel("Inserisci i dati dell'evento:", self)
         label_nome = QLabel("NOME:", self)
         label_tipo = QLabel("TIPO:", self)
-        label_data = QLabel("DATA:", self)
+        label_data = QLabel("DATA: (dd/MM/yyyy)", self)
         label_prezzi = QLabel("Inserisci i prezzi dei servizi:", self)
         label_ingresso = QLabel("INGRESSO:", self)
         label_tavolo = QLabel("TAVOLO:", self)
