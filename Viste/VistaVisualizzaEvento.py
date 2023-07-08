@@ -9,7 +9,7 @@ from Viste.VistaModificaEvento import VistaModificaEvento
 from Evento.Evento import Evento
 from Gestione.GestoreEventi import GestoreEventi
 from Viste import VistaCalendarioEventi
-
+from Viste.VistaOrdini import VistaOrdini
 
 
 class VistaVisualizzaEvento(QWidget):
@@ -105,7 +105,9 @@ class VistaVisualizzaEvento(QWidget):
         self.setWindowTitle('Visualizza Evento')
 
     def go_ordini(self):
-        pass
+        self.vista_ordine = VistaOrdini()
+        self.vista_ordine.set_evento_selezionato(self.evento1)
+        self.vista_ordine.show()
 
     def update_ui_evento(self, evento):
         # Aggiorna l'evento visualizzato con le modifiche apportate
