@@ -173,3 +173,4 @@ class VistaCalendarioEventi(QWidget):
                 self.update_ui()
 
                 msg.close()
+            self.vista_evento.close()
