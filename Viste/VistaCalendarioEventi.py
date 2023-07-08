@@ -65,7 +65,6 @@ class VistaCalendarioEventi(QWidget):
         calendario = QCalendarWidget(self)
         currentMonth = datetime.now().month
         currentYear = datetime.now().year
-       #currentDay = datetime.now().day
 
         calendario.setMinimumDate(QDate(currentYear, currentMonth, 1))
         calendario.setMaximumDate(
@@ -91,13 +90,13 @@ class VistaCalendarioEventi(QWidget):
     def show_vista_inserisci_evento(self):
         selected_date = self.data_selezionata()
         self.vista_inserisci_evento = VistaInserisciEvento(selected_date, callback=self.update_ui)
-        self.vista_inserisci_evento.show()   # MODIFICA QUESTO
+        self.vista_inserisci_evento.show()
 
     # Funzione che restituisce la data selezionata.
     def data_selezionata(self):
         dataselezionata = self.calendario_eventi.selectedDate()
         self.label.setText("Data selezionata : " + dataselezionata.toString("dd/MM/yyyy"))
-        return dataselezionata    # MODIFICA QUESTO
+        return dataselezionata
 
     def load_eventi(self):
         if os.path.isfile('Dati/lista_eventi.pickle'):
