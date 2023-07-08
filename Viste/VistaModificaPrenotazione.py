@@ -24,6 +24,7 @@ class VistaModificaPrenotazione(QWidget):
         self.label_cognome = QLabel("COGNOME:", self)
         self.label_data_di_nascita = QLabel("DATA DI NASCITA:", self)
         self.label_codice_fiscale = QLabel("CODICE FISCALE:", self)
+        self.label_email = QLabel("E-MAIL:", self)
         self.label_servizio = QLabel("SERVIZIO:", self)
         self.label_note = QLabel("Note:", self)
 
@@ -31,6 +32,7 @@ class VistaModificaPrenotazione(QWidget):
         self.line_edit_cognome = QLineEdit(self)
         self.line_edit_data_di_nascita = QLineEdit(self)
         self.line_edit_codice_fiscale = QLineEdit(self)
+        self.line_edit_email = QLineEdit(self)
         self.combo_box_servizio = QComboBox(self)
         self.line_edit_note = QLineEdit(self)
 
@@ -47,6 +49,7 @@ class VistaModificaPrenotazione(QWidget):
         self.line_edit_cognome.setText(self.prenotazione.cognome)
         self.line_edit_data_di_nascita.setText(self.prenotazione.data_di_nascita)
         self.line_edit_codice_fiscale.setText(self.prenotazione.codice_fiscale)
+        self.line_edit_email.setText(self.prenotazione.email)
         self.combo_box_servizio.setCurrentText(self.prenotazione.servizio)
         self.line_edit_note.setText(" ".join(self.prenotazione.note))
 
@@ -67,6 +70,8 @@ class VistaModificaPrenotazione(QWidget):
         layout.addWidget(self.line_edit_data_di_nascita)
         layout.addWidget(self.label_codice_fiscale)
         layout.addWidget(self.line_edit_codice_fiscale)
+        layout.addWidget(self.label_email)
+        layout.addWidget(self.line_edit_email)
         layout.addWidget(self.label_servizio)
         layout.addWidget(self.combo_box_servizio)
         layout.addWidget(self.label_note)
@@ -81,11 +86,12 @@ class VistaModificaPrenotazione(QWidget):
         cognome = self.line_edit_cognome.text().strip()
         data_di_nascita = self.line_edit_data_di_nascita.text().strip()
         codice_fiscale = self.line_edit_codice_fiscale.text().strip()
+        email = self.line_edit_email.text().strip()
         servizio = self.combo_box_servizio.currentText()
         note = self.line_edit_note.text().strip()
 
         # Controllo dei campi compilati
-        if not nome or not cognome or not data_di_nascita or not codice_fiscale:
+        if not nome or not cognome or not data_di_nascita or not codice_fiscale or not email:
             QMessageBox.warning(self, "Errore", "Tutti i campi devono essere compilati.")
             return
 
@@ -117,7 +123,7 @@ class VistaModificaPrenotazione(QWidget):
             QMessageBox.critical(self, "Errore", "Il formato della data inserita deve essere: dd/mm/yyyy.")
             return
 
-        prenotazione_modificata = Prenotazione(nome, cognome, data_di_nascita, codice_fiscale, servizio)
+        prenotazione_modificata = Prenotazione(nome, cognome, data_di_nascita, codice_fiscale, email, servizio)
         prenotazione_modificata.note.append(note)
         self.callback_aggiornamento(self.evento ,self.prenotazione, prenotazione_modificata)
         self.callback_vista(prenotazione_modificata)
