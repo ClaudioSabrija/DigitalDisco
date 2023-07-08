@@ -7,6 +7,7 @@ class Prenotazione():
         self.data_di_nascita = data_di_nascita
         self.codice_fiscale = codice_fiscale
         self.servizio = servizio
+        self.note = []
 
     def get_nome(self):
         return self.nome
@@ -22,3 +23,6 @@ class Prenotazione():
 
     def get_servizio(self):
         return self.servizio
+
+    def get_note(self):
+        return self.note

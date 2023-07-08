@@ -1,27 +1,31 @@
+import pickle
 from Attività.Prenotazione import Prenotazione
-from Evento.Evento import Evento
 from Servizio.Servizio import Servizio
-
+from Evento.Evento import Evento
 
 class GestorePrenotazioni():
-    def __init__(self):
-        self.lista_prenotazioni = []
 
-    # Funzione per creare una prenotazione, CONTROLLA SE USARE QUESTA O QUELLA IN PRENOTAZIONE
-    def inserisci_prenotazione(self, nome, cognome, data_di_nascita, codice_fiscale, servizio):
-        if servizio in self.servizi:  # servizi è contenuto dentro Evento
-            self.servizi[servizio].aumenta_prenotazioni()  # prenota aumenta le prenotazioni di un certo servizio dentro un evento
+    def get_prenotazione_by_index(self, evento, index):
+        lista_prenotazioni = evento.get_lista_prenotazioni()
+        prenotazione = lista_prenotazioni[index]
+        return prenotazione
 
-            prenotazione = Prenotazione(nome, cognome, data_di_nascita, codice_fiscale, self.servizi[servizio])
-            self.lista_prenotazioni.append(prenotazione)
+    def inserisci_prenotazione(self, evento, prenotazione):
+        evento.lista_prenotazioni.append(prenotazione)  # Aggiunge l'evento alla lista degli eventi
+        with open(f'Dati/Prenotazioni/prenotazioni_{evento.nome}.pickle', 'wb') as f:
+            pickle.dump(evento.lista_prenotazioni, f, pickle.HIGHEST_PROTOCOL)
 
-    # QUESTA FORSE DEVE ESSERE SPOSTATA NELLA PARTE DELLE VISTE O GESTIONE PRENOTAZIONI, RICONTROLLA SE VA BENE
-    def ricerca_prenotazione(self, nome, cognome):
-        trovato = False
-        for prenotazione in self.lista_prenotazioni:
-            if prenotazione.nome == nome and prenotazione.cognome == cognome:
-                trovato = True
-                print(f"{nome} {cognome} ha prenotato il servizio {prenotazione.servizio}")
-                break
-        if not trovato:
-            print(f"{nome} {cognome} non ha prenotazioni")
+    def rimuovi_prenotazione(self, evento ,prenotazione):
+        for prenotazioni in evento.lista_prenotazioni:
+            if prenotazioni.codice_fiscale == prenotazione.codice_fiscale:
+                evento.lista_prenotazioni.remove(prenotazione)
+                with open(f'Dati/Prenotazioni/prenotazioni_{evento.nome}.pickle', 'wb') as f:
+                    pickle.dump(evento.lista_prenotazioni, f, pickle.HIGHEST_PROTOCOL)
+                return
+
+    def aggiorna_prenotazione(self, evento, prenotazione, prenotazione_modificata):
+        for i in range(len(evento.lista_prenotazioni)):
+            if evento.lista_prenotazioni[i].codice_fiscale == prenotazione.codice_fiscale:
+                evento.lista_prenotazioni[i] = prenotazione_modificata
+                with open(f'Dati/Prenotazioni/prenotazioni_{evento.nome}.pickle', 'wb') as f:
+                    pickle.dump(evento.lista_prenotazioni, f, pickle.HIGHEST_PROTOCOL)
