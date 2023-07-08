@@ -1,6 +1,3 @@
-import pickle
-import os
-
 from Servizio.Servizio import Servizio
 
 

@@ -6,6 +6,8 @@ from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QLineEdit, QPushButton
 from Magazzino.Magazzino import Magazzino
 from Viste.VistaInserisciBottiglia import VistaInserisciBottiglia
 from Viste.VistaInserisciCocktail import VistaInserisciCocktail
+from Viste.VistaModificaBottiglia import VistaModificaBottiglia
+from Viste.VistaModificaCocktail import VistaModificaCocktail
 from Viste.VistaVisualizzaBottiglia import VistaVisualizzaBottiglia
 from Viste.VistaVisualizzaCocktail import VistaVisualizzaCocktail
 
@@ -15,6 +17,10 @@ class VistaMagazzino(QWidget):
         super(VistaMagazzino, self).__init__(parent)
 
         self.controller = Magazzino()
+        # Lo settiamo a None cosi poi sotto non crea ogni volta un istanza, ma solo la prima volta
+        self.vista_modifica_bottiglia = None
+        self.vista_modifica_cocktail = None
+
 
         grid_layout = QGridLayout()
         v_layout_bottiglie = QVBoxLayout()
@@ -90,7 +96,9 @@ class VistaMagazzino(QWidget):
 
             def elimina_bottiglie_callback():
                 self.elimina_bottiglia()
-            self.vista_visualizza_bottiglia = VistaVisualizzaBottiglia(self.bottiglia_selezionata, elimina_bottiglie_callback=elimina_bottiglie_callback)
+            self.vista_visualizza_bottiglia = VistaVisualizzaBottiglia(self.bottiglia_selezionata,
+                                                                       callback_update=self.modifica_bottiglia,
+                                                                       elimina_bottiglie_callback=elimina_bottiglie_callback)
             self.vista_visualizza_bottiglia.show()
 
     # Funzione che preleva il prodotto selezionato.
@@ -125,7 +133,7 @@ class VistaMagazzino(QWidget):
 
     # Funzione che mostra la vista che permette l'inserimento di un nuovo prodotto.
     def inserisci_bottiglia(self):
-        self.vista_inserisci_bottiglia = VistaInserisciBottiglia(callback=self.controller.aggiungi_bottiglia)
+        self.vista_inserisci_bottiglia = VistaInserisciBottiglia(callback=self.aggiorna_bottiglia)
         self.update_ui()
         self.vista_inserisci_bottiglia.show()
 
@@ -137,12 +145,16 @@ class VistaMagazzino(QWidget):
 
             def elimina_cocktail_callback():
                 self.elimina_cocktail()
-            self.vista_visualizza_cocktail = VistaVisualizzaCocktail(self.cocktail_selezionato, elimina_cocktail_callback=elimina_cocktail_callback)
+            self.vista_visualizza_cocktail = VistaVisualizzaCocktail(self.cocktail_selezionato,
+                                                                     callback_update=self.modifica_cocktail,
+                                                                     elimina_cocktail_callback=elimina_cocktail_callback)
             self.vista_visualizza_cocktail.show()
+
 
     # Funzione che mostra la vista che permette l'inserimento di un nuovo prodotto.
     def inserisci_cocktail(self):
-        self.vista_inserisci_cocktail = VistaInserisciCocktail(callback=self.controller.aggiungi_cocktail)
+        self.vista_inserisci_cocktail = VistaInserisciCocktail(callback=self.aggiorna_cocktail)
+        self.update_ui()
         self.vista_inserisci_cocktail.show()
 
     def ricerca_prodotto(self):
@@ -211,6 +223,7 @@ class VistaMagazzino(QWidget):
                 self.update_ui()
 
                 msg.close()
+                self.vista_visualizza_bottiglia.close()
 
     def elimina_cocktail(self):
 
@@ -236,8 +249,36 @@ class VistaMagazzino(QWidget):
 
                 msg.close()
 
+    # Metodi che servono a inserire l'elemento nella list view direttamente
+    def aggiorna_bottiglia(self, bottiglia):
+        self.controller.aggiungi_bottiglia(bottiglia)
+        item = QStandardItem(bottiglia.nome)  # Esempio: Visualizza solo il nome della bottiglia nella lista
+        self.list_view_bottiglie_model.appendRow(item)
+        self.update_ui()
+
+    def aggiorna_cocktail(self, cocktail):
+        self.controller.aggiungi_cocktail(cocktail)
+        item = QStandardItem(cocktail.nome)  # Esempio: Visualizza solo il nome del cocktail nella lista
+        self.list_view_cocktail_model.appendRow(item)
+        self.update_ui()
+
+    def modifica_bottiglia(self):
+        if self.vista_modifica_bottiglia is None:
+            self.vista_modifica_bottiglia = VistaModificaBottiglia(self.bottiglia_selezionata,
+                                                                   self.controller.aggiorna_bottiglie,
+                                                                   self.vista_visualizza_bottiglia.update_bottiglia)
+        self.vista_modifica_bottiglia.show()
+        self.update_ui()
+
+    def modifica_cocktail(self):
+        if self.vista_modifica_cocktail is None:
+            self.vista_modifica_cocktail = VistaModificaCocktail(self.cocktail_selezionato,
+                                                                 self.controller.aggiorna_cocktail,
+                                                                 self.vista_visualizza_cocktail.update_cocktail)
+        self.vista_modifica_cocktail.show()
+        self.update_ui()
+
     # Funzione che richiama il metodo del controllore che salva i dati aggiornati.
     def closeEvent(self, event):
         self.controller.save_data()
         event.accept()
-

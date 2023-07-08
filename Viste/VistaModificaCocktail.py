@@ -7,9 +7,10 @@ from Magazzino.Magazzino import Magazzino
 
 
 class VistaModificaCocktail(QWidget):
-    def __init__(self, cocktail, callback, parent=None):
+    def __init__(self, cocktail, callback, callback_modifica, parent=None):
         super(VistaModificaCocktail, self).__init__(parent)
 
+        self.callback_modifica = callback_modifica
         self.callback = callback
         self.magazzino = Magazzino()
         self.cocktail = cocktail
@@ -63,5 +64,8 @@ class VistaModificaCocktail(QWidget):
         self.cocktail.nome = nome
         self.cocktail.prezzo = prezzo
 
-        self.callback(self.cocktail)
+        cocktail_modificato = Cocktail(nome, prezzo)
+
+        self.callback_modifica(cocktail_modificato)
+        self.callback(self.cocktail, cocktail_modificato)
         self.close()

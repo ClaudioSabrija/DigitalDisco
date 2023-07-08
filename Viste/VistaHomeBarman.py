@@ -3,6 +3,10 @@ from PyQt5.QtGui import QFont, QIcon, QPixmap
 from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QVBoxLayout, QSizePolicy, \
     QHBoxLayout
 
+from Viste.VistaMagazzino import VistaMagazzino
+from Viste.VistaOrdini import VistaOrdini
+
+
 class VistaHomeBarman(QWidget):
     def __init__(self, parent = None):
         super(VistaHomeBarman, self).__init__(parent)
@@ -10,7 +14,7 @@ class VistaHomeBarman(QWidget):
         grid_layout = QGridLayout()
         v_layout = QHBoxLayout()
 
-        v_layout.addWidget(self.get_generic_button("Preleva Prodotto", "rgb(254,254,254)", self.go_vista_lista_prodotti))
+        v_layout.addWidget(self.get_generic_button("Preleva Prodotti", "rgb(254,254,254)", self.go_vista_lista_prodotti))
         v_layout.addSpacing(30)
         v_layout.addWidget(self.get_generic_button("Ordini", "rgb(254,254,254)", self.go_ordini))
 
@@ -45,7 +49,9 @@ class VistaHomeBarman(QWidget):
         return button
 
     def go_vista_lista_prodotti(self):
-        pass
+        self.vista_magazzino = VistaMagazzino()
+        self.vista_magazzino.show()
 
     def go_ordini(self):
-        pass
+        self.vista_ordini = VistaOrdini()
+        self.vista_ordini.show()

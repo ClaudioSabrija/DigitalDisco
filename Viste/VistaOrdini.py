@@ -1,8 +1,12 @@
-import pickle, os
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QComboBox, QPushButton, \
-    QListWidget, QListWidgetItem, QMessageBox
+import pickle
+import os
 
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QIcon, QStandardItem, QStandardItemModel
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QComboBox, QPushButton, \
+     QMessageBox, QListView
+
+from Attività.Ordine import Ordine
 from Gestione.GestoreEventi import GestoreEventi
 from Viste.VistaNuovoOrdine import VistaNuovoOrdine
 
@@ -17,9 +21,9 @@ class VistaOrdini(QWidget):
 
         # Layout per la lista degli ordini e l'importo totale
         ordini_layout = QVBoxLayout()
-        self.list_view = QListWidget()
+        self.list_view = QListView()
         ordini_layout.addWidget(self.list_view)
-        self.label_importo_totale = QLabel("Importo totale: 0")
+        self.label_importo_totale = QLabel()
         ordini_layout.addWidget(self.label_importo_totale)
 
         self.layout.addLayout(ordini_layout)
@@ -76,62 +80,70 @@ class VistaOrdini(QWidget):
 
     def nuovo_ordine(self):
         evento_selezionato = self.combo_eventi.currentText()
-        self.vista_nuovo_ordine = VistaNuovoOrdine(evento_selezionato, callback=self.update_ui)
+        ordine = Ordine()
+        self.vista_nuovo_ordine = VistaNuovoOrdine(evento_selezionato, ordine, callback=self.update_ui)
         self.vista_nuovo_ordine.show()
 
     def elimina_ordine(self):
-        # Carica il file pickle corrispondente all'evento selezionato.
-        if self.list_view.currentItem() is not None:
-            ordine_selezionato = self.list_view.currentItem().text()
-            self.list_view.takeItem(self.list_view.currentRow())  # Rimuovi l'ordine dalla list_view
+        # Ottieni l'indice dell'elemento selezionato nella list_view
+        index = self.list_view.currentIndex()
+        if index.isValid():
+            # Ottieni il testo dell'ordine selezionato dalla list_view
+            ordine_selezionato = self.list_view.model().itemData(index)[Qt.DisplayRole]
+            #  Viene utilizzata per accedere al valore di visualizzazione di un elemento all'interno di un modello
+            #  Qui serve per ottenere il testo dell'ordine selezionato dalla list_view.
 
-        # Leggi gli ordini uno per uno e aggiungili a una nuova lista chiamata "ordini",escludendo l'ordine selezionato.
+            # Mostra un messaggio informativo
+            QMessageBox.information(self, "Elimina Ordine", f"L'ordine {ordine_selezionato} è stato eliminato.")
+
+            # Rimuovi l'ordine dalla lista degli ordini
+            ordine = self.lista_ordini.pop(index.row())
+
+            # Aggiorna la list_view
+            self.aggiorna_list_view()
+
+            # Rimuovi l'ordine dal file pickle corrispondente all'evento selezionato
             evento_selezionato = self.combo_eventi.currentText()
             file_pickle = f'Dati/Ordini/ordini_{evento_selezionato}.pickle'
-            if os.path.isfile(file_pickle):
-                with open(file_pickle, 'rb') as file:
-                    ordini = []
-                    while True:
-                        try:
-                            ordine = pickle.load(file)
-                            if isinstance(ordine, str) and ordine != ordine_selezionato:
-                                ordini.append(ordine)
-                            elif isinstance(ordine, QListWidgetItem) and ordine.text() != ordine_selezionato:
-                                ordini.append(ordine.text())
-                        except EOFError:
-                            break
 
-        # Sovrascrivi il file pickle corrispondente con la lista "ordini" aggiornata.
-                with open(file_pickle, 'wb') as file:
-                    for ordine in ordini:
-                        pickle.dump(ordine, file)
-
+            with open(file_pickle, 'wb') as file:
+                # Scrivi nuovamente gli ordini rimanenti nel file pickle
+                for ordine_in_lista in self.lista_ordini:
+                    pickle.dump(ordine_in_lista, file)
 
     def stampa_ordine(self):
-        if self.list_view.currentItem() is not None:
-            ordine_selezionato = self.list_view.currentItem().text()
-            nome_finestra = f"{ordine_selezionato}"
-            msg_box = QMessageBox()
-            msg_box.setWindowTitle(nome_finestra)
-            msg_box.setWindowIcon(QIcon('Dati/DigitalDisco.png'))  # Impostazione dell'icona della finestra
-            msg_box.setText(f"L'{ordine_selezionato} è stato stampato correttamente!")
-            msg_box.setIcon(QMessageBox.Information)
-            msg_box.exec_()
-
+        index = self.list_view.currentIndex()
+        if index.isValid():
+            ordine_selezionato = self.list_view.model().itemData(index)[Qt.DisplayRole]
+            QMessageBox.information(self, "Stampa Ordine",
+                                    f"L'ordine {ordine_selezionato} è stato stampato correttamente.")
 
     def aggiorna_list_view(self):
-        self.list_view.clear()  # Pulisce la list_view
-
+        list_view_model = QStandardItemModel(self.list_view)
         for ordine in self.lista_ordini:
-            self.list_view.addItem(ordine)  # Aggiunge gli ordini alla list_view
+            item = QStandardItem()
+            codice = f"Ordine: {ordine.codice}"
+            item.setText(codice)
+            item.setEditable(False)
+            font = item.font()
+            font.setPointSize(13)
+            item.setFont(font)
+            list_view_model.appendRow(item)
+
+        self.list_view.setModel(list_view_model)
+        self.calcola_importo_totale()
 
     def update_ui(self, ordine):
-        self.lista_ordini.append(ordine)  # Aggiunge l'ordine alla lista degli ordini
+        self.calcola_importo_totale()
+        self.lista_ordini.append(ordine)
         self.aggiorna_list_view()  # Aggiorna la list_view
+        # Aggiunge l'ordine alla lista degli ordini
         evento_selezionato = self.combo_eventi.currentText()
+
         with open(f'Dati/Ordini/ordini_{evento_selezionato}.pickle', 'wb') as file:
             for ordine in self.lista_ordini:
                 pickle.dump(ordine, file)
+
 
     def carica_ordini(self, evento):
         self.lista_ordini.clear()
@@ -141,16 +153,21 @@ class VistaOrdini(QWidget):
                 while True:
                     try:
                         ordine = pickle.load(file)
-                        if isinstance(ordine, str):
+                        if isinstance(ordine, Ordine):
                             self.lista_ordini.append(ordine)
-                        elif isinstance(ordine, QListWidgetItem):
-                            self.lista_ordini.append(ordine.text())
                     except EOFError:
                         break
-
         self.aggiorna_list_view()  # Aggiorna la list_view
 
     def cambia_evento(self, index):
         evento_selezionato = self.combo_eventi.itemText(index)  # Viene chiamato quando viene selezionato un nuovo evento dalla combo box.
         self.carica_ordini(evento_selezionato)           # Questo metodo richiama la funzione carica_ordini passando il nome dell'evento
                                                      # selezionato, che a sua volta carica gli ordini corrispondenti da un file pickle specifico per quell'evento.
+
+    def set_evento_selezionato(self, evento):
+        index = self.combo_eventi.findText(evento.get_nome())
+        self.combo_eventi.setCurrentIndex(index)
+
+    def calcola_importo_totale(self):
+        importo_totale = sum(ordine.prezzo_totale for ordine in self.lista_ordini)
+        self.label_importo_totale.setText(f"Importo Totale: {importo_totale}\u20AC")

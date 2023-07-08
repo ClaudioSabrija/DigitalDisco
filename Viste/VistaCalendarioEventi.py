@@ -86,16 +86,15 @@ class VistaCalendarioEventi(QWidget):
 
     # Funzione che mostra la vista per l'inserimento dei dati, da parte dell'utente, per creare un nuovo evento.
     def show_vista_inserisci_evento(self):
-        self.vista_inserisci_evento = VistaInserisciEvento(callback=self.update_ui)
-        self.vista_inserisci_evento.show()
+        selected_date = self.data_selezionata()
+        self.vista_inserisci_evento = VistaInserisciEvento(selected_date, callback=self.update_ui)
+        self.vista_inserisci_evento.show()   # MODIFICA QUESTO
 
     # Funzione che restituisce la data selezionata.
     def data_selezionata(self):
         dataselezionata = self.calendario_eventi.selectedDate()
-        data_selezionata = str(dataselezionata.toPyDate())
-        self.setFont(QFont('Arial Nova Light', 12))
-        self.label.setText("Data selezionata : " + data_selezionata)
-        return data_selezionata
+        self.label.setText("Data selezionata : " + dataselezionata.toString("dd/MM/yyyy"))
+        return dataselezionata    # MODIFICA QUESTO
 
     def load_eventi(self):
         if os.path.isfile('Dati/lista_eventi.pickle'):
@@ -146,7 +145,10 @@ class VistaCalendarioEventi(QWidget):
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             #msg.move(100,100)
 
-            if msg.exec() == QMessageBox.Ok: #La funzione exec() blocca l'esecuzione del codice fino a quando l'utente non chiude la finestra di dialogo. Quando l'utente interagisce con la finestra di dialogo e preme un pulsante, exec() restituisce il valore corrispondente al pulsante premuto.
+            if msg.exec() == QMessageBox.Ok:  # La funzione exec() blocca l'esecuzione del codice fino a quando l'utente
+                                            # Non chiude la finestra di dialogo. Quando l'utente interagisce con la
+                                            # finestra di dialogo e preme un pulsante, exec() restituisce il valore
+                                            # corrispondente al pulsante premuto.
 
                 self.controller.rimuovi_evento(evento_selezionato)
                 self.update_ui()

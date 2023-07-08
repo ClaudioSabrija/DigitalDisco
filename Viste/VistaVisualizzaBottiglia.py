@@ -1,16 +1,15 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QGridLayout, QHBoxLayout, QPushButton
-
 from Gestione.GestoreBottiglie import GestoreBottiglie
-from Viste.VistaModificaBottiglia import VistaModificaBottiglia
 
 
 class VistaVisualizzaBottiglia(QWidget):
 
-    def __init__(self, bottiglia, elimina_bottiglie_callback=None, parent=None):
+    def __init__(self, bottiglia, callback_update, elimina_bottiglie_callback=None, parent=None):
         super(VistaVisualizzaBottiglia, self).__init__(parent)
 
+        self.callback_update = callback_update
         self.elimina_bottiglie_callback = elimina_bottiglie_callback
         self.controller = GestoreBottiglie(bottiglia)
 
@@ -68,7 +67,7 @@ class VistaVisualizzaBottiglia(QWidget):
         button_modifica_bottiglia = QPushButton("MODIFICA")
         button_modifica_bottiglia.setFixedSize(90, 30)
         button_modifica_bottiglia.setFont(QFont("Arial", 10))
-        button_modifica_bottiglia.clicked.connect(self.edit_bottiglia)
+        button_modifica_bottiglia.clicked.connect(self.callback_update)
 
         button_elimina_bottiglia = QPushButton("ELIMINA")
         button_elimina_bottiglia.setFixedSize(90, 30)
@@ -100,11 +99,8 @@ class VistaVisualizzaBottiglia(QWidget):
         self.label_scaffale.setText("Scaffale: {}".format(self.controller.get_scaffale_bottiglia()))
         self.label_piano.setText("Piano: {}".format(self.controller.get_piano_bottiglia()))
 
-    def edit_bottiglia(self):
-        self.vista_modifica_bottiglia = VistaModificaBottiglia(self.controller.get_bottiglia(), self.update_bottiglia)
-        self.vista_modifica_bottiglia.show()
-
     def update_bottiglia(self, bottiglia):
         self.controller.set_bottiglia(bottiglia)
         self.update_ui()
-
+        self.callback_update()
+        self.close()

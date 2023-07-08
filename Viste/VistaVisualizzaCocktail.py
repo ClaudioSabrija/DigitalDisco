@@ -8,9 +8,10 @@ from Viste.VistaModificaCocktail import VistaModificaCocktail
 
 class VistaVisualizzaCocktail(QWidget):
 
-    def __init__(self, cocktail, elimina_cocktail_callback = None, parent=None):
+    def __init__(self, cocktail, callback_update, elimina_cocktail_callback = None, parent=None):
         super(VistaVisualizzaCocktail, self).__init__(parent)
 
+        self.callback_update = callback_update
         self.elimina_cocktail_callback = elimina_cocktail_callback
         self.controller = GestoreCocktail(cocktail)
 
@@ -41,7 +42,7 @@ class VistaVisualizzaCocktail(QWidget):
         button_modifica_cocktail = QPushButton("MODIFICA")
         button_modifica_cocktail.setFixedSize(90, 30)
         button_modifica_cocktail.setFont(QFont("Arial", 10))
-        button_modifica_cocktail.clicked.connect(self.edit_cocktail)
+        button_modifica_cocktail.clicked.connect(self.callback_update)
 
         button_elimina_cocktail = QPushButton("ELIMINA")
         button_elimina_cocktail.setFixedSize(90, 30)
@@ -76,11 +77,9 @@ class VistaVisualizzaCocktail(QWidget):
         self.label_nome.setText("Nome: {}".format(self.controller.get_nome_cocktail()))
         self.label_prezzo.setText("Prezzo: {}€".format(self.controller.get_prezzo_cocktail()))
 
-    def edit_cocktail(self):
-        self.vista_modifica_cocktail = VistaModificaCocktail(self.controller.get_cocktail(), self.update_cocktail)
-        self.vista_modifica_cocktail.show()
-
     def update_cocktail(self, cocktail):
         self.controller.set_cocktail(cocktail)
         self.update_ui()
+        self.callback_update()
+        self.close()
 

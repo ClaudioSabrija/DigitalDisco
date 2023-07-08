@@ -2,13 +2,15 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, \
     QMessageBox
 
+from Magazzino.Bottiglia import Bottiglia
 from Magazzino.Magazzino import Magazzino
 
 
 class VistaModificaBottiglia(QWidget):
-    def __init__(self, bottiglia, callback, parent=None):
+    def __init__(self, bottiglia, callback, callback_modifica, parent=None):
         super(VistaModificaBottiglia, self).__init__(parent)
 
+        self.callback_modifica = callback_modifica
         self.bottiglia = bottiglia
         self.callback = callback
         self.magazzino = Magazzino()
@@ -111,5 +113,8 @@ class VistaModificaBottiglia(QWidget):
         self.bottiglia.scaffale = scaffale
         self.bottiglia.piano = piano
 
-        self.callback(self.bottiglia)
+        bottiglia_modificata = Bottiglia(nome, prezzo, disponibilita, corridoio, scaffale, piano)
+
+        self.callback_modifica(bottiglia_modificata)
+        self.callback(self.bottiglia, bottiglia_modificata)
         self.close()

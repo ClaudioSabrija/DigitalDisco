@@ -7,13 +7,13 @@ from Magazzino.Bottiglia import Bottiglia
 from Magazzino.Prodotto import Prodotto
 
 
-
 class VistaScegliProdotto(QWidget):
     def __init__(self, callback, parent=None):
         super().__init__(parent)
 
         self.callback = callback
         self.prodotti_selezionati = []
+        self.quantita_selezionata = 0
 
         self.layout = QVBoxLayout()
 
@@ -70,6 +70,11 @@ class VistaScegliProdotto(QWidget):
                     self.list_view_model.appendRow(item)
                 self.list_view.setModel(self.list_view_model)
 
+        if os.path.isfile('Dati/lista_bottiglie_salvate.pickle'):
+            with open('Dati/lista_bottiglie_salvate.pickle', 'rb') as f:
+                bottiglie_salvate = pickle.load(f)
+                self.bottiglie_salvate = bottiglie_salvate
+
     def ricerca_prodotti(self):
         if os.path.isfile('Dati/lista_prodotti_salvati.pickle'):
             with open('Dati/lista_prodotti_salvati.pickle', 'rb') as f:
@@ -78,7 +83,6 @@ class VistaScegliProdotto(QWidget):
         ricerca_text = self.ricerca_line_edit.text().lower()
 
         for row in range(self.list_view_model.rowCount()):
-            item = self.list_view_model.item(row)
             prodotto = self.prodotti[row]
             nome_prodotto = prodotto.get_nome().lower()
 
@@ -113,25 +117,11 @@ class VistaScegliProdotto(QWidget):
                 else:
                     quantita, ok = QInputDialog.getInt(self, "Inserisci Quantità", "Quantità:", min=1)
 
-                if ok and quantita:
-                        if isinstance(prodotto,Bottiglia):
-                            # Sottrai la quantità selezionata dalla disponibilità del prodotto
-                            disponibilita_bottiglia = prodotto.get_disponibilta_bottiglia()
-                            if quantita <= disponibilita_bottiglia:
-                                prodotto.set_disponibilita_bottiglia(disponibilita_bottiglia - quantita)
-
-                        with open('Dati/lista_prodotti_salvati.pickle', 'wb') as f:
-                            pickle.dump(self.prodotti, f)
-
-                        with open('Dati/lista_bottiglie_salvate.pickle', 'wb') as f:
-                            pickle.dump(self.prodotti, f)
-
-                if quantita <= 0:
-                    return
+                self.quantita_selezionata = quantita
 
                 prezzo_totale = prodotto.get_prezzo() * quantita
 
-                prodotti_selezionati = (prodotto, prezzo_totale)
+                prodotti_selezionati = (prodotto, quantita, prezzo_totale)
                 self.prodotti_selezionati.append(prodotti_selezionati)
 
                 # Aggiungi il prodotto selezionato e confermato nella ListView della classe VistaNuovoOrdine
@@ -141,12 +131,6 @@ class VistaScegliProdotto(QWidget):
     def get_selected_products(self):
         return self.prodotti_selezionati
 
-    def closeEvent(self, event):
+    def get_quantita(self):
+        return self.quantita_selezionata
 
-        for prodotto, quantita in self.prodotti_selezionati:
-            if isinstance(prodotto, Bottiglia):
-                prodotto.set_disponibilita_bottiglia(prodotto.get_disponibilta_bottiglia() + quantita)
-
-        with open('Dati/lista_prodotti_salvati.pickle', 'wb') as f:
-            pickle.dump(self.prodotti, f)
-        super().closeEvent(event)

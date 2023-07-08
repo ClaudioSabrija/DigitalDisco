@@ -79,6 +79,20 @@ class Magazzino:
                     pickle.dump(self.cocktail, f, pickle.HIGHEST_PROTOCOL)
                 return
 
+    def aggiorna_bottiglie(self, bottiglia, bottiglia_modificata):
+        for i in range(len(self.bottiglie)):
+            if self.bottiglie[i].nome == bottiglia.nome:
+                self.bottiglie[i] = bottiglia_modificata
+                with open('Dati/lista_bottiglie_salvate.pickle', 'wb') as f:
+                    pickle.dump(self.bottiglie, f, pickle.HIGHEST_PROTOCOL)
+
+    def aggiorna_cocktail(self, cocktail, cocktail_modificato):
+        for i in range(len(self.cocktail)):
+            if self.cocktail[i].nome == cocktail.nome:
+                self.cocktail[i] = cocktail_modificato
+                with open('Dati/lista_cocktail_salvati.pickle', 'wb') as f:
+                    pickle.dump(self.cocktail, f, pickle.HIGHEST_PROTOCOL)
+
     # Funzione che salva i file con i dati aggiornati.
     def save_data(self):
         with open('Dati/lista_bottiglie_salvate.pickle', 'wb') as handle:

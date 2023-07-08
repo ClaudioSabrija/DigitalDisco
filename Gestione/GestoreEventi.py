@@ -8,6 +8,7 @@ class GestoreEventi():
     def __init__(self):
         self.lista_eventi = []
         self.lettura_eventi()
+        self.model = Evento
 
     def lettura_eventi(self):
         if os.path.isfile('Dati/lista_eventi.pickle'):
@@ -17,21 +18,10 @@ class GestoreEventi():
     def get_lista_eventi(self):
         return self.lista_eventi
 
-
     def get_evento_by_index_(self, index):
         evento = self.lista_eventi[index]
         return Evento(evento.nome, evento.data, evento.tipo, evento.prezzo_ingresso, evento.prezzo_tavolo,
                       evento.prezzo_prive)
-
-    def RicercaEventoPerNome(self, nome):
-        if os.path.isfile('Dati/lista_eventi.pickle'):
-            with open('Dati/lista_eventi.pickle', 'rb') as f:
-                eventi = pickle.load(f)
-                for evento in eventi:
-                    if evento.nome == nome:
-                        return evento
-        return None
-
 
     def inserisci_evento(self, nome, data, tipo, prezzo_ingresso, prezzo_tavolo, prezzo_prive):
         self.nome = nome
@@ -61,3 +51,6 @@ class GestoreEventi():
                 with open('Dati/lista_eventi.pickle', 'wb') as f:
                     pickle.dump(self.lista_eventi, f, pickle.HIGHEST_PROTOCOL)
                 return
+
+    def set_evento(self, evento):
+        self.model = evento

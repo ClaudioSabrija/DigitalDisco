@@ -13,7 +13,6 @@ class Bottiglia(Prodotto):
         self.scaffale = scaffale
         self.piano = piano
 
-
     def inserisci_bottiglia(self, nome, prezzo, disponibilita, corridoio, scaffale, piano):
         self.nome = nome
         self.prezzo = prezzo
