@@ -6,9 +6,8 @@ class Prodotto:
     def __init__(self, nome, prezzo):
         self.nome = nome
         self.prezzo = prezzo
-        self.disponibilita = ""
 
-    @staticmethod
+
     def unione_lista_prodotti():
         data1 = []
         data2 = []
@@ -30,6 +29,3 @@ class Prodotto:
 
     def get_prezzo(self):
         return self.prezzo
-
-    def get_disponibilta(self):
-        return self.disponibilita
