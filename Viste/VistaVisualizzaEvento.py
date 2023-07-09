@@ -106,7 +106,7 @@ class VistaVisualizzaEvento(QWidget):
 
     def go_ordini(self):
         self.vista_ordine = VistaOrdini()
-        self.vista_ordine.set_evento_selezionato(self.evento1)
+        self.vista_ordine.set_evento_selezionato(self.evento)
         self.vista_ordine.show()
 
     def update_ui_evento(self, evento):
