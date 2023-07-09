@@ -246,8 +246,8 @@ class VistaMagazzino(QWidget):
 
                 self.controller.rimuovi_cocktail(cocktail_selezionato)
                 self.update_ui()
-
                 msg.close()
+                self.vista_visualizza_cocktail.close()
 
     # Metodi che servono a inserire l'elemento nella list view direttamente
     def aggiorna_bottiglia(self, bottiglia):

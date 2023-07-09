@@ -1,9 +1,8 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFont, QIcon, QPixmap
-from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QVBoxLayout, QSizePolicy, \
-    QHBoxLayout
+from PyQt5.QtGui import QFont, QIcon
+from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QPushButton, QHBoxLayout
 
-from Viste.VistaMagazzino import VistaMagazzino
+from Viste.VistaMagazzinoBarman import VistaMagazzinoBarman
 from Viste.VistaOrdini import VistaOrdini
 
 
@@ -14,13 +13,11 @@ class VistaHomeBarman(QWidget):
         grid_layout = QGridLayout()
         v_layout = QHBoxLayout()
 
-        v_layout.addWidget(self.get_generic_button("Preleva Prodotti", "rgb(254,254,254)", self.go_vista_lista_prodotti))
+        v_layout.addWidget(self.get_generic_button("Preleva Bottiglie", "rgb(254,254,254)", self.go_vista_lista_prodotti))
         v_layout.addSpacing(30)
         v_layout.addWidget(self.get_generic_button("Ordini", "rgb(254,254,254)", self.go_ordini))
 
-
-
-        label = QLabel('Gestione Ordini')
+        label = QLabel('Area Barman')
         label.setAlignment(Qt.AlignCenter)
         label.setStyleSheet("font-size: 30px;""color: white;")
         grid_layout.addWidget(label, 1, 1)
@@ -44,12 +41,11 @@ class VistaHomeBarman(QWidget):
         button.setStyleSheet("background-color: {}".format(colore))
         button.setFont(QFont('Arial Nova Light', 14))
         button.setFixedSize(300, 150)
-        #button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         button.clicked.connect(on_click)
         return button
 
     def go_vista_lista_prodotti(self):
-        self.vista_magazzino = VistaMagazzino()
+        self.vista_magazzino = VistaMagazzinoBarman()
         self.vista_magazzino.show()
 
     def go_ordini(self):
