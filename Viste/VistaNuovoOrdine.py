@@ -83,27 +83,11 @@ class VistaNuovoOrdine(QWidget):
             self.label_importo.setText(f"Importo: {self.ordine.prezzo_totale}\u20AC")
 
     def conferma_ordine(self):
-        # Crea il codice ordine alfanumerico univoco
-        codice_ord = self.genera_codice()
-        self.ordine.prezzo_totale = sum(prezzo for _, _, prezzo in self.ordine.prodotti)
-
-        ordine = Ordine()
-        ordine.codice = codice_ord
-        ordine.prezzo_totale = self.ordine.prezzo_totale
-
-        # Salva l'ordine nel file pickle dell'evento selezionato
-        with open(f'Dati/Ordini/ordini_{self.evento_selezionato}.pickle', 'ab') as file:
-            pickle.dump(ordine, file)
-
+        self.ordine.inserisci_ordine(self.evento_selezionato)
         self.diminuisci_quantita()
-        self.callback(ordine)
+        self.callback(self.ordine)
         self.close()
 
-    def genera_codice(self):
-        length = 8  # Lunghezza del codice
-        characters = string.ascii_letters + string.digits  # Caratteri ammissibili (lettere maiuscole/minuscole e numeri)
-        codice = ''.join(random.choice(characters) for _ in range(length))
-        return codice
 
     def diminuisci_quantita(self):
         for prodotto, quantita, _ in self.prodotti_selezionati:
