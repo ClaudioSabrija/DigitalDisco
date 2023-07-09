@@ -4,6 +4,7 @@ from PyQt5.QtGui import QIcon, QStandardItem, QStandardItemModel
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QListView, QPushButton, QLabel, QMessageBox
 
 from Attività.Ordine import Ordine
+from Gestione.GestoreOrdini import GestoreOrdini
 from Magazzino.Bottiglia import Bottiglia
 from Viste.VistaScegliProdotto import VistaScegliProdotto
 
@@ -12,6 +13,7 @@ class VistaNuovoOrdine(QWidget):
     def __init__(self, evento_selezionato, ordine, callback):
         super().__init__()
 
+        self.controller = GestoreOrdini()
         self.evento_selezionato = evento_selezionato
         self.layout = QVBoxLayout()
         self.callback = callback
@@ -83,7 +85,7 @@ class VistaNuovoOrdine(QWidget):
             self.label_importo.setText(f"Importo: {self.ordine.prezzo_totale}\u20AC")
 
     def conferma_ordine(self):
-        self.ordine.inserisci_ordine(self.evento_selezionato)
+        self.controller.inserisci_ordine(self.ordine, self.evento_selezionato)
         self.diminuisci_quantita()
         self.callback(self.ordine)
         self.close()

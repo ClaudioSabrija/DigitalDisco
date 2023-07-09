@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QComboBox
 
 from Attività.Ordine import Ordine
 from Gestione.GestoreEventi import GestoreEventi
+from Gestione.GestoreOrdini import GestoreOrdini
 from Viste.VistaNuovoOrdine import VistaNuovoOrdine
 
 
@@ -17,7 +18,7 @@ class VistaOrdini(QWidget):
 
         gestore_eventi = GestoreEventi()
         self.layout = QHBoxLayout()
-        self.ordine = Ordine()
+        self.ordine = GestoreOrdini()
 
         # Layout per la lista degli ordini e l'importo totale
         ordini_layout = QVBoxLayout()
@@ -88,27 +89,13 @@ class VistaOrdini(QWidget):
         # Ottieni l'indice dell'elemento selezionato nella list_view
         index = self.list_view.currentIndex()
         if index.isValid():
-            # Ottieni il testo dell'ordine selezionato dalla list_view
-            ordine_selezionato = self.list_view.model().itemData(index)[Qt.DisplayRole]
-            #  Viene utilizzata per accedere al valore di visualizzazione di un elemento all'interno di un modello
-            #  Qui serve per ottenere il testo dell'ordine selezionato dalla list_view.
-
-            # Mostra un messaggio informativo
-            QMessageBox.information(self, "Elimina Ordine", f"L'ordine {ordine_selezionato} è stato eliminato.")
-
             # Rimuovi l'ordine dalla lista degli ordini
-            ordine = self.ordine.get_lista_ordini().pop(index.row())
+            ordine_selezionato = self.ordine.elimina_ordine(index.row(), self.combo_eventi.currentText())
+
             # Aggiorna la list_view
             self.aggiorna_list_view()
-
-            # Rimuovi l'ordine dal file pickle corrispondente all'evento selezionato
-            evento_selezionato = self.combo_eventi.currentText()
-            file_pickle = f'Dati/Ordini/ordini_{evento_selezionato}.pickle'
-
-            with open(file_pickle, 'wb') as file:
-                # Scrivi nuovamente gli ordini rimanenti nel file pickle
-                for ordine_in_lista in self.ordine.get_lista_ordini():
-                    pickle.dump(ordine_in_lista, file)
+        # Mostra un messaggio informativo
+            QMessageBox.information(self, "Elimina Ordine", f"L'ordine {ordine_selezionato.codice} è stato eliminato.")
 
     def stampa_ordine(self):
         index = self.list_view.currentIndex()
