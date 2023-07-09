@@ -13,7 +13,6 @@ class VistaScegliProdotto(QWidget):
 
         self.callback = callback
         self.prodotti_selezionati = []
-        self.quantita_selezionata = 0
 
         self.layout = QVBoxLayout()
 
@@ -117,8 +116,6 @@ class VistaScegliProdotto(QWidget):
                 else:
                     quantita, ok = QInputDialog.getInt(self, "Inserisci Quantità", "Quantità:", min=1)
 
-                self.quantita_selezionata = quantita
-
                 prezzo_totale = prodotto.get_prezzo() * quantita
 
                 prodotti_selezionati = (prodotto, quantita, prezzo_totale)
@@ -130,7 +127,4 @@ class VistaScegliProdotto(QWidget):
 
     def get_selected_products(self):
         return self.prodotti_selezionati
-
-    def get_quantita(self):
-        return self.quantita_selezionata
 
