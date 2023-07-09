@@ -1,5 +1,6 @@
 import json
-#Il magazzino è composto da 2 corridoi 20 scaffali e 5 piani per scaffale per un totale di 100 posizioni
+#Il magazzino è composto da 2 corridoi 20 scaffali e 5 piani
+#per scaffale per un totale di 100 posizioni
 
 # Definizione della struttura Posizione
 class Posizione:

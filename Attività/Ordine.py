@@ -3,3 +3,4 @@ class Ordine:
         self.codice = ""
         self.prodotti = []
         self.prezzo_totale = 0
+
