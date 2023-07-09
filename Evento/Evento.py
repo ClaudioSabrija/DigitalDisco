@@ -46,10 +46,10 @@ class Evento:
     def get_prezzo_prive(self):
         return self.prezzo_prive
 
-    def get_disponibilita_ingresso(self):
+    def get_disponibilita_ingressi(self):
         return self.disponibilita_ingressi
 
-    def get_disponibilita_tavolo(self):
+    def get_disponibilita_tavoli(self):
         return self.disponibilita_tavoli
 
     def get_disponibilita_prive(self):
