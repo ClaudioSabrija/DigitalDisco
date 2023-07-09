@@ -10,9 +10,9 @@ class Evento:
         self.prezzo_ingresso = prezzo_ingresso
         self.prezzo_tavolo = prezzo_tavolo
         self.prezzo_prive = prezzo_prive
-        self.disponibilita_ingressi = 200
-        self.disponibilita_tavoli = 20
-        self.disponibilita_prive = 10
+        self.disponibilita_ingressi = 220
+        self.disponibilita_tavoli = 8
+        self.disponibilita_prive = 4
         self.servizi = {
         "Ingresso": Servizio("Ingresso", self.prezzo_ingresso, self.disponibilita_ingressi),
         "Tavolo": Servizio("Tavolo", self.prezzo_tavolo, self.disponibilita_tavoli),
