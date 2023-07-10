@@ -17,8 +17,9 @@ class VistaMagazzino(QWidget):
     def __init__(self, parent=None):
         super(VistaMagazzino, self).__init__(parent)
 
-        self.controller = GestoreMagazzino()
         self.magazzino = Magazzino()
+        self.controller = GestoreMagazzino(self.magazzino)
+
         # Lo settiamo a None cosi poi sotto non crea ogni volta un istanza, ma solo la prima volta
         self.vista_modifica_bottiglia = None
         self.vista_modifica_cocktail = None

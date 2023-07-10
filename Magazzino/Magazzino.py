@@ -57,6 +57,14 @@ class Magazzino:
     def get_cocktail_by_index(self, index):
         return self.cocktail[index]
 
+    def rimuovi_bottiglia(self, bottiglie):
+        for bottiglia in self.bottiglie:
+            if bottiglia.nome == bottiglie.nome:
+                self.bottiglie.remove(bottiglia)
+                with open('Dati/lista_bottiglie_salvate.pickle', 'wb') as f:
+                    pickle.dump(self.bottiglie, f, pickle.HIGHEST_PROTOCOL)
+                return
+
     # Funzione che salva i file con i dati aggiornati.
     def save_data(self):
         with open('Dati/lista_bottiglie_salvate.pickle', 'wb') as handle:

@@ -3,8 +3,8 @@ import pickle
 import os
 
 class GestoreMagazzino:
-    def __init__(self):
-        self.magazzino = Magazzino()
+    def __init__(self, magazzino):
+        self.magazzino = magazzino
 
     def posizione_occupata(self, corridoio, scaffale, piano):
         for bottiglia in self.magazzino.bottiglie:
