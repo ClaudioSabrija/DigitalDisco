@@ -1,7 +1,7 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QGridLayout, QHBoxLayout, QPushButton
-from Gestione.GestoreBottiglie import GestoreBottiglie
+from Magazzino.Bottiglia import Bottiglia
 
 
 class VistaVisualizzaBottiglia(QWidget):
@@ -11,7 +11,8 @@ class VistaVisualizzaBottiglia(QWidget):
 
         self.callback_update = callback_update
         self.elimina_bottiglie_callback = elimina_bottiglie_callback
-        self.controller = GestoreBottiglie(bottiglia)
+        self.controller = Bottiglia(bottiglia.nome, bottiglia.prezzo, bottiglia.disponibilita,
+                                    bottiglia.corridoio, bottiglia.scaffale, bottiglia.piano)
 
         self.grid_layout = QGridLayout()
         v_layout = QVBoxLayout()

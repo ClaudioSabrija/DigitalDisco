@@ -2,6 +2,9 @@ from Magazzino.Magazzino import Magazzino
 import pickle
 import os
 
+from Magazzino.Posizione import Posizione
+
+
 class GestoreMagazzino:
     def __init__(self, magazzino):
         self.magazzino = magazzino
@@ -41,6 +44,31 @@ class GestoreMagazzino:
                 self.magazzino.cocktail[i] = cocktail_modificato
                 with open('Dati/lista_cocktail_salvati.pickle', 'wb') as f:
                     pickle.dump(self.magazzino.cocktail, f, pickle.HIGHEST_PROTOCOL)
+
+    def inserisci_cocktail(self, nome, prezzo):
+        self.nome = nome
+        self.prezzo = prezzo
+        new_cocktail = dict()
+        if os.path.isfile('Dati/lista_cocktail_salvati.pickle'):
+            with open('Dati/lista_cocktail_salvati.pickle', 'rb') as f:
+                cocktail = pickle.load(f)
+        new_cocktail[nome] = self  # ho fatto una lista [] perché mi dava l'errore must be integer e allora ho messo append
+        with open('Dati/lista_cocktail_salvati.pickle', 'wb') as f:
+            pickle.dump(cocktail, f, pickle.HIGHEST_PROTOCOL)
+
+    def inserisci_bottiglia(self, nome, prezzo, disponibilita, corridoio, scaffale, piano):
+        self.nome = nome
+        self.prezzo = prezzo
+        self.disponibilita = disponibilita
+        self.posizione = Posizione(corridoio, scaffale, piano)
+        bottiglie = []
+        if os.path.isfile('Dati/lista_bottiglie_salvate.pickle'):
+            with open('Dati/lista_bottiglie_salvate.pickle', 'rb') as f:
+                bottiglie = pickle.load(f)
+        bottiglie.append(self)
+        with open('Dati/lista_bottiglie_salvate.pickle', 'wb') as f:
+            pickle.dump(bottiglie, f, pickle.HIGHEST_PROTOCOL)
+        self.posizione.occupa_posizione(corridoio, scaffale, piano)
 
     @staticmethod
     def unione_lista_prodotti():

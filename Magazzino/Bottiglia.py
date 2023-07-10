@@ -1,7 +1,4 @@
-import pickle
-import os
 from Magazzino.Prodotto import Prodotto
-from Magazzino.Posizione import Posizione
 
 
 class Bottiglia(Prodotto):
@@ -13,19 +10,32 @@ class Bottiglia(Prodotto):
         self.scaffale = scaffale
         self.piano = piano
 
-    def inserisci_bottiglia(self, nome, prezzo, disponibilita, corridoio, scaffale, piano):
-        self.nome = nome
-        self.prezzo = prezzo
-        self.disponibilita = disponibilita
-        self.posizione = Posizione(corridoio, scaffale, piano)
-        bottiglie = []
-        if os.path.isfile('Dati/lista_bottiglie_salvate.pickle'):
-            with open('Dati/lista_bottiglie_salvate.pickle', 'rb') as f:
-                bottiglie = pickle.load(f)
-        bottiglie.append(self)
-        with open('Dati/lista_bottiglie_salvate.pickle', 'wb') as f:
-            pickle.dump(bottiglie, f, pickle.HIGHEST_PROTOCOL)
-        self.posizione.occupa_posizione(corridoio, scaffale, piano)
+    def get_bottiglia(self):
+        return Bottiglia(self.nome, self.prezzo, self.disponibilita, self.corridoio, self.scaffale, self.piano)
+
+    def set_bottiglia(self, bottiglia):
+        if isinstance(bottiglia, Bottiglia):
+            self.nome = bottiglia.nome
+            self.prezzo = bottiglia.prezzo
+            self.disponibilita = bottiglia.disponibilita
+            self.corridoio = bottiglia.corridoio
+            self.scaffale = bottiglia.scaffale
+            self.piano = bottiglia.piano
+
+    def get_nome_bottiglia(self):
+        return self.nome
+
+    def get_prezzo_bottiglia(self):
+        return self.prezzo
+
+    def get_corridoio_bottiglia(self):
+        return self.corridoio
+
+    def get_scaffale_bottiglia(self):
+        return self.scaffale
+
+    def get_piano_bottiglia(self):
+        return self.piano
 
     # Metodi che servono per il prelievo delle bottiglie
     def get_disponibilta_bottiglia(self):

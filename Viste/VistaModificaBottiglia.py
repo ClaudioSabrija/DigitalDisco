@@ -15,7 +15,7 @@ class VistaModificaBottiglia(QWidget):
         self.bottiglia = bottiglia
         self.callback = callback
         self.magazzino = Magazzino()
-        self.controller = GestoreMagazzino()
+        self.controller = GestoreMagazzino(self.magazzino)
 
         # Creazione dei widget
         label_top = QLabel("Modifica i dati del prodotto:", self)

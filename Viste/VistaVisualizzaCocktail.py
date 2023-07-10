@@ -2,8 +2,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap, QIcon, QFont
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QGridLayout, QPushButton, QHBoxLayout
 
-from Gestione.GestoreCocktail import GestoreCocktail
-from Viste.VistaModificaCocktail import VistaModificaCocktail
+from Magazzino.Cocktail import Cocktail
 
 
 class VistaVisualizzaCocktail(QWidget):
@@ -13,7 +12,7 @@ class VistaVisualizzaCocktail(QWidget):
 
         self.callback_update = callback_update
         self.elimina_cocktail_callback = elimina_cocktail_callback
-        self.controller = GestoreCocktail(cocktail)
+        self.controller = Cocktail(cocktail.nome, cocktail.prezzo)
 
         self.grid_layout = QGridLayout()
         v_layout = QVBoxLayout()
