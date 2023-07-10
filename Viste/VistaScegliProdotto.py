@@ -3,8 +3,8 @@ import os.path, pickle
 from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QListView, QPushButton, QInputDialog, QLabel, QLineEdit
 
+from Gestione.GestoreMagazzino import GestoreMagazzino
 from Magazzino.Bottiglia import Bottiglia
-from Magazzino.Prodotto import Prodotto
 
 
 class VistaScegliProdotto(QWidget):
@@ -29,7 +29,7 @@ class VistaScegliProdotto(QWidget):
         self.list_view = QListView()
         self.layout.addWidget(self.list_view)
 
-        Prodotto.unione_lista_prodotti()
+        GestoreMagazzino.unione_lista_prodotti()
         self.popola_lista()
 
         # Layout per i bottoni

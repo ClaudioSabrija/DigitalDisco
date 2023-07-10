@@ -1,5 +1,6 @@
 from Magazzino.Magazzino import Magazzino
 import pickle
+import os
 
 class GestoreMagazzino:
     def __init__(self):
@@ -41,8 +42,7 @@ class GestoreMagazzino:
                 with open('Dati/lista_cocktail_salvati.pickle', 'wb') as f:
                     pickle.dump(self.magazzino.cocktail, f, pickle.HIGHEST_PROTOCOL)
 
-        # Funzione che salva i file con i dati aggiornati.
-
+    # Funzione che salva i file con i dati aggiornati.
     def save_data(self):
         with open('Dati/lista_bottiglie_salvate.pickle', 'wb') as handle:
             pickle.dump(self.magazzino.bottiglie, handle, pickle.HIGHEST_PROTOCOL)
@@ -50,3 +50,19 @@ class GestoreMagazzino:
         with open('Dati/lista_cocktail_salvati.pickle', 'wb') as handle:
             pickle.dump(self.magazzino.cocktail, handle, pickle.HIGHEST_PROTOCOL)
 
+    @staticmethod
+    def unione_lista_prodotti():
+        data1 = []
+        data2 = []
+        if os.path.isfile('Dati/lista_bottiglie_salvate.pickle'):
+            with open('Dati/lista_bottiglie_salvate.pickle', 'rb') as f1:
+                data1 = pickle.load(f1)
+
+        if os.path.isfile('Dati/lista_cocktail_salvati.pickle'):
+            with open('Dati/lista_cocktail_salvati.pickle', 'rb') as f2:
+                data2 = pickle.load(f2)
+
+        merged_data = data1 + data2
+
+        with open('Dati/lista_prodotti_salvati.pickle', 'wb+') as f:
+            pickle.dump(merged_data, f, pickle.HIGHEST_PROTOCOL)
