@@ -12,7 +12,7 @@ class VistaMagazzinoBarman(QWidget):
         super(VistaMagazzinoBarman, self).__init__(parent)
 
         self.magazzino = Magazzino()
-        self.controller = GestoreMagazzino()
+        self.controller = GestoreMagazzino(self.magazzino)
 
         v_layout = QVBoxLayout()  # Layout principale
         v_layout.setAlignment(Qt.AlignCenter)  # Allinea il layout al centro
@@ -92,5 +92,5 @@ class VistaMagazzinoBarman(QWidget):
 
     # Funzione che richiama il metodo del controllore che salva i dati aggiornati.
     def closeEvent(self, event):
-        self.controller.save_data()
+        self.magazzino.save_data()
         event.accept()

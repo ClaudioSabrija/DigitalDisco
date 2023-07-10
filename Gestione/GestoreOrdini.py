@@ -1,7 +1,6 @@
 import pickle
 import random
 import string
-from Attività.Ordine import Ordine
 
 
 class GestoreOrdini():
