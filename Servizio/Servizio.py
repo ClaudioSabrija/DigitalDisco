@@ -9,6 +9,9 @@ class Servizio:
     def aumenta_prenotazioni(self):
         self.numero_prenotazioni += 1
 
+    def diminuisci_prenotazioni(self):
+        self.numero_prenotazioni -= 1
+
     def get_nome_servizio(self):
         return self.nome
 
