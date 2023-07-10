@@ -49,7 +49,7 @@ class Magazzino:
         self.bottiglie.append(bottiglia)
 
     def aggiungi_cocktail(self, cocktail):
-        return self.cocktail.append(cocktail)
+        self.cocktail.append(cocktail)
 
     def get_bottiglia_by_index_(self, index):
         return self.bottiglie[index]

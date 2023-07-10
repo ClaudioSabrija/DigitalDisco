@@ -22,7 +22,7 @@ class GestoreBottiglie():
         return self.model.corridoio
 
     def get_scaffale_bottiglia(self):
-            return self.model.scaffale
+        return self.model.scaffale
 
     def get_piano_bottiglia(self):
         return self.model.piano
