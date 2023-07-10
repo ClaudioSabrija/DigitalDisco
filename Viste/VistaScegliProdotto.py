@@ -60,7 +60,7 @@ class VistaScegliProdotto(QWidget):
                     item = QStandardItem()
                     if isinstance(prodotto, Bottiglia): # se è una bottiglia allora mostra la disp. perchè la bottiglia ha essa come attributo
                         item.setText(f"{prodotto.get_nome()} - {prodotto.get_prezzo()}\u20AC "
-                                     f"- Disponibilità:{prodotto.get_disponibilta()}") #\u20AC è l'unicode dell'Euro
+                                     f"- Disponibilità:{prodotto.get_disponibilta_bottiglia()}") #\u20AC è l'unicode dell'Euro
                     else:   item.setText(f"{prodotto.get_nome()} - {prodotto.get_prezzo()}\u20AC")
                     item.setEditable(False)
                     font = item.font()
