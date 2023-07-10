@@ -42,14 +42,6 @@ class GestoreMagazzino:
                 with open('Dati/lista_cocktail_salvati.pickle', 'wb') as f:
                     pickle.dump(self.magazzino.cocktail, f, pickle.HIGHEST_PROTOCOL)
 
-    # Funzione che salva i file con i dati aggiornati.
-    def save_data(self):
-        with open('Dati/lista_bottiglie_salvate.pickle', 'wb') as handle:
-            pickle.dump(self.magazzino.bottiglie, handle, pickle.HIGHEST_PROTOCOL)
-
-        with open('Dati/lista_cocktail_salvati.pickle', 'wb') as handle:
-            pickle.dump(self.magazzino.cocktail, handle, pickle.HIGHEST_PROTOCOL)
-
     @staticmethod
     def unione_lista_prodotti():
         data1 = []

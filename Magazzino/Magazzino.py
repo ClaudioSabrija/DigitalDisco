@@ -56,3 +56,11 @@ class Magazzino:
 
     def get_cocktail_by_index(self, index):
         return self.cocktail[index]
+
+    # Funzione che salva i file con i dati aggiornati.
+    def save_data(self):
+        with open('Dati/lista_bottiglie_salvate.pickle', 'wb') as handle:
+            pickle.dump(self.bottiglie, handle, pickle.HIGHEST_PROTOCOL)
+
+        with open('Dati/lista_cocktail_salvati.pickle', 'wb') as handle:
+            pickle.dump(self.cocktail, handle, pickle.HIGHEST_PROTOCOL)
