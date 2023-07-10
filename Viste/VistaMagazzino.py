@@ -135,7 +135,7 @@ class VistaMagazzino(QWidget):
 
     # Funzione che mostra la vista che permette l'inserimento di un nuovo prodotto.
     def inserisci_bottiglia(self):
-        self.vista_inserisci_bottiglia = VistaInserisciBottiglia(callback=self.aggiorna_bottiglia)
+        self.vista_inserisci_bottiglia = VistaInserisciBottiglia(callback=self.aggiorna_lista_bottiglia)
         self.update_ui()
         self.vista_inserisci_bottiglia.show()
 
@@ -155,7 +155,7 @@ class VistaMagazzino(QWidget):
 
     # Funzione che mostra la vista che permette l'inserimento di un nuovo prodotto.
     def inserisci_cocktail(self):
-        self.vista_inserisci_cocktail = VistaInserisciCocktail(callback=self.aggiorna_cocktail)
+        self.vista_inserisci_cocktail = VistaInserisciCocktail(callback=self.aggiorna_lista_cocktail)
         self.update_ui()
         self.vista_inserisci_cocktail.show()
 
@@ -252,13 +252,13 @@ class VistaMagazzino(QWidget):
                 self.vista_visualizza_cocktail.close()
 
     # Metodi che servono a inserire l'elemento nella list view direttamente
-    def aggiorna_bottiglia(self, bottiglia):
+    def aggiorna_lista_bottiglia(self, bottiglia):
         self.magazzino.aggiungi_bottiglia(bottiglia)
         item = QStandardItem(bottiglia.nome)  # Esempio: Visualizza solo il nome della bottiglia nella lista
         self.list_view_bottiglie_model.appendRow(item)
         self.update_ui()
 
-    def aggiorna_cocktail(self, cocktail):
+    def aggiorna_lista_cocktail(self, cocktail):
         self.magazzino.aggiungi_cocktail(cocktail)
         item = QStandardItem(cocktail.nome)  # Esempio: Visualizza solo il nome del cocktail nella lista
         self.list_view_cocktail_model.appendRow(item)
@@ -282,5 +282,5 @@ class VistaMagazzino(QWidget):
 
     # Funzione che richiama il metodo del controllore che salva i dati aggiornati.
     def closeEvent(self, event):
-        self.controller.save_data()
+        self.magazzino.save_data()
         event.accept()
