@@ -3,6 +3,7 @@ from PyQt5.QtGui import QFont, QIcon, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QVBoxLayout, \
     QListView, QHBoxLayout, QInputDialog
 
+from Gestione.GestoreMagazzino import GestoreMagazzino
 from Magazzino.Magazzino import Magazzino
 
 
@@ -10,7 +11,8 @@ class VistaMagazzinoBarman(QWidget):
     def __init__(self, parent=None):
         super(VistaMagazzinoBarman, self).__init__(parent)
 
-        self.controller = Magazzino()
+        self.magazzino = Magazzino()
+        self.controller = GestoreMagazzino()
 
         v_layout = QVBoxLayout()  # Layout principale
         v_layout.setAlignment(Qt.AlignCenter)  # Allinea il layout al centro
@@ -53,7 +55,7 @@ class VistaMagazzinoBarman(QWidget):
             return
 
         selected_row = selected_index[0].row()
-        self.bottiglia_selezionata = self.controller.get_bottiglia_by_index_(selected_row)
+        self.bottiglia_selezionata = self.magazzino.get_bottiglia_by_index_(selected_row)
 
         if self.bottiglia_selezionata:
             disponibilita = self.bottiglia_selezionata.get_disponibilta_bottiglia()
@@ -78,7 +80,7 @@ class VistaMagazzinoBarman(QWidget):
 
     def update_ui(self):
         self.list_view_bottiglie_model = QStandardItemModel(self.list_view_bottiglie)
-        for bottiglie in self.controller.get_lista_bottiglie():
+        for bottiglie in self.magazzino.get_lista_bottiglie():
             item = QStandardItem()
             item.setText(bottiglie.nome)
             item.setEditable(False)

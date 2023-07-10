@@ -2,6 +2,7 @@ from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, \
     QComboBox, QDateTimeEdit, QMessageBox
 
+from Gestione.GestoreMagazzino import GestoreMagazzino
 from Magazzino.Cocktail import Cocktail
 from Magazzino.Magazzino import Magazzino
 

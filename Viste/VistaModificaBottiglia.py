@@ -2,6 +2,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, \
     QMessageBox
 
+from Gestione.GestoreMagazzino import GestoreMagazzino
 from Magazzino.Bottiglia import Bottiglia
 from Magazzino.Magazzino import Magazzino
 
@@ -14,6 +15,7 @@ class VistaModificaBottiglia(QWidget):
         self.bottiglia = bottiglia
         self.callback = callback
         self.magazzino = Magazzino()
+        self.controller = GestoreMagazzino()
 
         # Creazione dei widget
         label_top = QLabel("Modifica i dati del prodotto:", self)
@@ -101,7 +103,7 @@ class VistaModificaBottiglia(QWidget):
 
         # Controlla la posizione se è disponibile,se inserisco le stesse posizioni di quelle già presenti non da errore
         if (corridoio != self.bottiglia.corridoio or scaffale != self.bottiglia.scaffale or piano != self.bottiglia.piano) and \
-                self.magazzino.posizione_occupata(corridoio, scaffale, piano):
+                self.controller.posizione_occupata(corridoio, scaffale, piano):
             QMessageBox.warning(self, "Errore", "In questa posizione è già situata un'altra bottiglia.")
             return
 
