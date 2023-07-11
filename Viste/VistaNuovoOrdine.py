@@ -1,9 +1,8 @@
-import pickle, string, random
+import pickle
 
 from PyQt5.QtGui import QIcon, QStandardItem, QStandardItemModel
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QListView, QPushButton, QLabel, QMessageBox
 
-from Attività.Ordine import Ordine
 from Gestione.GestoreOrdini import GestoreOrdini
 from Magazzino.Bottiglia import Bottiglia
 from Viste.VistaScegliProdotto import VistaScegliProdotto
@@ -85,6 +84,7 @@ class VistaNuovoOrdine(QWidget):
             self.label_importo.setText(f"Importo: {self.ordine.prezzo_totale}\u20AC")
 
     def conferma_ordine(self):
+        self.ordine.prodotti = self.prodotti_selezionati
         self.controller.inserisci_ordine(self.ordine, self.evento_selezionato)
         self.diminuisci_quantita()
         self.callback(self.ordine)
