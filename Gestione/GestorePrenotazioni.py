@@ -4,6 +4,7 @@ from Servizio.Servizio import Servizio
 from Evento.Evento import Evento
 
 class GestorePrenotazioni():
+    def __init__(self):
 
     def get_prenotazione_by_index(self, evento, index):
         lista_prenotazioni = evento.get_lista_prenotazioni()

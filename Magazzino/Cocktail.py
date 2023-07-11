@@ -19,3 +19,4 @@ class Cocktail(Prodotto):
 
     def get_prezzo_cocktail(self):
         return self.prezzo
+
