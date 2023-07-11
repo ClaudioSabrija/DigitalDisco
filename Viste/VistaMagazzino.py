@@ -20,11 +20,6 @@ class VistaMagazzino(QWidget):
         self.magazzino = Magazzino()
         self.controller = GestoreMagazzino(self.magazzino)
 
-        # Lo settiamo a None cosi poi sotto non crea ogni volta un istanza, ma solo la prima volta
-        self.vista_modifica_bottiglia = None
-        self.vista_modifica_cocktail = None
-
-
         grid_layout = QGridLayout()
         v_layout_bottiglie = QVBoxLayout()
         v_layout_cocktail = QVBoxLayout()
@@ -266,16 +261,21 @@ class VistaMagazzino(QWidget):
         self.update_ui()
 
     def modifica_bottiglia(self):
-        if self.vista_modifica_bottiglia is None:
-            self.vista_modifica_bottiglia = VistaModificaBottiglia(self.bottiglia_selezionata,
+        if self.list_view_bottiglie.selectedIndexes():
+            selected = self.list_view_bottiglie.selectedIndexes()[0].row()
+            bottiglia_selezionata = self.magazzino.get_bottiglia_by_index_(selected)
+
+            self.vista_modifica_bottiglia = VistaModificaBottiglia(bottiglia_selezionata,
                                                                    self.controller.aggiorna_bottiglie,
                                                                    self.vista_visualizza_bottiglia.update_bottiglia)
-        self.vista_modifica_bottiglia.show()
-        self.update_ui()
+            self.vista_modifica_bottiglia.show()
+            self.update_ui()
 
     def modifica_cocktail(self):
-        if self.vista_modifica_cocktail is None:
-            self.vista_modifica_cocktail = VistaModificaCocktail(self.cocktail_selezionato,
+        if self.list_view_cocktail.selectedIndexes():
+            selected = self.list_view_cocktail.selectedIndexes()[0].row()
+            cocktail_selezionato = self.magazzino.get_cocktail_by_index(selected)
+            self.vista_modifica_cocktail = VistaModificaCocktail(cocktail_selezionato,
                                                                  self.controller.aggiorna_cocktail,
                                                                  self.vista_visualizza_cocktail.update_cocktail)
         self.vista_modifica_cocktail.show()
