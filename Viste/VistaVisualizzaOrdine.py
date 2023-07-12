@@ -1,5 +1,6 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QListView
-from PyQt5.QtGui import QStandardItemModel, QStandardItem
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QListView, QPushButton, QMessageBox
+from PyQt5.QtGui import QStandardItemModel, QStandardItem, QFont, QIcon
+
 
 class VistaVisualizzaOrdine(QWidget):
     def __init__(self, ordine):
@@ -23,4 +24,17 @@ class VistaVisualizzaOrdine(QWidget):
 
         prodotti_list_view.setModel(prodotti_model)
 
+        self.btn_stampa_ordine = QPushButton("STAMPA ORDINE")
+        self.layout.addWidget(self.btn_stampa_ordine)
+        self.btn_stampa_ordine.clicked.connect(self.stampa_ordine)
+
         self.setLayout(self.layout)
+        self.setFont(QFont('Arial Nova Light'))
+        self.setWindowTitle("Visualizza Ordine")
+        self.setWindowIcon(QIcon('Dati/DigitalDisco.png'))
+        self.setFixedSize(500, 300)
+
+    def stampa_ordine(self):
+        QMessageBox.information(self, "Stampa Ordine",
+                                f"L'ordine è stato stampato correttamente.")
+        self.close()

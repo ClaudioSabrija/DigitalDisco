@@ -48,9 +48,9 @@ class VistaOrdini(QWidget):
         bottoni_layout.addWidget(self.btn_elimina_ordine)
         self.btn_elimina_ordine.clicked.connect(self.elimina_ordine)
 
-        self.btn_stampa_ordine = QPushButton("STAMPA ORDINE")
-        bottoni_layout.addWidget(self.btn_stampa_ordine)
-        self.btn_stampa_ordine.clicked.connect(self.visualizza_dettagli_ordine)
+        self.btn_visualizza_ordine = QPushButton("VISUALIZZA ORDINE")
+        bottoni_layout.addWidget(self.btn_visualizza_ordine)
+        self.btn_visualizza_ordine.clicked.connect(self.visualizza_dettagli_ordine)
 
         bottoni_layout.setSpacing(0)
 
