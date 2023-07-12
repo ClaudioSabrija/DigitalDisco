@@ -6,9 +6,10 @@ from Magazzino.Bottiglia import Bottiglia
 
 class VistaVisualizzaBottiglia(QWidget):
 
-    def __init__(self, bottiglia, callback_update, elimina_bottiglie_callback=None, parent=None):
+    def __init__(self, bottiglia, callback_update_ui , callback_update, elimina_bottiglie_callback=None, parent=None):
         super(VistaVisualizzaBottiglia, self).__init__(parent)
 
+        self.callback_update_ui = callback_update_ui
         self.callback_update = callback_update
         self.elimina_bottiglie_callback = elimina_bottiglie_callback
         self.controller = Bottiglia(bottiglia.nome, bottiglia.prezzo, bottiglia.disponibilita,
@@ -99,9 +100,4 @@ class VistaVisualizzaBottiglia(QWidget):
         self.label_corridoio.setText("Corridoio: {}".format(self.controller.get_corridoio_bottiglia()))
         self.label_scaffale.setText("Scaffale: {}".format(self.controller.get_scaffale_bottiglia()))
         self.label_piano.setText("Piano: {}".format(self.controller.get_piano_bottiglia()))
-
-    def update_bottiglia(self, bottiglia):
-        self.controller.set_bottiglia(bottiglia)
-        self.update_ui()
-        self.callback_update()
-        self.close()
+        self.callback_update_ui()

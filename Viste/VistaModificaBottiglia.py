@@ -117,6 +117,6 @@ class VistaModificaBottiglia(QWidget):
 
         bottiglia_modificata = Bottiglia(nome, prezzo, disponibilita, corridoio, scaffale, piano)
 
-        self.callback_modifica(bottiglia_modificata)
+        self.callback_modifica()
         self.callback(self.bottiglia, bottiglia_modificata)
         self.close()

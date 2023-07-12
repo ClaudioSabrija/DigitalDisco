@@ -7,9 +7,10 @@ from Magazzino.Cocktail import Cocktail
 
 class VistaVisualizzaCocktail(QWidget):
 
-    def __init__(self, cocktail, callback_update, elimina_cocktail_callback = None, parent=None):
+    def __init__(self, cocktail, callback_update_ui, callback_update, elimina_cocktail_callback = None, parent=None):
         super(VistaVisualizzaCocktail, self).__init__(parent)
 
+        self.callback_update_ui = callback_update_ui
         self.callback_update = callback_update
         self.elimina_cocktail_callback = elimina_cocktail_callback
         self.controller = Cocktail(cocktail.nome, cocktail.prezzo)
@@ -75,10 +76,4 @@ class VistaVisualizzaCocktail(QWidget):
         # Aggiorna le informazioni visualizzate con i nuovi valori del cocktail
         self.label_nome.setText("Nome: {}".format(self.controller.get_nome_cocktail()))
         self.label_prezzo.setText("Prezzo: {}€".format(self.controller.get_prezzo_cocktail()))
-
-    def update_cocktail(self, cocktail):
-        self.controller.set_cocktail(cocktail)
-        self.update_ui()
-        self.callback_update()
-        self.close()
-
+        self.callback_update_ui()
