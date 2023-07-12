@@ -8,6 +8,7 @@ from Viste.VistaInserisciPrenotazione import VistaInserisciPrenotazione
 from Viste.VistaVisualizzaPrenotazione import VistaVisualizzaPrenotazione
 from Viste.VistaModificaPrenotazione import VistaModificaPrenotazione
 from Gestione.GestorePrenotazioni import GestorePrenotazioni
+from Viste.VistaVisualizzaPdf import VistaVisualizzaPdf
 
 from Evento.Evento import Evento
 
@@ -113,7 +114,13 @@ class VistaPrenotazioniEvento(QWidget):
 
 
     def show_vista_visualizza_pdf(self):
-        pass
+        if self.list_view_prenotazioni.selectedIndexes():
+            indice_selezionato = self.list_view_prenotazioni.selectedIndexes()[0].row()
+            prenotazione_selezionata = self.controller.get_prenotazione_by_index(self.evento, indice_selezionato)
+
+            self.vista_visualizza_pdf = VistaVisualizzaPdf(prenotazione_selezionata)
+            self.vista_visualizza_pdf.show()
+            self.vista_prenotazione.close()
 
 
     def load_prenotazioni(self, evento):
