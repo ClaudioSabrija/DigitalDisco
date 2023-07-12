@@ -85,19 +85,18 @@ class VistaInserisciEvento(QWidget):
         except ValueError:
             QMessageBox.warning(self, "Errore", "I campi di ingresso, tavolo e prive devono essere numeri interi.")
             return
+            # Controllo se il formato della data è valido
         try:
-            giorno, mese, anno = data.split('/')
-            data_inserita = QDate(int(giorno), int(mese), int(anno))
+                datetime.strptime(data, "%d/%m/%Y")
         except ValueError:
-            QMessageBox.critical(self, "Errore", "Il formato della data inserita dev'essere:(dd/mm/yyyy).")
+            QMessageBox.warning(self, "Errore", "Il formato della data inserita dev'essere: dd/mm/yyyy.")
             return
 
-        data_inserita = self.line_edit_data.text().strip()
+            # Controllo se la data è precedente alla data odierna
+        data_odierna = datetime.now().date()
 
-        # Controllo se la data è precedente alla data odierna
-        data_odierna = datetime.today().strftime("%d/%m/%Y")
-
-        if datetime.strptime(data_inserita, "%d/%m/%Y") < datetime.strptime(data_odierna, "%d/%m/%Y"):
+        data_inserita = datetime.strptime(data, "%d/%m/%Y").date()
+        if data_inserita < data_odierna:
             QMessageBox.warning(self, "Errore", "La data inserita è precedente alla data odierna.")
             return
 

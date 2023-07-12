@@ -10,6 +10,7 @@ from Attività.Ordine import Ordine
 from Gestione.GestoreEventi import GestoreEventi
 from Gestione.GestoreOrdini import GestoreOrdini
 from Viste.VistaNuovoOrdine import VistaNuovoOrdine
+from Viste.VistaVisualizzaOrdine import VistaVisualizzaOrdine
 
 
 class VistaOrdini(QWidget):
@@ -47,9 +48,9 @@ class VistaOrdini(QWidget):
         bottoni_layout.addWidget(self.btn_elimina_ordine)
         self.btn_elimina_ordine.clicked.connect(self.elimina_ordine)
 
-        self.btn_stampa_ordine = QPushButton("STAMPA ORDINE")
-        bottoni_layout.addWidget(self.btn_stampa_ordine)
-        self.btn_stampa_ordine.clicked.connect(self.stampa_ordine)
+        self.btn_visualizza_ordine = QPushButton("VISUALIZZA ORDINE")
+        bottoni_layout.addWidget(self.btn_visualizza_ordine)
+        self.btn_visualizza_ordine.clicked.connect(self.visualizza_dettagli_ordine)
 
         bottoni_layout.setSpacing(0)
 
@@ -157,3 +158,16 @@ class VistaOrdini(QWidget):
     def calcola_importo_totale(self):
         importo_totale = sum(ordine.prezzo_totale for ordine in self.ordine.get_lista_ordini())
         self.label_importo_totale.setText(f"Importo Totale: {importo_totale}\u20AC")
+
+    def visualizza_dettagli_ordine(self):
+        index = self.list_view.currentIndex()
+        if index.isValid():
+            evento_selezionato = self.combo_eventi.currentText()
+            file_pickle = f'Dati/Ordini/ordini_{evento_selezionato}.pickle'
+
+            with open(file_pickle, 'rb') as file:
+                for _ in range(index.row() + 1):
+                    ordine_selezionato = pickle.load(file)
+
+            self.vista_visualizza_ordine = VistaVisualizzaOrdine(ordine_selezionato)
+            self.vista_visualizza_ordine.show()

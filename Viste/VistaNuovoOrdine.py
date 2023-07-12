@@ -84,12 +84,10 @@ class VistaNuovoOrdine(QWidget):
             self.label_importo.setText(f"Importo: {self.ordine.prezzo_totale}\u20AC")
 
     def conferma_ordine(self):
-        self.ordine.prodotti = self.prodotti_selezionati
         self.controller.inserisci_ordine(self.ordine, self.evento_selezionato)
         self.diminuisci_quantita()
         self.callback(self.ordine)
         self.close()
-
 
     def diminuisci_quantita(self):
         for prodotto, quantita, _ in self.prodotti_selezionati:
