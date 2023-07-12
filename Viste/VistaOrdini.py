@@ -98,13 +98,6 @@ class VistaOrdini(QWidget):
         # Mostra un messaggio informativo
             QMessageBox.information(self, "Elimina Ordine", f"L'ordine {ordine_selezionato.codice} è stato eliminato.")
 
-    def stampa_ordine(self):
-        index = self.list_view.currentIndex()
-        if index.isValid():
-            ordine_selezionato = self.list_view.model().itemData(index)[Qt.DisplayRole]
-            QMessageBox.information(self, "Stampa Ordine",
-                                    f"L'ordine {ordine_selezionato} è stato stampato correttamente.")
-
     def aggiorna_list_view(self):
         list_view_model = QStandardItemModel(self.list_view)
         for ordine in self.ordine.get_lista_ordini():
