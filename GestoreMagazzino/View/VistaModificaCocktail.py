@@ -66,6 +66,6 @@ class VistaModificaCocktail(QWidget):
 
         cocktail_modificato = Cocktail(nome, prezzo)
 
-        self.callback_modifica(cocktail_modificato)
+        self.callback_modifica()
         self.callback(self.cocktail, cocktail_modificato)
         self.close()

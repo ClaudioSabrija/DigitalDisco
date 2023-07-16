@@ -94,7 +94,7 @@ class VistaMagazzino(QWidget):
 
             def elimina_bottiglie_callback():
                 self.elimina_bottiglia()
-            self.vista_visualizza_bottiglia = VistaVisualizzaBottiglia(self.bottiglia_selezionata,
+            self.vista_visualizza_bottiglia = VistaVisualizzaBottiglia(self.bottiglia_selezionata, self.update_ui,
                                                                        callback_update=self.modifica_bottiglia,
                                                                        elimina_bottiglie_callback=elimina_bottiglie_callback)
             self.vista_visualizza_bottiglia.show()
@@ -143,7 +143,7 @@ class VistaMagazzino(QWidget):
 
             def elimina_cocktail_callback():
                 self.elimina_cocktail()
-            self.vista_visualizza_cocktail = VistaVisualizzaCocktail(self.cocktail_selezionato,
+            self.vista_visualizza_cocktail = VistaVisualizzaCocktail(self.cocktail_selezionato, self.update_ui,
                                                                      callback_update=self.modifica_cocktail,
                                                                      elimina_cocktail_callback=elimina_cocktail_callback)
             self.vista_visualizza_cocktail.show()
@@ -268,8 +268,9 @@ class VistaMagazzino(QWidget):
 
             self.vista_modifica_bottiglia = VistaModificaBottiglia(bottiglia_selezionata,
                                                                    self.controller.aggiorna_bottiglie,
-                                                                   self.vista_visualizza_bottiglia.update_bottiglia)
+                                                                   self.vista_visualizza_bottiglia.update_ui)
             self.vista_modifica_bottiglia.show()
+            self.vista_visualizza_bottiglia.close()
             self.update_ui()
 
     def modifica_cocktail(self):
@@ -278,8 +279,9 @@ class VistaMagazzino(QWidget):
             cocktail_selezionato = self.magazzino.get_cocktail_by_index(selected)
             self.vista_modifica_cocktail = VistaModificaCocktail(cocktail_selezionato,
                                                                  self.controller.aggiorna_cocktail,
-                                                                 self.vista_visualizza_cocktail.update_cocktail)
+                                                                 self.vista_visualizza_cocktail.update_ui)
         self.vista_modifica_cocktail.show()
+        self.vista_visualizza_cocktail.close()
         self.update_ui()
 
     # Funzione che richiama il metodo del controllore che salva i dati aggiornati.
