@@ -8,3 +8,7 @@ Il progetto consiste nella realizzazione di sistema informativo per la gestione 
 Il software premette la creazione di eventi e la gestione generale di una discoteca come la gestione del
 magazzino e degli ordini, inoltre permette anche di visualizzare un andamento della redditività della 
 discoteca nella sezione delle statistiche.
+
+Credenziali: 
+-AMMINISTRATORE: Nome Utente: amministratore, Password: password
+-BARMAN: Nome Utente: barman, Password: password
