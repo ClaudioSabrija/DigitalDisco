@@ -10,5 +10,7 @@ magazzino e degli ordini, inoltre permette anche di visualizzare un andamento de
 discoteca nella sezione delle statistiche.
 
 Credenziali: 
+
 -AMMINISTRATORE: Nome Utente: amministratore, Password: password
+
 -BARMAN: Nome Utente: barman, Password: password
