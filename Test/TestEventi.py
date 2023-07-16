@@ -2,8 +2,8 @@ import os.path
 import pickle
 import unittest
 
-from Evento.Evento import Evento
-from Gestione.GestoreEventi import GestoreEventi
+from GestoreEventi.Model.Evento import Evento
+from GestoreEventi.Controller.GestoreEventi import GestoreEventi
 
 
 class Test(unittest.TestCase):

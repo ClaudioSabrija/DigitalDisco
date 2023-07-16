@@ -4,7 +4,7 @@ from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QApplication, QSplashScreen
 
-from Viste.VistaLogin import VistaLogin
+from VisteHome.VistaLogin import VistaLogin
 
 if __name__ == '__main__':
 
