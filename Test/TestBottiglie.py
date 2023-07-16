@@ -1,7 +1,7 @@
 import unittest
 
-from Magazzino.Bottiglia import Bottiglia
-from Magazzino.Magazzino import Magazzino
+from GestoreMagazzino.Model.Bottiglia import Bottiglia
+from GestoreMagazzino.Model.Magazzino import Magazzino
 
 
 class Test(unittest.TestCase):

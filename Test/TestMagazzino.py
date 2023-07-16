@@ -1,8 +1,8 @@
 import unittest
 
-from Gestione.GestoreMagazzino import GestoreMagazzino
-from Magazzino.Bottiglia import Bottiglia
-from Magazzino.Magazzino import Magazzino
+from GestoreMagazzino.Controller.GestoreMagazzino import GestoreMagazzino
+from GestoreMagazzino.Model.Bottiglia import Bottiglia
+from GestoreMagazzino.Model.Magazzino import Magazzino
 
 
 class TestMagazzino(unittest.TestCase):
