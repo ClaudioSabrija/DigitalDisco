@@ -41,3 +41,4 @@ class GestoreOrdini():
 
     def get_lista_ordini(self):
         return self.ordini
+

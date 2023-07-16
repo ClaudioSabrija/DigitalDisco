@@ -86,3 +86,4 @@ class GestoreMagazzino:
 
         with open('Dati/lista_prodotti_salvati.pickle', 'wb+') as f:
             pickle.dump(merged_data, f, pickle.HIGHEST_PROTOCOL)
+

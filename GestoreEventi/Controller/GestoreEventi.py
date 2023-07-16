@@ -52,3 +52,4 @@ class GestoreEventi():
                 self.lista_eventi[i] = evento_modificato
                 with open('Dati/lista_eventi.pickle', 'wb') as f:
                     pickle.dump(self.lista_eventi, f, pickle.HIGHEST_PROTOCOL)
+
