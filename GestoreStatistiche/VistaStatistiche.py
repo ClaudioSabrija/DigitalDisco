@@ -4,15 +4,13 @@ from PyQt5.QtWidgets import QVBoxLayout, QComboBox, QWidget
 from PyQt5.QtChart import QChart, QChartView, QBarSeries, QBarSet, QBarCategoryAxis
 from PyQt5.QtCore import Qt
 
-from GestoreEventi.Controller.GestoreEventi import GestoreEventi
 from GestoreStatistiche.GestoreStatistiche import GestoreStatistiche
 
 
 class VistaStatistiche(QWidget):
     def __init__(self):
         super().__init__()
-        self.gestore_statistiche = GestoreStatistiche()
-        self.gestore_eventi = GestoreEventi()
+        self.controller_statistiche = GestoreStatistiche()
 
         self.setWindowTitle("Statistiche")
         self.resize(1200, 800)
@@ -49,7 +47,7 @@ class VistaStatistiche(QWidget):
 
         for month in range(1, 13):
             month_name = self.get_month_name(month)
-            incassi = self.gestore_statistiche.calcola_incassi_mensili_biglietti(month)
+            incassi = self.controller_statistiche.calcola_incassi_mensili_biglietti(month)
 
             if month == selected_month_number:
                 month_name += " (Selezionato)"
@@ -62,7 +60,7 @@ class VistaStatistiche(QWidget):
         self.chart.addSeries(series)
 
         axisX = QBarCategoryAxis()
-        eventi = self.gestore_eventi.get_lista_eventi()
+        eventi = self.controller_statistiche.controller_eventi.get_lista_eventi()
 
         for evento in eventi:
             giorno, mese, anno = map(int, evento.data.split('/'))
@@ -77,5 +75,3 @@ class VistaStatistiche(QWidget):
         self.chart.setTitle("Incassi Biglietti per Mese")
 
         self.chart_view.setChart(self.chart)
-
-        print(self.gestore_statistiche.calcola_incassi_mensili_biglietti(selected_month_number))

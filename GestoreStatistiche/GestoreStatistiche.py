@@ -1,4 +1,3 @@
-from GestoreOrdini.Controller.GestoreOrdini import GestoreOrdini
 from GestoreEventi.Controller.GestoreEventi import GestoreEventi
 from datetime import datetime
 
