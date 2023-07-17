@@ -4,7 +4,6 @@ from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout
 
 from GestoreMagazzino.Controller.GestoreMagazzino import GestoreMagazzino
 from GestoreMagazzino.Model.Bottiglia import Bottiglia
-from GestoreMagazzino.Model.Magazzino import Magazzino
 
 
 class VistaModificaBottiglia(QWidget):
@@ -14,8 +13,7 @@ class VistaModificaBottiglia(QWidget):
         self.callback_modifica = callback_modifica
         self.bottiglia = bottiglia
         self.callback = callback
-        self.magazzino = Magazzino()
-        self.controller = GestoreMagazzino(self.magazzino)
+        self.controller = GestoreMagazzino()
 
         # Creazione dei widget
         label_top = QLabel("Modifica i dati del prodotto:", self)

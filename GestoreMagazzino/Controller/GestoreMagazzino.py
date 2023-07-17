@@ -6,8 +6,8 @@ from GestoreMagazzino.Model.Posizione import Posizione
 
 
 class GestoreMagazzino:
-    def __init__(self, magazzino):
-        self.magazzino = magazzino
+    def __init__(self):
+        self.magazzino = Magazzino()
 
     def posizione_occupata(self, corridoio, scaffale, piano):
         for bottiglia in self.magazzino.bottiglie:

@@ -6,7 +6,6 @@ from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QComboBox
      QMessageBox, QListView
 
 from GestoreOrdini.Model.Ordine import Ordine
-from GestoreEventi.Controller.GestoreEventi import GestoreEventi
 from GestoreOrdini.Controller.GestoreOrdini import GestoreOrdini
 from GestoreOrdini.View.VistaNuovoOrdine import VistaNuovoOrdine
 from GestoreOrdini.View.VistaVisualizzaOrdine import VistaVisualizzaOrdine

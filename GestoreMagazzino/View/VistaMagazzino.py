@@ -17,8 +17,7 @@ class VistaMagazzino(QWidget):
     def __init__(self, parent=None):
         super(VistaMagazzino, self).__init__(parent)
 
-        self.magazzino = Magazzino()
-        self.controller = GestoreMagazzino(self.magazzino)
+        self.controller = GestoreMagazzino()
 
         grid_layout = QGridLayout()
         v_layout_bottiglie = QVBoxLayout()
@@ -90,7 +89,7 @@ class VistaMagazzino(QWidget):
     def show_selected_bottiglia(self):
         if self.list_view_bottiglie.selectedIndexes():
             selected = self.list_view_bottiglie.selectedIndexes()[0].row()
-            self.bottiglia_selezionata = self.magazzino.get_bottiglia_by_index_(selected)
+            self.bottiglia_selezionata = self.controller.magazzino.get_bottiglia_by_index_(selected)
 
             def elimina_bottiglie_callback():
                 self.elimina_bottiglia()
@@ -106,7 +105,7 @@ class VistaMagazzino(QWidget):
             return
 
         selected_row = selected_index[0].row()
-        self.bottiglia_selezionata = self.magazzino.get_bottiglia_by_index_(selected_row)
+        self.bottiglia_selezionata = self.controller.magazzino.get_bottiglia_by_index_(selected_row)
 
         if self.bottiglia_selezionata:
             disponibilita = self.bottiglia_selezionata.get_disponibilta_bottiglia()
@@ -139,7 +138,7 @@ class VistaMagazzino(QWidget):
     def show_selected_cocktail(self):
         if self.list_view_cocktail.selectedIndexes():
             selected = self.list_view_cocktail.selectedIndexes()[0].row()
-            self.cocktail_selezionato = self.magazzino.get_cocktail_by_index(selected)
+            self.cocktail_selezionato = self.controller.magazzino.get_cocktail_by_index(selected)
 
             def elimina_cocktail_callback():
                 self.elimina_cocktail()
@@ -177,7 +176,7 @@ class VistaMagazzino(QWidget):
 
     def update_ui(self):
         self.list_view_bottiglie_model = QStandardItemModel(self.list_view_bottiglie)
-        for bottiglie in self.magazzino.get_lista_bottiglie():
+        for bottiglie in self.controller.magazzino.get_lista_bottiglie():
             item = QStandardItem()
             item.setText(bottiglie.nome)
             item.setEditable(False)
@@ -188,7 +187,7 @@ class VistaMagazzino(QWidget):
         self.list_view_bottiglie.setModel(self.list_view_bottiglie_model)
 
         self.list_view_cocktail_model = QStandardItemModel(self.list_view_cocktail)
-        for cocktail in self.magazzino.get_lista_cocktail():
+        for cocktail in self.controller.magazzino.get_lista_cocktail():
             item = QStandardItem()
             item.setText(cocktail.nome)
             item.setEditable(False)
@@ -203,7 +202,7 @@ class VistaMagazzino(QWidget):
         if self.list_view_bottiglie.selectedIndexes():
             selected_index = self.list_view_bottiglie.selectedIndexes()[0]
             row = selected_index.row()
-            bottiglia_selezionata = self.magazzino.bottiglie[row]
+            bottiglia_selezionata = self.controller.magazzino.bottiglie[row]
 
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Information)
@@ -229,7 +228,7 @@ class VistaMagazzino(QWidget):
         if self.list_view_cocktail.selectedIndexes():
             selected_index = self.list_view_cocktail.selectedIndexes()[0]
             row = selected_index.row()
-            cocktail_selezionato = self.magazzino.cocktail[row]
+            cocktail_selezionato = self.controller.magazzino.cocktail[row]
 
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Information)
@@ -250,13 +249,13 @@ class VistaMagazzino(QWidget):
 
     # Metodi che servono a inserire l'elemento nella list view direttamente
     def aggiorna_lista_bottiglia(self, bottiglia):
-        self.magazzino.aggiungi_bottiglia(bottiglia)
+        self.controller.magazzino.aggiungi_bottiglia(bottiglia)
         item = QStandardItem(bottiglia.nome)  # Esempio: Visualizza solo il nome della bottiglia nella lista
         self.list_view_bottiglie_model.appendRow(item)
         self.update_ui()
 
     def aggiorna_lista_cocktail(self, cocktail):
-        self.magazzino.aggiungi_cocktail(cocktail)
+        self.controller.magazzino.aggiungi_cocktail(cocktail)
         item = QStandardItem(cocktail.nome)  # Esempio: Visualizza solo il nome del cocktail nella lista
         self.list_view_cocktail_model.appendRow(item)
         self.update_ui()
@@ -264,7 +263,7 @@ class VistaMagazzino(QWidget):
     def modifica_bottiglia(self):
         if self.list_view_bottiglie.selectedIndexes():
             selected = self.list_view_bottiglie.selectedIndexes()[0].row()
-            bottiglia_selezionata = self.magazzino.get_bottiglia_by_index_(selected)
+            bottiglia_selezionata = self.controller.magazzino.get_bottiglia_by_index_(selected)
 
             self.vista_modifica_bottiglia = VistaModificaBottiglia(bottiglia_selezionata,
                                                                    self.controller.aggiorna_bottiglie,
@@ -276,7 +275,7 @@ class VistaMagazzino(QWidget):
     def modifica_cocktail(self):
         if self.list_view_cocktail.selectedIndexes():
             selected = self.list_view_cocktail.selectedIndexes()[0].row()
-            cocktail_selezionato = self.magazzino.get_cocktail_by_index(selected)
+            cocktail_selezionato = self.controller.magazzino.get_cocktail_by_index(selected)
             self.vista_modifica_cocktail = VistaModificaCocktail(cocktail_selezionato,
                                                                  self.controller.aggiorna_cocktail,
                                                                  self.vista_visualizza_cocktail.update_ui)
@@ -286,5 +285,5 @@ class VistaMagazzino(QWidget):
 
     # Funzione che richiama il metodo del controllore che salva i dati aggiornati.
     def closeEvent(self, event):
-        self.magazzino.save_data()
+        self.controller.magazzino.save_data()
         event.accept()
