@@ -5,12 +5,15 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QListView, QPushB
 
 from GestoreMagazzino.Controller.GestoreMagazzino import GestoreMagazzino
 from GestoreMagazzino.Model.Bottiglia import Bottiglia
+from GestoreMagazzino.Model.Magazzino import Magazzino
 
 
 class VistaScegliProdotto(QWidget):
     def __init__(self, callback, parent=None):
         super().__init__(parent)
 
+        self.magazzino = Magazzino()
+        self.controller = GestoreMagazzino(self.magazzino)
         self.callback = callback
         self.prodotti_selezionati = []
 
@@ -29,7 +32,7 @@ class VistaScegliProdotto(QWidget):
         self.list_view = QListView()
         self.layout.addWidget(self.list_view)
 
-        GestoreMagazzino.unione_lista_prodotti()
+        self.controller.unione_lista_prodotti()
         self.popola_lista()
 
         # Layout per i bottoni

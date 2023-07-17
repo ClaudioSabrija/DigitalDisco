@@ -16,9 +16,8 @@ class VistaOrdini(QWidget):
     def __init__(self):
         super().__init__()
 
-        gestore_eventi = GestoreEventi()
         self.layout = QHBoxLayout()
-        self.ordine = GestoreOrdini()
+        self.controller = GestoreOrdini()
 
         # Layout per la lista degli ordini e l'importo totale
         ordini_layout = QVBoxLayout()
@@ -90,7 +89,7 @@ class VistaOrdini(QWidget):
         index = self.list_view.currentIndex()
         if index.isValid():
             # Rimuovi l'ordine dalla lista degli ordini
-            ordine_selezionato = self.ordine.elimina_ordine(index.row(), self.combo_eventi.currentText())
+            ordine_selezionato = self.controller.elimina_ordine(index.row(), self.combo_eventi.currentText())
 
             # Aggiorna la list_view
             self.aggiorna_list_view()
@@ -99,7 +98,7 @@ class VistaOrdini(QWidget):
 
     def aggiorna_list_view(self):
         list_view_model = QStandardItemModel(self.list_view)
-        for ordine in self.ordine.get_lista_ordini():
+        for ordine in self.controller.get_lista_ordini():
             item = QStandardItem()
             codice = f"Ordine: {ordine.codice}"
             item.setText(codice)
@@ -114,18 +113,18 @@ class VistaOrdini(QWidget):
 
     def update_ui(self, ordine):
         self.calcola_importo_totale()
-        self.ordine.get_lista_ordini().append(ordine)
+        self.controller.get_lista_ordini().append(ordine)
         self.aggiorna_list_view()  # Aggiorna la list_view
         # Aggiunge l'ordine alla lista degli ordini
         evento_selezionato = self.combo_eventi.currentText()
 
         with open(f'Dati/Ordini/ordini_{evento_selezionato}.pickle', 'wb') as file:
-            for ordine in self.ordine.get_lista_ordini():
+            for ordine in self.controller.get_lista_ordini():
                 pickle.dump(ordine, file)
 
 
     def carica_ordini(self, evento):
-        self.ordine.get_lista_ordini().clear()
+        self.controller.get_lista_ordini().clear()
         file_pickle = f'Dati/Ordini/ordini_{evento}.pickle'
         if os.path.isfile(file_pickle):
             with open(file_pickle, 'rb') as file:
@@ -133,7 +132,7 @@ class VistaOrdini(QWidget):
                     try:
                         ordine = pickle.load(file)
                         if isinstance(ordine, Ordine):
-                            self.ordine.get_lista_ordini().append(ordine)
+                            self.controller.get_lista_ordini().append(ordine)
                     except EOFError:
                         break
         self.aggiorna_list_view()  # Aggiorna la list_view
@@ -148,7 +147,7 @@ class VistaOrdini(QWidget):
         self.combo_eventi.setCurrentIndex(index)
 
     def calcola_importo_totale(self):
-        importo_totale = sum(ordine.prezzo_totale for ordine in self.ordine.get_lista_ordini())
+        importo_totale = sum(ordine.prezzo_totale for ordine in self.controller.get_lista_ordini())
         self.label_importo_totale.setText(f"Importo Totale: {importo_totale}\u20AC")
 
     def visualizza_dettagli_ordine(self):
