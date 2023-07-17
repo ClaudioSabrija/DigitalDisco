@@ -3,11 +3,14 @@ from PyQt5.QtChart import QChart, QChartView, QPieSeries
 from PyQt5.QtCore import Qt
 from GestoreStatistiche.GestoreStatistiche import GestoreStatistiche
 
+
 class VistaStatistiche(QWidget):
     def __init__(self):
         super().__init__()
+        self.gestore_statistiche = GestoreStatistiche()
 
-        self.setWindowTitle("Ticket Revenue")
+
+        self.setWindowTitle("Statistiche")
         self.resize(700, 500)
 
         self.combo_box = QComboBox()
@@ -23,8 +26,6 @@ class VistaStatistiche(QWidget):
         layout.addWidget(self.combo_box)
         layout.addWidget(self.chart_view)
 
-        self.gestore_statistiche = GestoreStatistiche()
-
         self.populate_combo_box()
         self.update_chart()
 
@@ -38,19 +39,21 @@ class VistaStatistiche(QWidget):
         return month_names[month - 1]
 
     def update_chart(self):
-        selected_month = self.combo_box.currentData()
+        #selected_month = self.combo_box.currentText()
+        selected_month_number = self.combo_box.currentIndex() + 1
 
         series = QPieSeries()
         for month in range(1, 13):
             month_name = self.get_month_name(month)
-            revenue = self.gestore_statistiche.calcola_incassi_mensili_biglietti(month)
-            if month == selected_month:
-                series.append(f"{month_name} (Selected)", revenue)
+            incassi = self.gestore_statistiche.calcola_incassi_mensili_biglietti(month)
+            if month == selected_month_number:
+                series.append(f"{month_name} (Selected)", incassi)
             else:
-                series.append(month_name, revenue)
+                series.append(month_name, 0)
 
         self.chart.removeAllSeries()
         self.chart.addSeries(series)
-        self.chart.setTitle("Ticket Revenue by Month")
+        self.chart.setTitle("Incassi Biglietti per Mese")
 
+        self.chart_view.setChart(self.chart)
         self.chart_view.repaint()
