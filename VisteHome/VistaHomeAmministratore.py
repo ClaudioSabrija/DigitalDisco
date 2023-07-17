@@ -1,14 +1,12 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFont, QIcon, QPixmap
-from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QVBoxLayout, QSizePolicy, \
-    QHBoxLayout
+from PyQt5.QtGui import QFont, QIcon
+from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QPushButton, QVBoxLayout
 from pyqt5_plugins.examplebuttonplugin import QtGui
 
 from GestoreMagazzino.View.VistaMagazzino import VistaMagazzino
 from GestoreEventi.View.VistaCalendarioEventi import VistaCalendarioEventi
 from GestoreOrdini.View.VistaOrdini import VistaOrdini
 from GestoreStatistiche.VistaStatistiche import VistaStatistiche
-from GestoreEventi.Controller.GestoreEventi import GestoreEventi
 
 class VistaHomeAmministratore(QWidget):
     def __init__(self, parent = None):

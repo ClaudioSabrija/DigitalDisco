@@ -1,7 +1,6 @@
 import os
 import pickle
 
-from GestorePrenotazioni.Model.Servizio import Servizio
 from GestoreEventi.Model.Evento import Evento
 
 class GestoreEventi():

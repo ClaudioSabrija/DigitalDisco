@@ -11,8 +11,7 @@ class VistaMagazzinoBarman(QWidget):
     def __init__(self, parent=None):
         super(VistaMagazzinoBarman, self).__init__(parent)
 
-        self.magazzino = Magazzino()
-        self.controller = GestoreMagazzino(self.magazzino)
+        self.controller = GestoreMagazzino()
 
         v_layout = QVBoxLayout()  # Layout principale
         v_layout.setAlignment(Qt.AlignCenter)  # Allinea il layout al centro
@@ -55,7 +54,7 @@ class VistaMagazzinoBarman(QWidget):
             return
 
         selected_row = selected_index[0].row()
-        self.bottiglia_selezionata = self.magazzino.get_bottiglia_by_index_(selected_row)
+        self.bottiglia_selezionata = self.controller.magazzino.get_bottiglia_by_index_(selected_row)
 
         if self.bottiglia_selezionata:
             disponibilita = self.bottiglia_selezionata.get_disponibilta_bottiglia()
@@ -80,7 +79,7 @@ class VistaMagazzinoBarman(QWidget):
 
     def update_ui(self):
         self.list_view_bottiglie_model = QStandardItemModel(self.list_view_bottiglie)
-        for bottiglie in self.magazzino.get_lista_bottiglie():
+        for bottiglie in self.controller.magazzino.get_lista_bottiglie():
             item = QStandardItem()
             item.setText(bottiglie.nome)
             item.setEditable(False)
@@ -92,5 +91,5 @@ class VistaMagazzinoBarman(QWidget):
 
     # Funzione che richiama il metodo del controllore che salva i dati aggiornati.
     def closeEvent(self, event):
-        self.magazzino.save_data()
+        self.controller.magazzino.save_data()
         event.accept()

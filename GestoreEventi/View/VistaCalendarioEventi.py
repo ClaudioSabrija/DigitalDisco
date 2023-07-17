@@ -4,12 +4,11 @@ import os
 import pickle
 
 
-from PyQt5.QtCore import Qt, QDate, QStringListModel
-from PyQt5.QtGui import QFont, QIcon, QPixmap, QStandardItemModel, QStandardItem
-from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QVBoxLayout, QSizePolicy, \
-    QHBoxLayout, QCalendarWidget, QListView
+from PyQt5.QtCore import Qt, QDate
+from PyQt5.QtGui import QFont, QIcon, QStandardItemModel, QStandardItem
+from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QPushButton, QMessageBox, QVBoxLayout, QSizePolicy, \
+     QCalendarWidget, QListView
 
-from GestoreEventi.Model.Evento import Evento
 from GestoreEventi.View.VistaInserisciEvento import VistaInserisciEvento
 from GestoreEventi.View.VistaVisualizzaEvento import VistaVisualizzaEvento
 from GestoreEventi.View.VistaModificaEvento import VistaModificaEvento

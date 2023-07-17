@@ -1,5 +1,4 @@
 from datetime import datetime
-from PyQt5.QtCore import QDate
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, \
     QComboBox,  QMessageBox
@@ -11,7 +10,7 @@ class VistaInserisciEvento(QWidget):
     def __init__(self, selected_date, callback, parent=None):
         super(VistaInserisciEvento, self).__init__(parent)
 
-        self.selected_date = selected_date  #AGG QUESTO
+        self.selected_date = selected_date
         self.callback = callback
         self.evento = GestoreEventi()
 

@@ -1,6 +1,5 @@
 
-
-class Prenotazione():
+class Prenotazione:
     def __init__(self, nome, cognome, data_di_nascita, codice_fiscale, email, servizio):
         self.nome = nome
         self.cognome = cognome

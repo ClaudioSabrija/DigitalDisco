@@ -1,13 +1,7 @@
-import pickle
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon, QFont
-from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QGridLayout, \
-    QComboBox, QDateTimeEdit, QMessageBox, QHBoxLayout
+from PyQt5.QtWidgets import QWidget, QLabel, QPushButton, QVBoxLayout, QHBoxLayout
 
-from GestoreEventi.View.VistaInserisciEvento import VistaInserisciEvento
-from GestoreEventi.View.VistaModificaEvento import VistaModificaEvento
-from GestoreEventi.Model.Evento import Evento
-from GestoreEventi.Controller.GestoreEventi import GestoreEventi
 from GestoreOrdini.View.VistaOrdini import VistaOrdini
 
 
@@ -40,10 +34,8 @@ class VistaVisualizzaEvento(QWidget):
         font.setPointSize(15)
         font_nome.setPointSize(20)
 
-
         self.label_nome.setFont(font_nome)
         self.label_nome.setAlignment(Qt.AlignCenter)
-
 
         self.labels = [self.label_data, self.label_tipo, self.label_ingresso, self.label_tavolo, self.label_prive]  # Aggiungo tutte le tue label a questa lista
 
@@ -77,8 +69,6 @@ class VistaVisualizzaEvento(QWidget):
         # Impostazione del layout principale per il widget
         self.setLayout(layout_principale)   #cioè tutti i widget di self hanno come layout il layout principale
 
-
-
         button_modifica_evento = QPushButton("MODIFICA EVENTO", self)
         button_modifica_evento.clicked.connect(self.modifica_evento_callback)
         scelte_evento_layout.addWidget(button_modifica_evento)
@@ -95,10 +85,8 @@ class VistaVisualizzaEvento(QWidget):
         button_ordini.clicked.connect(self.go_ordini)
         scelte_evento_layout.addWidget(button_ordini)
 
-
         self.setMaximumSize(800,300)  #Fisso la dimensione massima della finestra
         self.resize(800, 300)  #Fisso la dimensione iniziale della finestra
-
 
         self.setWindowIcon(QIcon('Dati/DigitalDisco.png'))
         self.setWindowTitle('Visualizza Evento')

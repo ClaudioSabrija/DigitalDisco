@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFont, QPixmap, QIcon
-from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy, QLabel, QVBoxLayout, QDesktopWidget, QMessageBox, QLineEdit
+from PyQt5.QtGui import QFont, QIcon
+from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QLabel, QMessageBox, QLineEdit
 
 from VisteHome.VistaHomeAmministratore import VistaHomeAmministratore
 from VisteHome.VistaHomeBarman import VistaHomeBarman

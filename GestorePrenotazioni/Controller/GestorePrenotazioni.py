@@ -1,7 +1,5 @@
 import pickle
-from GestorePrenotazioni.Model.Prenotazione import Prenotazione
-from GestorePrenotazioni.Model.Servizio import Servizio
-from GestoreEventi.Model.Evento import Evento
+
 
 class GestorePrenotazioni():
 

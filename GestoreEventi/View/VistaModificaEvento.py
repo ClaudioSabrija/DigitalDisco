@@ -1,11 +1,9 @@
-import pickle
 from datetime import datetime
 from PyQt5.QtCore import QDate
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, \
     QComboBox, QMessageBox
 
-from GestoreEventi.Controller.GestoreEventi import GestoreEventi
 from GestoreEventi.Model.Evento import Evento
 
 class VistaModificaEvento(QWidget):
