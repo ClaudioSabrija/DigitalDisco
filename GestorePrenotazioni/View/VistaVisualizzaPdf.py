@@ -27,7 +27,7 @@ class VistaVisualizzaPdf(QWidget):
         self.label_qrcode.setAlignment(Qt.AlignCenter)
 
         # Creazione dei widget
-        self.label_titolo = QLabel("Dati cliente")
+        self.label_titolo = QLabel("Dati Cliente:")
         self.label_nome = QLabel(f"Nome: {self.prenotazione.nome}", self)
         self.label_cognome = QLabel(f"Cognome: {self.prenotazione.cognome}", self)
         self.label_data_di_nascita = QLabel(f"Data di nascita: {self.prenotazione.data_di_nascita}", self)
