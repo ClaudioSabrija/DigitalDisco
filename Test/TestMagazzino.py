@@ -20,7 +20,7 @@ class TestMagazzino(unittest.TestCase):
         self.assertTrue(gestore.posizione_occupata(1, 1, 1))
 
         # Verifica che una posizione non occupata restituisca False
-        self.assertFalse(gestore.posizione_occupata(3, 3, 3))
+        self.assertFalse(gestore.posizione_occupata(2, 3, 3))
 
 if __name__ == '__main__':
     unittest.main()
